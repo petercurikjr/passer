@@ -1,0 +1,36 @@
+\subsection{Sila hesla} 
+Uvažujme heslo ako textový reťazec. Sila hesla označuje stupeň obtiažnosti s akou ho neautorizovaná osoba dokáže uhádnuť \cite{4}. Heslo môže byť silné alebo slabé, v závislosti od toho, ako ťažké ho je uhádnuť \cite{4}. Slabé heslo je napríklad používanie iba malých písmen alebo iba číslic. Dôvod, prečo to tak je, je príliš malý priestor výberu znaku. Pri číselnom hesle hovoríme o priestore desiatich znakov. Uvažujme štandardnú telegrafnú abecedu s 26 písmenami. Potom je priestor pri použití hesla iba z malých písmen veľký 26 znakov. Útočník môže predpokladať, že používateľ má heslo zložené iba z číslic alebo iba z malých písmen\footnote{Možnosť použitia hesla iba z veľkých písmen nespomíname, pretože z matematického hľadiska náročnosti prelomenia hesla ide o rovnaký prípad ako pri malých písmenách.}. \par Preto na druhej strane hovoríme, že silné heslo je také heslo, ktoré obsahuje kombináciu veľkých a malých písmen a číslic. Už len kombináciou veľkých a malých písmen sa nám priestor zdvojnásobí. Abeceda veľkých písmen aj malých písmen má 26 znakov, čo je spolu 52 znakov. Zrazu je pre útočníka pri každom písmene nutné uvažovať, či sa použilo ako veľké, alebo ako malé. Z matematického hľadiska, teda z hľadiska permutácií sa celkový počet možných usporiadaní exponenciálne zvýši. Permutácia znamená usporiadanie.  
+
+
+\begin{table}[ht]
+\caption{Zložitosť prelomenia hesiel pomocou útoku brute-force podľa webovej stránky grc.com/haystack.htm}
+\label{table:1}
+\begin{tabular}{llll}
+\textbf{Typ Hesla}        & \textbf{Heslo} & \textbf{Priestor} & \textbf{Počet možností} \\
+Číslice (ďalej len C)     & 01234          & 10                & $1,11*10^5$             \\
+Malé písmená (ďalej MP)   & heslo          & 26                & $1,24*10^7$             \\
+MP + veľké písmená (VP)   & hEsLo          & 52                & $3,88*10^8$             \\
+MP + VP + C               & h3sL0          & 62                & $9,31*10^8$             \\
+MP + VP + C				  & h3sL0jeSiLn3   & 62				   & $3,28*10^{21}$			 \\
+MP + VP + C + špec. znaky & h3sL0=\%SiLn3  & 95                & $5,46*10^{23}$           
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\begin{tabular}{lll}
+\textbf{Heslo} & \textbf{\begin{tabular}[c]{@{}l@{}}Čas (online útok)\\ pri 1000 pokusoch/s\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}l@{}}Čas (offline útok)\\ pri miliarde pokusoch/s\end{tabular}} \\
+01234 &				1,85 min            & 0,00000111 s \\
+heslo &				3,43 hod            & 0,000124 s   \\
+hEsLo &				4,49 dní            & 0,00388 s    \\
+h3sL0 &				1,54 týždňov        & 0,00931 s    \\
+h3sl0jeSiLn3 &		104 miliárd rokov	& 1043 rokov   \\
+h3sLo=\%SiLn3 &		17,4 biliónov rokov & 1740 rokov   \\
+\end{tabular}
+\end{table}
+
+\par Z tabuľky sme pozorovaním zistili, že rovnako ako bohatý priestor znakov je dôležitá aj dĺžka hesla. S použitím veľkých aj malých písmen pri dĺžke hesla 5 by bol útočník schopný zistiť naše heslo za veľmi krátky čas. Môžeme si z časových výsledkov všimnúť, že z praktického hľadiska skoro ani nezáleží, či použijeme C, MP, MP + VP alebo MP + VP + C, pokiaľ je heslo krátke. Najmä pri offline útoku zjavne vidieť, že vo všetkých prípadoch by stroj uhádol heslo doslova do sekundy.
+\par Silu exponenciálneho rastu si všímame pri zmene dĺžky hesla na 12 znakov. Celá situácia sa dramaticky zmenila a kombinácie C, MP a VP už dávajú zmysel. Ďalší veľký skok spôsobilo pridanie špeciálnych znakov. Keďže zväčšili priestor rôznych znakov o viac ako polovicu, významná zmena je vidieť aj vo výsledkoch.
+\par Predpokladajme, že útočník má informáciu, že používateľ vlastní heslo zložené iba z MP. Potom platí, že ak by používateľ zväčšil dĺžku hesla o jeden znak, útočník musí vykonať v priemere o 26 viac pokusov pri každej permutácii. \cite{5} 
+\par Ďalej predpokladajme, že používateľ vlastní heslo zložené z MP, VP a C. Takáto kombinácia je dnes pri registrácii vo veľkej miere povinnosťou na rôznych webových stránkach. Potom platí, že pri zväčšení dĺžky hesla o jeden znak by sa zložitosť hesla nezvýšila iba 26, ale až 62-násobne. Z toho vyplýva, že útočník by musel mať 62-násobne väčší výkon, aby mohol za rovnaký čas zlomiť heslo z pôvodnou dĺžkou. Ten sa zvyšuje každé dva roky dvojnásobne, podľa Moorovho zákona. \cite{5} 
+\newline \newline Táto úvaha spolu s ďalšími typmi útokov a ochranou pred nimi je hlbšie obsiahnutá v práci \cite{5}.
