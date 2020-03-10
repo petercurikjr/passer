@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  Password manager
+//  Passer
 //
-//  Created by Peter Čuřík Jr. on 05/02/2020.
+//  Created by Peter Čuřík Jr. on 04/03/2020.
 //  Copyright © 2020 Peter Čuřík Jr. All rights reserved.
 //
 
