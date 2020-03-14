@@ -28,7 +28,7 @@ struct ContentView: View {
                 .padding(30)
             
             Button(action: {
-                self.passwordItem.passw = self.password
+                
             }) {
             Text("Transfer to website")
             }
