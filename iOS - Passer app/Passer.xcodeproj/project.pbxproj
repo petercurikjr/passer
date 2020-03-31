@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D5936241A395800DAF9BD /* SixdigitCode.swift */; };
+		BC808AF22433F61400EF8EB5 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC808AF12433F61400EF8EB5 /* Networking.swift */; };
 		BC8A781C240FC8FB004077A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781B240FC8FB004077A8 /* AppDelegate.swift */; };
 		BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */; };
 		BC8A7820240FC8FB004077A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781F240FC8FB004077A8 /* ContentView.swift */; };
@@ -17,6 +18,8 @@
 		BC8A7830240FCA5E004077A8 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A782F240FCA5E004077A8 /* Password.swift */; };
 		BC8A783A240FD2ED004077A8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A7839240FD2ED004077A8 /* main.swift */; };
 		BC8A783F240FE11D004077A8 /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A783E240FE11D004077A8 /* Vault.swift */; };
+		BCB6F4A8242CF2C9007E84EF /* httppost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A7242CF2C9007E84EF /* httppost.swift */; };
+		BCB6F4AA242CF4AB007E84EF /* crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A9242CF4AB007E84EF /* crypto.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		BC0D5936241A395800DAF9BD /* SixdigitCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixdigitCode.swift; sourceTree = "<group>"; };
+		BC808AF12433F61400EF8EB5 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		BC8A7818240FC8FB004077A8 /* Passer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8A781B240FC8FB004077A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,8 @@
 		BC8A7837240FD2ED004077A8 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8A7839240FD2ED004077A8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BC8A783E240FE11D004077A8 /* Vault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault.swift; sourceTree = "<group>"; };
+		BCB6F4A7242CF2C9007E84EF /* httppost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = httppost.swift; sourceTree = "<group>"; };
+		BCB6F4A9242CF4AB007E84EF /* crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = crypto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +95,7 @@
 				BC8A781B240FC8FB004077A8 /* AppDelegate.swift */,
 				BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */,
 				BC8A781F240FC8FB004077A8 /* ContentView.swift */,
+				BC808AF12433F61400EF8EB5 /* Networking.swift */,
 				BC8A782F240FCA5E004077A8 /* Password.swift */,
 				BC0D5936241A395800DAF9BD /* SixdigitCode.swift */,
 				BC8A783E240FE11D004077A8 /* Vault.swift */,
@@ -112,6 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				BC8A7839240FD2ED004077A8 /* main.swift */,
+				BCB6F4A9242CF4AB007E84EF /* crypto.swift */,
+				BCB6F4A7242CF2C9007E84EF /* httppost.swift */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -214,6 +223,7 @@
 				BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */,
 				BC8A7820240FC8FB004077A8 /* ContentView.swift in Sources */,
 				BC8A783F240FE11D004077A8 /* Vault.swift in Sources */,
+				BC808AF22433F61400EF8EB5 /* Networking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +232,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC8A783A240FD2ED004077A8 /* main.swift in Sources */,
+				BCB6F4AA242CF4AB007E84EF /* crypto.swift in Sources */,
+				BCB6F4A8242CF2C9007E84EF /* httppost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
