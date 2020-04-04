@@ -1,0 +1,13 @@
+\subsection{Šifrovanie}
+\noindent Nasledujúci text vychádza zo zdroja \cite{8}. 
+\par Šiforvanie je prepis otvoreného (čitateľného) textu do zašifrovaného textu, ktorý nazývame šifra. Abeceda, z ktorého vychádza otvorený text budeme označovať ako $\mathcal{P}$ a abecedu, z ktorého bude vychádzať zašifrovaný text budeme označovať ako $\mathcal{C}$.
+\begin{equation}
+e_k = \mathcal{P} \rightarrow \mathcal{C}
+\end{equation}
+\par Vidíme, že ide o zobrazenie. Toto zobrazenie je bijektívne, no nie vždy je tomu tak (napríklad pri znáhodnených šifrách). Je závislé na tajnom parametri $k$, ktorý nazývame kľúč. Ten patrí do množiny kľúčov $K$. V dnešných, moderných šifrách skoro vždy platí, že $\mathcal{P} \neq \mathcal{C}$, avšak v klasických šifrách bol opak úplne bežným úkazom (transpozičné, substitučné, homofónne šifry a podobne).
+\par Aby vedel príjemca šifru prečítať, musí byť spomínané zobrazenie invertovateľné. To znamená, že musí byť použité inverzné zobrazenie 
+\begin{equation}
+d_k = \mathcal{C} \rightarrow \mathcal{P}
+\end{equation}
+také, aby platilo: $d_k(e_k(x)) = x$, kde $x$ je nezašifrovaná správa. Z týchto vzťahov je zrejmé, že príjemca musí použiť totožný kľúč $k$ s kľúčom odosielateľa, aby sa dostal k $x$. Útočník sa snaží nájsť tento kľúč. Preto čím väčšia je množina $K$, tým náročnejšie, niekedy až nemožné z hľadiska výpočtovej sily, je nájsť $k$.
+\par V dobe klasických šifier (obdobie do roku 1945) väčšinou spočívala bezpečnosť niektorých algoritmov v ukrytí algoritmu samotného. To ale nie je správny prístup, pretože podľa Kerckhoffovho princípu \cite{9} má bezpečnosť šifrovacieho algoritmu spočívať na utajení kľúča, nie algoritmu samotného. Týmto princípom sa riadia dnešné, moderné šifry dodnes. 
