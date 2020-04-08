@@ -9,7 +9,7 @@
 import Foundation
 
 func postToServer(uploadData: Data) {
-    print("Sending data: " + String(data: uploadData, encoding: .utf8)!)
+    //print("Sending data: " + String(data: uploadData, encoding: .utf8)!)
 
     var request = URLRequest(url: URL(string: "http://192.168.1.118:5000/")!)
     request.httpMethod = "POST"

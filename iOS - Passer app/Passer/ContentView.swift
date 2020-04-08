@@ -9,32 +9,60 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var datatosend = JSONData(data: nil, timestamp: nil)
+    @State var datatosend = JSONData(sixdigitCode: nil, deviceID: nil)
 
     var body: some View {
+        
+        
         VStack {
-            Button(action: {
-                self.datatosend = generateSixDigitCodeData()
-                print(self.datatosend.data ?? "000000")
-            }) {
-            Text("Generate a sixdigit code")
-            }
-            
-            Text("\n\nYour sixdigitcode: \(self.datatosend.data ?? "NaN")")
-                .padding(30)
-            
-    
-            Button(action: {
-                guard let uploadData = try? JSONEncoder().encode(self.datatosend)
-                    else {
-                        return
-                    }
-                postToServer(uploadData: uploadData);
+            VStack {
+                Text("Outsider")
+                    .bold()
+                    .font(.largeTitle)
+                Text("Access your passwords on another device easily.")
+                    .font(.subheadline)
+                    .offset(x: 0, y: -5)
+                    
+            }.padding(.top, 100)
+            //.animation(.easeIn)
+
+            VStack {
+                Text("Choose a verification method to proceed:")
+                    .padding(.top, 80)
                 
-            }) {
-            Text("Send")
+                Button(action: {
+                   self.datatosend = generateSixDigitCodeData()
+                    guard let uploadData = try? JSONEncoder().encode(self.datatosend)
+                        else {
+                            return
+                        }
+                    postToServer(uploadData: uploadData);
+                   print("Generated: " + (self.datatosend.sixdigitCode ?? "000000"))
+                }) {
+                    ButtonUI(name: "Generate a sixdigit code")
+                    .padding()
+                }
+                
+                
+                Button(action: {
+                   self.datatosend = generateSixDigitCodeData()
+                   print("Generated: " + (self.datatosend.sixdigitCode ?? "000000"))
+                }) {
+                    ButtonUI(name: "Generate a QR code")
+                    .padding()
+                }
+                Spacer()
+            
             }
+
+        
         }
+        
+       
+
+        
+        
+        
     }
 }
 

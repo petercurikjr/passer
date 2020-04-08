@@ -7,20 +7,27 @@
 //
 
 import Foundation
+import UIKit
 
-//structure of sixdigitcode. Codable is ability of struct to be encoded or decoded by json
+//structure of sixdigitcode. Codable is an ability of struct to be encoded or decoded by json
 struct JSONData: Codable {
-    let data: String?
-    let timestamp: String?
+    let sixdigitCode: String?
+    let deviceID: String?
 }
 
 func generateSixDigitCodeData() -> JSONData {
 
-    //generate timestamp
+    /*
+    //generate date
     let generateDate = Date()
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     let date = formatter.string(from: generateDate)
+    */
+    
+    //generate uuid of a device
+    //let uuid = UIDevice.current.identifierForVendor?.uuidString
+    let uuid = String(Int.random(in: 0 ... 1000))
     
     //generate sixdigitcode
     var sixdigitCode: [String] = []
@@ -28,8 +35,9 @@ func generateSixDigitCodeData() -> JSONData {
         sixdigitCode.append(String(Int.random(in: 0 ... 9)))
     }
     let sixdigitJoined = sixdigitCode.joined()
-    let jsondata = JSONData(data: sixdigitJoined, timestamp: date)
     
+    //create a JSONData instance and return
+    let jsondata = JSONData(sixdigitCode: sixdigitJoined, deviceID: uuid)
     return jsondata
 
 }

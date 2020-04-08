@@ -18,6 +18,7 @@
 		BC8A7830240FCA5E004077A8 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A782F240FCA5E004077A8 /* Password.swift */; };
 		BC8A783A240FD2ED004077A8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A7839240FD2ED004077A8 /* main.swift */; };
 		BC8A783F240FE11D004077A8 /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A783E240FE11D004077A8 /* Vault.swift */; };
+		BCB4F63F243C9F0D00174E7E /* ButtonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB4F63E243C9F0D00174E7E /* ButtonUI.swift */; };
 		BCB6F4A8242CF2C9007E84EF /* httppost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A7242CF2C9007E84EF /* httppost.swift */; };
 		BCB6F4AA242CF4AB007E84EF /* crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A9242CF4AB007E84EF /* crypto.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		BC8A7837240FD2ED004077A8 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8A7839240FD2ED004077A8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BC8A783E240FE11D004077A8 /* Vault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault.swift; sourceTree = "<group>"; };
+		BCB4F63E243C9F0D00174E7E /* ButtonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonUI.swift; sourceTree = "<group>"; };
 		BCB6F4A7242CF2C9007E84EF /* httppost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = httppost.swift; sourceTree = "<group>"; };
 		BCB6F4A9242CF4AB007E84EF /* crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = crypto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +94,7 @@
 		BC8A781A240FC8FB004077A8 /* Passer */ = {
 			isa = PBXGroup;
 			children = (
+				BCB4F63D243C9D9B00174E7E /* Supporting Views */,
 				BC8A781B240FC8FB004077A8 /* AppDelegate.swift */,
 				BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */,
 				BC8A781F240FC8FB004077A8 /* ContentView.swift */,
@@ -123,6 +126,14 @@
 				BCB6F4A7242CF2C9007E84EF /* httppost.swift */,
 			);
 			path = test;
+			sourceTree = "<group>";
+		};
+		BCB4F63D243C9D9B00174E7E /* Supporting Views */ = {
+			isa = PBXGroup;
+			children = (
+				BCB4F63E243C9F0D00174E7E /* ButtonUI.swift */,
+			);
+			path = "Supporting Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,6 +231,7 @@
 				BC8A7830240FCA5E004077A8 /* Password.swift in Sources */,
 				BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */,
 				BC8A781C240FC8FB004077A8 /* AppDelegate.swift in Sources */,
+				BCB4F63F243C9F0D00174E7E /* ButtonUI.swift in Sources */,
 				BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */,
 				BC8A7820240FC8FB004077A8 /* ContentView.swift in Sources */,
 				BC8A783F240FE11D004077A8 /* Vault.swift in Sources */,
@@ -371,6 +383,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Passer/Preview Content\"";
+				DEVELOPMENT_TEAM = 64F67BZAA2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Passer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -390,6 +403,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Passer/Preview Content\"";
+				DEVELOPMENT_TEAM = 64F67BZAA2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Passer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
