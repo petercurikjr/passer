@@ -1,0 +1,2 @@
+Server/venv/* linguist-vendored
+Server/__pycache__/* linguist-vendored
