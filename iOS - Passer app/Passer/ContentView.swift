@@ -9,59 +9,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var datatosend = JSONData(sixdigitCode: nil, deviceID: nil)
-
+    //State means "variable can update the view
+    //access it later using $ sign
+    @State private var showModal = false
+    
     var body: some View {
-        
-        
-        VStack {
-            VStack {
+        Button(action: {
+                self.showModal = true
+            }) {
                 Text("Outsider")
-                    .bold()
-                    .font(.largeTitle)
-                Text("Access your passwords on another device easily.")
-                    .font(.subheadline)
-                    .offset(x: 0, y: -5)
-                    
-            }.padding(.top, 100)
-            //.animation(.easeIn)
 
-            VStack {
-                Text("Choose a verification method to proceed:")
-                    .padding(.top, 80)
-                
-                Button(action: {
-                   self.datatosend = generateSixDigitCodeData()
-                    guard let uploadData = try? JSONEncoder().encode(self.datatosend)
-                        else {
-                            return
-                        }
-                    postToServer(uploadData: uploadData);
-                   print("Generated: " + (self.datatosend.sixdigitCode ?? "000000"))
-                }) {
-                    ButtonUI(name: "Generate a sixdigit code")
-                    .padding()
-                }
                 
                 
-                Button(action: {
-                   self.datatosend = generateSixDigitCodeData()
-                   print("Generated: " + (self.datatosend.sixdigitCode ?? "000000"))
-                }) {
-                    ButtonUI(name: "Generate a QR code")
-                    .padding()
-                }
-                Spacer()
-            
-            }
-
-        
+        //sheet determines whether modalview should be displayed
+        //(here's when showModal comes handy)
         }
-        
-       
-
-        
-        
+        .sheet(isPresented: self.$showModal) {
+            OutsiderView()
+        }
         
     }
 }
