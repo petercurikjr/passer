@@ -26,6 +26,6 @@ struct ButtonUI: View {
 struct Button_Previews: PreviewProvider {
     static var previews: some View {
         ButtonUI(name: "Test")
-            .previewLayout(.fixed(width: 300, height: 500))
+            .previewLayout(.fixed(width: 150, height: 100))
     }
 }

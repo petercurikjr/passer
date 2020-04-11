@@ -10,5 +10,5 @@ import Foundation
 import CryptoKit
 
 struct PasswordItem {
-    var passw: String = ""
+    private let passw: String = ""
 }

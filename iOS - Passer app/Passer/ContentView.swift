@@ -9,20 +9,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    //State means "variable can update the view
-    //access it later using $ sign
+    ///State means "variable can update the view"
+    ///access it later using $ sign
     @State private var showModal = false
     
     var body: some View {
         Button(action: {
                 self.showModal = true
             }) {
-                Text("Outsider")
-
-                
-                
-        //sheet determines whether modalview should be displayed
-        //(here's when showModal comes handy)
+                ButtonUI(name: "Outsider")
+           
+        ///sheet determines whether modalview should be displayed
+        ///(here's when showModal comes handy)
         }
         .sheet(isPresented: self.$showModal) {
             OutsiderView()
