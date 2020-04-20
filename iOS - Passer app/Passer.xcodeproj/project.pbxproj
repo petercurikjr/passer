@@ -13,13 +13,18 @@
 		BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */; };
 		BC8A7820240FC8FB004077A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781F240FC8FB004077A8 /* ContentView.swift */; };
 		BC8A7822240FC8FD004077A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC8A7821240FC8FD004077A8 /* Assets.xcassets */; };
-		BC8A7825240FC8FD004077A8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC8A7824240FC8FD004077A8 /* Preview Assets.xcassets */; };
-		BC8A7828240FC8FD004077A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC8A7826240FC8FD004077A8 /* LaunchScreen.storyboard */; };
 		BC8A7830240FCA5E004077A8 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A782F240FCA5E004077A8 /* Password.swift */; };
 		BC8A783A240FD2ED004077A8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A7839240FD2ED004077A8 /* main.swift */; };
 		BC8A783F240FE11D004077A8 /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A783E240FE11D004077A8 /* Vault.swift */; };
+		BCB4F63F243C9F0D00174E7E /* ButtonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB4F63E243C9F0D00174E7E /* ButtonUI.swift */; };
 		BCB6F4A8242CF2C9007E84EF /* httppost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A7242CF2C9007E84EF /* httppost.swift */; };
 		BCB6F4AA242CF4AB007E84EF /* crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A9242CF4AB007E84EF /* crypto.swift */; };
+		BCC7514C243E2EFA00D3F099 /* OutsiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */; };
+		BCC75150243F929200D3F099 /* OptionSixdigit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC7514F243F929200D3F099 /* OptionSixdigit.swift */; };
+		BCC75152243F93AC00D3F099 /* OptionQR.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC75151243F93AC00D3F099 /* OptionQR.swift */; };
+		BCC7515A24400D4C00D3F099 /* CodeCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC7515924400D4C00D3F099 /* CodeCountdownView.swift */; };
+		BCC7515C24401B9500D3F099 /* TimeDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC7515B24401B9500D3F099 /* TimeDelta.swift */; };
+		BCF351FE244A631500E7A03F /* InternetConnectivithy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF351FD244A631500E7A03F /* InternetConnectivithy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,15 +47,20 @@
 		BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BC8A781F240FC8FB004077A8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BC8A7821240FC8FD004077A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BC8A7824240FC8FD004077A8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BC8A7827240FC8FD004077A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC8A7829240FC8FD004077A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC8A782F240FCA5E004077A8 /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		BC8A7837240FD2ED004077A8 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8A7839240FD2ED004077A8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BC8A783E240FE11D004077A8 /* Vault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault.swift; sourceTree = "<group>"; };
+		BCB4F63E243C9F0D00174E7E /* ButtonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonUI.swift; sourceTree = "<group>"; };
 		BCB6F4A7242CF2C9007E84EF /* httppost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = httppost.swift; sourceTree = "<group>"; };
 		BCB6F4A9242CF4AB007E84EF /* crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = crypto.swift; sourceTree = "<group>"; };
+		BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutsiderView.swift; sourceTree = "<group>"; };
+		BCC7514F243F929200D3F099 /* OptionSixdigit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSixdigit.swift; sourceTree = "<group>"; };
+		BCC75151243F93AC00D3F099 /* OptionQR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionQR.swift; sourceTree = "<group>"; };
+		BCC7515924400D4C00D3F099 /* CodeCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeCountdownView.swift; sourceTree = "<group>"; };
+		BCC7515B24401B9500D3F099 /* TimeDelta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDelta.swift; sourceTree = "<group>"; };
+		BCF351FD244A631500E7A03F /* InternetConnectivithy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivithy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,27 +102,13 @@
 		BC8A781A240FC8FB004077A8 /* Passer */ = {
 			isa = PBXGroup;
 			children = (
+				BCEED3A6244A615200E6C0A3 /* App structure */,
+				BCEED3A5244A612D00E6C0A3 /* User Interface */,
 				BC8A781B240FC8FB004077A8 /* AppDelegate.swift */,
 				BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */,
-				BC8A781F240FC8FB004077A8 /* ContentView.swift */,
-				BC808AF12433F61400EF8EB5 /* Networking.swift */,
-				BC8A782F240FCA5E004077A8 /* Password.swift */,
-				BC0D5936241A395800DAF9BD /* SixdigitCode.swift */,
-				BC8A783E240FE11D004077A8 /* Vault.swift */,
-				BC8A7821240FC8FD004077A8 /* Assets.xcassets */,
-				BC8A7826240FC8FD004077A8 /* LaunchScreen.storyboard */,
 				BC8A7829240FC8FD004077A8 /* Info.plist */,
-				BC8A7823240FC8FD004077A8 /* Preview Content */,
 			);
 			path = Passer;
-			sourceTree = "<group>";
-		};
-		BC8A7823240FC8FD004077A8 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				BC8A7824240FC8FD004077A8 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		BC8A7838240FD2ED004077A8 /* test */ = {
@@ -123,6 +119,41 @@
 				BCB6F4A7242CF2C9007E84EF /* httppost.swift */,
 			);
 			path = test;
+			sourceTree = "<group>";
+		};
+		BCB4F63D243C9D9B00174E7E /* Supporting Views */ = {
+			isa = PBXGroup;
+			children = (
+				BCB4F63E243C9F0D00174E7E /* ButtonUI.swift */,
+				BCC75151243F93AC00D3F099 /* OptionQR.swift */,
+				BCC7514F243F929200D3F099 /* OptionSixdigit.swift */,
+				BCC7515924400D4C00D3F099 /* CodeCountdownView.swift */,
+			);
+			path = "Supporting Views";
+			sourceTree = "<group>";
+		};
+		BCEED3A5244A612D00E6C0A3 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				BCB4F63D243C9D9B00174E7E /* Supporting Views */,
+				BC8A7821240FC8FD004077A8 /* Assets.xcassets */,
+				BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */,
+				BC8A781F240FC8FB004077A8 /* ContentView.swift */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
+		BCEED3A6244A615200E6C0A3 /* App structure */ = {
+			isa = PBXGroup;
+			children = (
+				BC0D5936241A395800DAF9BD /* SixdigitCode.swift */,
+				BCC7515B24401B9500D3F099 /* TimeDelta.swift */,
+				BC8A783E240FE11D004077A8 /* Vault.swift */,
+				BC808AF12433F61400EF8EB5 /* Networking.swift */,
+				BC8A782F240FCA5E004077A8 /* Password.swift */,
+				BCF351FD244A631500E7A03F /* InternetConnectivithy.swift */,
+			);
+			path = "App structure";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,8 +235,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC8A7828240FC8FD004077A8 /* LaunchScreen.storyboard in Resources */,
-				BC8A7825240FC8FD004077A8 /* Preview Assets.xcassets in Resources */,
 				BC8A7822240FC8FD004077A8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,9 +249,16 @@
 				BC8A7830240FCA5E004077A8 /* Password.swift in Sources */,
 				BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */,
 				BC8A781C240FC8FB004077A8 /* AppDelegate.swift in Sources */,
+				BCB4F63F243C9F0D00174E7E /* ButtonUI.swift in Sources */,
+				BCC7515C24401B9500D3F099 /* TimeDelta.swift in Sources */,
 				BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */,
+				BCC7515A24400D4C00D3F099 /* CodeCountdownView.swift in Sources */,
+				BCC75150243F929200D3F099 /* OptionSixdigit.swift in Sources */,
 				BC8A7820240FC8FB004077A8 /* ContentView.swift in Sources */,
 				BC8A783F240FE11D004077A8 /* Vault.swift in Sources */,
+				BCF351FE244A631500E7A03F /* InternetConnectivithy.swift in Sources */,
+				BCC75152243F93AC00D3F099 /* OptionQR.swift in Sources */,
+				BCC7514C243E2EFA00D3F099 /* OutsiderView.swift in Sources */,
 				BC808AF22433F61400EF8EB5 /* Networking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -238,17 +274,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		BC8A7826240FC8FD004077A8 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BC8A7827240FC8FD004077A8 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		BC8A782A240FC8FD004077A8 /* Debug */ = {
@@ -371,6 +396,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Passer/Preview Content\"";
+				DEVELOPMENT_TEAM = 64F67BZAA2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Passer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -390,6 +416,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Passer/Preview Content\"";
+				DEVELOPMENT_TEAM = 64F67BZAA2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Passer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

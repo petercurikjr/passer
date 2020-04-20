@@ -7,27 +7,33 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="spinner.css">
     <script src="script.js"></script>
-    <title>Passer</title>
+    <title>Outsider from Passer</title>
 </head>
 <body onload="startingJS()">
     <main>
         <div id="auth-wrapper">
             <div id="headline">
                 <img src="logo_00000.png" alt="passer-logo" id="logo">
-                <h2 id="passer">passer</h2>
+                <h2 id="passer">Outsider from Passer</h2>
                 <h1>Please verify yourself before accessing your passwords on this device.</h1>
             </div>
             <div id="options">
                 <div id="code-option">
                     <h2>6-digit code</h2>
                     <div id="code-entry">
-                        <input id="1" oninput="getEntryID(this.id)" onclick="selectText(this)" class="number-field" type="text" maxLength="1" pattern="\d" autofocus/>
-                        <input id="2" oninput="getEntryID(this.id)" onclick="selectText(this)" class="number-field" type="text" maxLength="1" pattern="\d"/>
-                        <input id="3" oninput="getEntryID(this.id)" onclick="selectText(this)" class="number-field" type="text" maxLength="1" pattern="\d"/>
-                        <input id="4" oninput="getEntryID(this.id)" onclick="selectText(this)" class="number-field" type="text" maxLength="1" pattern="\d"/>
-                        <input id="5" oninput="getEntryID(this.id)" onclick="selectText(this)" class="number-field" type="text" maxLength="1" pattern="\d"/>
-                        <input id="6" oninput="getEntryID(this.id)" onclick="selectText(this)" class="number-field" type="text" maxLength="1" pattern="\d"/>
+                        <input id="1" onkeydown="handleInput(event, this.id)" oninput="getEntryID(this.id)" onfocus="this.select()" class="number-field" type="text" maxLength="1" pattern="\d" autofocus/>
+                        <input id="2" onkeydown="handleInput(event, this.id)" oninput="getEntryID(this.id)" onfocus="this.select()" class="number-field" type="text" maxLength="1" pattern="\d"/>
+                        <input id="3" onkeydown="handleInput(event, this.id)" oninput="getEntryID(this.id)" onfocus="this.select()" class="number-field" type="text" maxLength="1" pattern="\d"/>
+                        <input id="4" onkeydown="handleInput(event, this.id)" oninput="getEntryID(this.id)" onfocus="this.select()" class="number-field" type="text" maxLength="1" pattern="\d"/>
+                        <input id="5" onkeydown="handleInput(event, this.id)" oninput="getEntryID(this.id)" onfocus="this.select()" class="number-field" type="text" maxLength="1" pattern="\d"/>
+                        <input id="6" onkeydown="handleInput(event, this.id)" oninput="getEntryID(this.id)" onfocus="this.select()" class="number-field" type="text" maxLength="1" pattern="\d"/>
                     </div>
+
+                    <div>
+                        <p id="error" style="display: none">Entered code is not correct. <br/>
+                            Check your app and try again, or generate a new code in your Passer app.</p>
+                    </div>
+                    
                 </div>
 
                 <div id="qr-code">
