@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 
-///structure of sixdigitcode. Codable is an ability of struct to be encoded or decoded by json
-struct JSONData: Codable {
-    let sixdigitCode: String
+///structure of sixdigitcode. Codable is an general ability of a struct to be encoded or decoded by json
+struct SixdigitAuth: Codable {
+    let sixdigitCode: String?
     fileprivate let deviceID: String
-    let timestamp: Date = Date()
+    let timestamp: Date?
 }
 
-func generateStruct() -> JSONData {
+func generateStruct() -> SixdigitAuth {
     
     //generate uuid of a device
     //let uuid = UIDevice.current.identifierForVendor?.uuidString
@@ -30,24 +30,20 @@ func generateStruct() -> JSONData {
     let sixdigitJoined = sixdigitCode.joined()
     
     //create a JSONData instance and return
-    let jsondata = JSONData(sixdigitCode: sixdigitJoined, deviceID: uuid)
+    let jsondata = SixdigitAuth(sixdigitCode: sixdigitJoined, deviceID: uuid, timestamp: Date())
+    
     return jsondata
 
 }
 
-func activateValidCode() -> JSONData? {
-    let sixdigitstructure = generateStruct()
-    
-    ///Convert to json and send
-    guard let uploadData = try? JSONEncoder().encode(sixdigitstructure)
+func sixdigitJSON(input: SixdigitAuth) -> Data? {
+    ///Convert to json
+    guard let json = try? JSONEncoder().encode(input)
         else {
             return nil
         }
-    postToServer(uploadData: uploadData);
     
-    ///return the original Swift structure
-    return sixdigitstructure
-    
+    return json
 }
 
 

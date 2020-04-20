@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    ///State means "variable can update the view"
+    ///State means "variable can update the view (locally)"
     ///access it later using $ sign
     @State private var showModal = false
     
