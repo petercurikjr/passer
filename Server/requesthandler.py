@@ -13,18 +13,30 @@ cors = CORS(app) #enables my website to GET from this server. for more, see enab
 cache = Cache(app, config = {'CACHE_TYPE': 'simple'})  #COFIGURATE cache and create Cache instance
 dic = {}
 
-@app.route('/', methods=['GET','POST']) #requests to allow
+@app.route('/', methods=['POST']) #requests to allow
 @cache.cached(timeout=0.001)
-def hello_world():
+def processDataFromApp():
     incomingData = request.get_json()
-    sixdigitCode = incomingData['data']
+    sixdigitCode = incomingData['sixdigitCode']
     uuid = incomingData['deviceID']
     dateStr = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-    global codeAndUuidDict
     data = [sixdigitCode,dateStr]
     dic[uuid] = data
     verifyTimeStamps(datetime.now());
     return jsonify(dic)
+
+@app.route('/verify_from_website', methods=['POST'])
+def processDataFromWeb():
+    incomingData = request.get_json()
+    sixdigitTyped = incomingData['sixdigitTyped']
+    return str(verify(sixdigitTyped))
+
+def verify(sixdigitTyped):
+    for item in dic.keys():
+        sixdigitFromCache = dic[item][0]
+        if sixdigitFromCache == sixdigitTyped:
+            return True
+    return False
 
 def verifyTimeStamps(currentDate):
     for item in list(dic.keys()):
