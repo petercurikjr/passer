@@ -14,7 +14,6 @@ func timeDelta(initial: Date) -> [String] {
     
     ///2 minute time starter (in seconds)
     let countdown = 5
-    print("here")
     let formatter = DateFormatter()
     formatter.dateFormat = "mm:ss"
     

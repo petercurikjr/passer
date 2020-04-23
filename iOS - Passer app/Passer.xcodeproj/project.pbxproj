@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D5936241A395800DAF9BD /* SixdigitCode.swift */; };
+		BC1B2C01244E713C000154C5 /* AddPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C00244E713C000154C5 /* AddPasswordView.swift */; };
+		BC1B2C03244E73B7000154C5 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C02244E73B7000154C5 /* AppView.swift */; };
+		BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C04244E73F9000154C5 /* SettingsView.swift */; };
 		BC808AF22433F61400EF8EB5 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC808AF12433F61400EF8EB5 /* Networking.swift */; };
 		BC8A781C240FC8FB004077A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781B240FC8FB004077A8 /* AppDelegate.swift */; };
 		BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */; };
 		BC8A7820240FC8FB004077A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781F240FC8FB004077A8 /* ContentView.swift */; };
 		BC8A7822240FC8FD004077A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC8A7821240FC8FD004077A8 /* Assets.xcassets */; };
-		BC8A7830240FCA5E004077A8 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A782F240FCA5E004077A8 /* Password.swift */; };
+		BC8A7830240FCA5E004077A8 /* PasserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A782F240FCA5E004077A8 /* PasserItem.swift */; };
 		BC8A783A240FD2ED004077A8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A7839240FD2ED004077A8 /* main.swift */; };
 		BC8A783F240FE11D004077A8 /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A783E240FE11D004077A8 /* Vault.swift */; };
 		BCB4F63F243C9F0D00174E7E /* ButtonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB4F63E243C9F0D00174E7E /* ButtonUI.swift */; };
@@ -41,6 +44,9 @@
 
 /* Begin PBXFileReference section */
 		BC0D5936241A395800DAF9BD /* SixdigitCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixdigitCode.swift; sourceTree = "<group>"; };
+		BC1B2C00244E713C000154C5 /* AddPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasswordView.swift; sourceTree = "<group>"; };
+		BC1B2C02244E73B7000154C5 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		BC1B2C04244E73F9000154C5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		BC808AF12433F61400EF8EB5 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		BC8A7818240FC8FB004077A8 /* Passer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8A781B240FC8FB004077A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +54,7 @@
 		BC8A781F240FC8FB004077A8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BC8A7821240FC8FD004077A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC8A7829240FC8FD004077A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BC8A782F240FCA5E004077A8 /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
+		BC8A782F240FCA5E004077A8 /* PasserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasserItem.swift; sourceTree = "<group>"; };
 		BC8A7837240FD2ED004077A8 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8A7839240FD2ED004077A8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BC8A783E240FE11D004077A8 /* Vault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault.swift; sourceTree = "<group>"; };
@@ -139,6 +145,9 @@
 				BC8A7821240FC8FD004077A8 /* Assets.xcassets */,
 				BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */,
 				BC8A781F240FC8FB004077A8 /* ContentView.swift */,
+				BC1B2C02244E73B7000154C5 /* AppView.swift */,
+				BC1B2C04244E73F9000154C5 /* SettingsView.swift */,
+				BC1B2C00244E713C000154C5 /* AddPasswordView.swift */,
 			);
 			path = "User Interface";
 			sourceTree = "<group>";
@@ -150,7 +159,7 @@
 				BCC7515B24401B9500D3F099 /* TimeDelta.swift */,
 				BC8A783E240FE11D004077A8 /* Vault.swift */,
 				BC808AF12433F61400EF8EB5 /* Networking.swift */,
-				BC8A782F240FCA5E004077A8 /* Password.swift */,
+				BC8A782F240FCA5E004077A8 /* PasserItem.swift */,
 				BCF351FD244A631500E7A03F /* InternetConnectivithy.swift */,
 			);
 			path = "App structure";
@@ -246,11 +255,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC8A7830240FCA5E004077A8 /* Password.swift in Sources */,
+				BC8A7830240FCA5E004077A8 /* PasserItem.swift in Sources */,
 				BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */,
 				BC8A781C240FC8FB004077A8 /* AppDelegate.swift in Sources */,
 				BCB4F63F243C9F0D00174E7E /* ButtonUI.swift in Sources */,
+				BC1B2C03244E73B7000154C5 /* AppView.swift in Sources */,
+				BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */,
 				BCC7515C24401B9500D3F099 /* TimeDelta.swift in Sources */,
+				BC1B2C01244E713C000154C5 /* AddPasswordView.swift in Sources */,
 				BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */,
 				BCC7515A24400D4C00D3F099 /* CodeCountdownView.swift in Sources */,
 				BCC75150243F929200D3F099 /* OptionSixdigit.swift in Sources */,

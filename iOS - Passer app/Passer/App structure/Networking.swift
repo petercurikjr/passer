@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 ///Classes with "ObservableObject" can be used to initialize @ObservedObject variables in a View
 ///Those variables are able to update a View according to values of @Published variables in "ObservableObject" class
