@@ -87,7 +87,6 @@ struct OutsiderView: View {
                 }
             }.opacity(viewDigitAlone ? 1 : 0).animation(Animation.easeInOut(duration: 0.4).delay(viewDigitAlone ? 1 : 0))
                 
-            
         }
     }
     

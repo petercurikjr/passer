@@ -14,6 +14,11 @@ struct AppView: View {
     @EnvironmentObject var vault: Vault
     
     var body: some View {
+        /*
+        //use this if tabview starts killing the app:
+        ContentView()
+        */
+        
         TabView() {
             ContentView()
                 .tabItem {
@@ -27,6 +32,7 @@ struct AppView: View {
                     Text("Settings")
                 }.tag(2)
         }
+         
     }
 }
 

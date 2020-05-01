@@ -11,29 +11,20 @@ import Foundation
 var sixdigitCode = ["1","2","3","4","5","6"]
 var codeJoined = sixdigitCode.joined()
 sixdigitCode.append("4")
-print(sixdigitCode[6])
 
-// To convert the date into an HH:mm format
-func findDateDiff(time1Str: String, time2Str: String) -> String {
-    let timeformatter = DateFormatter()
-    timeformatter.dateFormat = "hh:mm"
+var paths: [URL]?
+var path: URL?
+path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 
-    guard let time1 = timeformatter.date(from: time1Str),
-        let time2 = timeformatter.date(from: time2Str) else { return "" }
+let filenames = ["a.txt","b.txt","c.txt"]
 
-    //You can directly use from here if you have two dates
-
-    let interval = time2.timeIntervalSince(time1)
-    //let hour = interval / 3600;
-    //let minute = interval.truncatingRemainder(dividingBy: 3600) / 60
-    //return "\(Int(hour))h \(Int(minute))s"
-    return String(interval)
+for i in 0...2 {
+    if path == nil {
+        print("Couldn't find a place for Passer app data. Error in \(i). file")
+    }
+    else {
+        paths?.append(path!)
+        paths![i].appendPathComponent(filenames[i])
+    }
 }
 
-let dateDiff = findDateDiff(time1Str: "09:54", time2Str: "9:56")
-
-
-let formatter = DateFormatter()
-formatter.dateFormat = "mm:ss"
-let seconds = Date().timeIntervalSince(initial)
-let minutes = seconds / 60
