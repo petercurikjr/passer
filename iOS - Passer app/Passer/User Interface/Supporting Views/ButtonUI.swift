@@ -17,7 +17,7 @@ struct ButtonUI: View {
             .fontWeight(.bold)
             .padding()
             .foregroundColor(.white)
-            .background(LinearGradient(gradient: Gradient(colors: [Color("buttoncolor1"),Color("buttoncolor2")]), startPoint: .leading, endPoint: .trailing))
+            .background(LinearGradient(gradient: Gradient(colors: [Color("blue1"),Color("blue2")]), startPoint: .leading, endPoint: .trailing))
             .cornerRadius(30)
         
     }

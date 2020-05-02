@@ -16,7 +16,7 @@ struct OptionSixdigit: View {
        ZStack {
                Rectangle()
                    .fill(LinearGradient(
-                       gradient: Gradient(colors: [Color("buttoncolor2"),Color("buttoncolor1")]), startPoint: .top, endPoint: .bottomTrailing))
+                       gradient: Gradient(colors: [Color("blue1"),Color("blue2")]), startPoint: .top, endPoint: .bottomTrailing))
                    .frame(width: 300, height: 150)
                    .cornerRadius(20)
                    .opacity(1)

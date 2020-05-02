@@ -126,7 +126,7 @@ struct AddPasswordView: View {
                 else if itemType == 2 {
                     Section(header: Text("All fields are mandatory.")) {
                         TextField("Card number", text: $cardNumber, onEditingChanged: { _ in
-                            if !self.cardNumber.isEmpty && !self.cardNumber.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
+                            if !self.cardNumber.isEmpty && !self.expireDate.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
                             }
                             else {
@@ -134,7 +134,7 @@ struct AddPasswordView: View {
                             }
                         }).autocapitalization(.none)
                         TextField("Valid until", text: $expireDate, onEditingChanged: { _ in
-                            if !self.cardNumber.isEmpty && !self.cardNumber.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
+                            if !self.cardNumber.isEmpty && !self.expireDate.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
                             }
                             else {
@@ -142,7 +142,15 @@ struct AddPasswordView: View {
                             }
                         }).autocapitalization(.none)
                         TextField("CVV/CVC code", text: $cvv, onEditingChanged: { _ in
-                            if !self.cardNumber.isEmpty && !self.cardNumber.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
+                            if !self.cardNumber.isEmpty && !self.expireDate.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
+                                self.buttonDisabled = false
+                            }
+                            else {
+                                self.buttonDisabled = true
+                            }
+                        }).autocapitalization(.none)
+                        TextField("PIN number", text: $pinNumber, onEditingChanged: { _ in
+                            if !self.cardNumber.isEmpty && !self.expireDate.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
                             }
                             else {
@@ -249,7 +257,7 @@ struct AddPasswordView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         ButtonUI(name: "Add to Passer")
-                    }.disabled(self.buttonDisabled).colorMultiply(self.buttonDisabled ? Color.gray : Color.white)
+                        }.disabled(self.buttonDisabled).colorMultiply(self.buttonDisabled ? Color.gray : Color.white).buttonStyle(BorderlessButtonStyle())
                 }.padding(20).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
             }
             

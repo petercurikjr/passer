@@ -23,7 +23,7 @@ struct AppView: View {
             ContentView()
                 .tabItem {
                     Image(systemName: "pencil.and.ellipsis.rectangle")
-                    Text("Passwords")
+                    Text("Items")
                 }.tag(1)
             
             SettingsView()
