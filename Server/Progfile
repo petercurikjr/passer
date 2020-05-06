@@ -1,1 +1,1 @@
-web: gunicorn -b :8000 app: requesthandler
+web: gunicorn app: requesthandler
