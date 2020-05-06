@@ -14,14 +14,26 @@ struct OutsiderView: View {
     @State private var oneOfThem = false
     
     @Environment(\.presentationMode) var presentationMode
+    @Binding var goBack: Bool
     
     @State private var animationAmount: CGFloat = 1
     @State private var doAnimation = false
+    
+    let chosenPasswords: [PasswordItem]
+    let chosenBankCards: [BankCardItem]
+    let chosenOthers: [OtherItem]
     
     var body: some View {
         ZStack {
             VStack {
                 HStack {
+                    Button(action: {
+                        self.goBack.toggle()
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .padding(.top, 20)
+                            .padding(.leading, 25)
+                    }.disabled(self.oneOfThem).opacity(self.oneOfThem ? 0 : 1).animation(Animation.easeInOut(duration: 0.5))
                     Spacer()
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
@@ -40,11 +52,11 @@ struct OutsiderView: View {
                     }
                     
                     HStack {
-                        Text("Tap on one of available options below to access your passwords on another device easily with Outsider.")
+                        Text("Choose one of the verification methods below.")
                             .font(.subheadline)
                         Spacer()
                     }
-                 }.padding(30).multilineTextAlignment(.leading).padding(.top).opacity(oneOfThem ? 0 : 1).animation(Animation.easeInOut(duration: 1).delay(0.2))
+                 }.padding(30).multilineTextAlignment(.leading).opacity(oneOfThem ? 0 : 1).animation(Animation.easeInOut(duration: 1).delay(0.2))
                 
                 VStack {
                     Button(action: {
@@ -83,11 +95,10 @@ struct OutsiderView: View {
             ZStack {
                 ///condition so that it doesn't generate a new code once user closes the verification code option
                 if self.viewDigitAlone {
-                    CodeCountdownView()
+                    CodeCountdownView(chosenPasswords: self.chosenPasswords, chosenBankCards: self.chosenBankCards, chosenOthers: self.chosenOthers)
                 }
             }.opacity(viewDigitAlone ? 1 : 0).animation(Animation.easeInOut(duration: 0.4).delay(viewDigitAlone ? 1 : 0))
                 
-            
         }
     }
     
@@ -124,6 +135,6 @@ struct OutsiderView: View {
 
 struct Outsider_Previews: PreviewProvider {
     static var previews: some View {
-        OutsiderView()
+        OutsiderView(goBack: .constant(false), chosenPasswords: [PasswordItem](), chosenBankCards: [BankCardItem](), chosenOthers: [OtherItem]())
     }
 }

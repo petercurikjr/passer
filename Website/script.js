@@ -65,8 +65,8 @@ function verify() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             //success
             console.log("Server response: " + xhr.responseText)
-            if(xhr.responseText == "True") {
-                redirect()
+            if(xhr.responseText != "Wrong code") {
+                redirect(xhr.responseText)
             }
             else {
                 setTimeout(function(){
@@ -80,7 +80,7 @@ function verify() {
 
                 setTimeout(function(){
                     clear()
-                }, 2000);
+                }, 2000)
 
             }
         }
@@ -90,18 +90,43 @@ function verify() {
     let data = 
         {
             "sixdigitTyped": codeJoined
-        };
+        }
 
     let jsonData = JSON.stringify(data)
     console.log("Veryfing data: " + jsonData)
 
-    xhr.send(jsonData);
+    xhr.send(jsonData)
 }
 
-function redirect() {
+function redirect(response) {
     setTimeout(function(){
-        location.replace("passwords.html")
+       // location.replace("passwords.html")
+        //showPasserItems(response)
     }, 500);
+}
+
+//["334195","04/05/2020 02:49:26",[{"favourites":false,"group":2,"id":"E1AF0423-C318-4D75-A0C2-FF6AD1C91B7B","itemname":"Work password","password":"nepoviemti12","url":"VUB.sk","username":"pcurik@ext.vub.sk"}],[],[]]
+//["647275","04/05/2020 02:50:30",[{"favourites":false,"group":2,"id":"E1AF0423-C318-4D75-A0C2-FF6AD1C91B7B","itemname":"Work password","password":"nepoviemti12","url":"VUB.sk","username":"pcurik@ext.vub.sk"},{"favourites":false,"id":"E0B5ADAD-FD8E-418A-8A73-F367501B0374","itemname":"Gmail account","password":"hesielko123","url":"mail.google.com","username":"petocurik@gmail.com"},{"favourites":false,"group":2,"id":"E1AF0423-C318-4D75-A0C2-FF6AD1C91B7B","itemname":"Work password","password":"nepoviemti12","url":"VUB.sk","username":"pcurik@ext.vub.sk"}],[{"cardNumber":"4409 8753 2589 5323","cvv":"423","expireDate":"03/23","favourites":false,"id":"E0D4E899-61AE-4B09-A433-F9D4A9218AD3","itemname":"Bank card Tatra banka","pinNumber":"1234"}],[{"favourites":false,"field1":"itemname1","group":3,"id":"AEEDF44B-A364-482A-A205-8754E5058745","itemname":"One other item"}]]
+function showPasserItems(response) {
+    let testjson =
+        ["334195","04/05/2020 02:49:26",
+            [
+                {
+                    "favourites":false,
+                    "group":2,
+                    "id":"E1AF0423-C318-4D75-A0C2-FF6AD1C91B7B",
+                    "itemname":"Work password",
+                    "password":"nepoviemti12",
+                    "url":"VUB.sk",
+                    "username":"pcurik@ext.vub.sk"
+                }
+            ],
+            [],
+            []
+        ]
+    console.log(testjson)
+    //precitat si o localStorage
+    document.getElementById("text").innerHTML = str
 }
 
 function clear() {

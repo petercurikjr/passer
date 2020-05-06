@@ -13,7 +13,7 @@ struct OptionQR: View {
         ZStack {
             Rectangle()
                 .fill(LinearGradient(
-                    gradient: Gradient(colors: [Color("buttoncolor1"),Color("buttoncolor2")]), startPoint: .leading, endPoint: .bottomTrailing))
+                    gradient: Gradient(colors: [Color("blue1"),Color("blue2")]), startPoint: .leading, endPoint: .bottomTrailing))
                 .frame(width: 300, height: 150)
                 .cornerRadius(20)
                 .opacity(1)
