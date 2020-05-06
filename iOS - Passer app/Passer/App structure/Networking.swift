@@ -8,36 +8,33 @@
 
 import Foundation
 
-///Classes with "ObservableObject" can be used to initialize @ObservedObject variables in a View
-///Those variables are able to update a View according to values of @Published variables in "ObservableObject" class
-///This can be achieved also with publishers in Combine framework, but SwiftUI offers a super-easy approch to this problem (which, of course means less control and features of observing, but this is sufficient for our purposes)
 final class ServerDelegate: ObservableObject {
     
-    ///These variables can update the view
-    @Published var sixdigitData: SixdigitAuth?
+    ///Published variables can update views which have an @ObservedObject instance of this class. A class needs to conform to ObservableObject in order this to work
+    ///This can be also achieved with publishers from Combine framework, but this technique offers a super-easy approch to this problem (which, of course means less control and features of publishing and subscribing, but this is sufficient for our purposes)
+    @Published var approvedByServer: SixdigitAuth? = nil
     @Published var serverDown: Bool = false
     
-    private var sixdigitStructure: SixdigitAuth
+    private var sixdigitStructure: SixdigitAuth? = nil
     
     init() {
-        self.sixdigitStructure = generateStruct()
-        let toJSON = sixdigitJSON(input: self.sixdigitStructure)
-        postToServer(jsonToUpload: toJSON!, swiftStructure: self.sixdigitStructure)
+        
     }
     
-    func reload() {
-        self.sixdigitStructure = generateStruct()
-        let toJSON = sixdigitJSON(input: self.sixdigitStructure)
-        postToServer(jsonToUpload: toJSON!, swiftStructure: self.sixdigitStructure)
+    func newSixdigitCode(passwordItems: [PasswordItem]?, bankCardItems: [BankCardItem]?, otherItems: [OtherItem]?) {
+        
+        self.sixdigitStructure = generateStruct(passwordItems: passwordItems, bankCardItems: bankCardItems, otherItems: otherItems)
+        let toJSON = sixdigitJSON(input: self.sixdigitStructure!)
+        postToServer(jsonToUpload: toJSON!, sixdigitStructure: self.sixdigitStructure!)
     }
     
-    func postToServer(jsonToUpload: Data, swiftStructure: SixdigitAuth) {
+    func postToServer(jsonToUpload: Data, sixdigitStructure: SixdigitAuth) {
         var request = URLRequest(url: URL(string: "http://192.168.1.118:5000/")!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonToUpload;
         
-        ///timeout settings
+        ///Timeout settings
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForResource = TimeInterval(10)
         let session = URLSession(configuration: configuration)
@@ -47,41 +44,37 @@ final class ServerDelegate: ObservableObject {
             
             if let error = error {
                 print("error: \(error)")
-                self.processServerResult(swiftStructure: nil)
+                self.processServerResult(sixdigitStructure: nil)
                 return
             }
             
             guard let response = response as? HTTPURLResponse,
                 (200...299).contains(response.statusCode) else {
-                self.processServerResult(swiftStructure: nil)
+                self.processServerResult(sixdigitStructure: nil)
                 print("server error")
                 return
             }
             
-            ///success
+            ///Success
             if let data = data,
                 let dataString = String(data: data, encoding: .utf8) {
-                self.processServerResult(swiftStructure: swiftStructure)
+                self.processServerResult(sixdigitStructure: sixdigitStructure)
                 print(dataString)
             }
         })
         task.resume()
     }
     
-    func processServerResult(swiftStructure: SixdigitAuth?) {
-        ///switch to main thread
+    func processServerResult(sixdigitStructure: SixdigitAuth?) {
+        ///Switch to the main thread
         DispatchQueue.main.async {
-            guard swiftStructure != nil else {
+            guard sixdigitStructure != nil else {
                 self.serverDown = true
                 return
             }
             
             self.serverDown = false
-            self.sixdigitData = swiftStructure
-            print(self.sixdigitStructure.sixdigitCode!)
-            print(self.sixdigitStructure.timestamp!)
-            print((self.sixdigitData?.sixdigitCode)!)
-            print((self.sixdigitData?.timestamp)!)
+            self.approvedByServer = sixdigitStructure
         }
     }
     

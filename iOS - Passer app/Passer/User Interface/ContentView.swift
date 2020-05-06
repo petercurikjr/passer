@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     ///State means "variable can update the view (locally)"
-    @State private var showOutsider = false
     @State private var showAddPassword = false
     @State private var groupSelector = [false,false,false,true]
     @State private var passwordItemExpand = [PasswordItem]()
@@ -18,7 +17,7 @@ struct ContentView: View {
     @State private var otherItemExpand = [OtherItem]()
     @State private var filter = 1
     
-    ///Have to create this only because of .sheet bug xnot acting like a child to this view
+    ///Have to create this only because of .sheet bug not acting like a child to this view
     @EnvironmentObject var vault: Vault
     
     var body: some View {
@@ -64,8 +63,8 @@ struct ContentView: View {
                                 self.groupSelector[0].toggle()
                             }) {
                                 GroupsSelector(groupName: "Personal", count: vault.passwordItems.count,
-                                color1: groupSelector[0] ? "blue1" : "gray1",
-                                color2: groupSelector[0] ? "blue2" : "gray2", emoji: "👤")
+                                               color1: groupSelector[0] ? "blue1" : "gray1",
+                                               color2: groupSelector[0] ? "blue2" : "gray2", emoji: "👤")
                             }.buttonStyle(PlainButtonStyle())
                             Button(action: {
                                 for i in 0..<self.groupSelector.count {
@@ -75,8 +74,8 @@ struct ContentView: View {
                                 
                             }) {
                                 GroupsSelector(groupName: "Work", count: vault.bankCardItems.count,
-                                color1: groupSelector[1] ? "blue1" : "gray1",
-                                color2: groupSelector[1] ? "blue2" : "gray2", emoji: "💼")
+                                               color1: groupSelector[1] ? "blue1" : "gray1",
+                                               color2: groupSelector[1] ? "blue2" : "gray2", emoji: "💼")
                             }.buttonStyle(PlainButtonStyle())
                             Button(action: {
                                 for i in 0..<self.groupSelector.count {
@@ -86,8 +85,8 @@ struct ContentView: View {
                                 
                             }) {
                                 GroupsSelector(groupName: "Favourites", count: vault.otherItems.count,
-                                color1: groupSelector[2] ? "hot1" : "gray1",
-                                color2: groupSelector[2] ? "hot2" : "gray2", emoji: "⭐️")
+                                               color1: groupSelector[2] ? "hot1" : "gray1",
+                                               color2: groupSelector[2] ? "hot2" : "gray2", emoji: "⭐️")
                             }.buttonStyle(PlainButtonStyle())
                             Button(action: {
                                 for i in 0..<self.groupSelector.count {
@@ -97,8 +96,8 @@ struct ContentView: View {
                                 
                             }) {
                                 GroupsSelector(groupName: "All groups", count: vault.passwordItems.count + vault.bankCardItems.count + vault.otherItems.count,
-                                color1: groupSelector[3] ? "blue1" : "gray1",
-                                color2: groupSelector[3] ? "blue2" : "gray2", emoji: "📝")
+                                               color1: groupSelector[3] ? "blue1" : "gray1",
+                                               color2: groupSelector[3] ? "blue2" : "gray2", emoji: "📝")
                             }.buttonStyle(PlainButtonStyle())
                         }
                     }.padding(.horizontal)
@@ -120,18 +119,18 @@ struct ContentView: View {
                         Section(header: Text("Password items")) {
                             ForEach(self.vault.passwordItems) { item in
                                 VStack {
-                                 HStack {
-                                     Text(item.getItemName())
-                                     Spacer()
-                                    Image(systemName: "checkmark.seal.fill").foregroundColor(Color.green)
-                                    Image(systemName: "exclamationmark.triangle.fill").foregroundColor(Color.yellow)
-                                    Image(systemName: "xmark.seal.fill").foregroundColor(Color.red)
-                                 }.contentShape(Rectangle()).padding()
-                                .onTapGesture {
-                                     self.expandCollapse(item)
-                                 }
-                                PasserItemCell(expanded: self.passwordItemExpand.contains(item), passwordItem: item, bankCardItem: nil, otherItem: nil)
-                                    .animation(Animation.easeInOut(duration: 0.3))
+                                    HStack {
+                                        Text(item.getItemName())
+                                        Spacer()
+                                        Image(systemName: "checkmark.seal.fill").foregroundColor(Color.green)
+                                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(Color.yellow)
+                                        Image(systemName: "xmark.seal.fill").foregroundColor(Color.red)
+                                    }.contentShape(Rectangle()).padding()
+                                        .onTapGesture {
+                                            self.expandCollapse(item)
+                                    }
+                                    PasserItemCell(expanded: self.passwordItemExpand.contains(item), passwordItem: item, bankCardItem: nil, otherItem: nil)
+                                        .animation(Animation.easeInOut(duration: 0.3))
                                 }
                             }
                             .onDelete { indexSet in
@@ -145,18 +144,18 @@ struct ContentView: View {
                         Section(header: Text("Bank card items")) {
                             ForEach(self.vault.bankCardItems) { item in
                                 VStack {
-                                 HStack {
-                                     Text(item.getItemName())
-                                     Spacer()
-                                    Image(systemName: "checkmark.seal.fill").foregroundColor(Color.green)
-                                    Image(systemName: "exclamationmark.triangle.fill").foregroundColor(Color.yellow)
-                                    Image(systemName: "xmark.seal.fill").foregroundColor(Color.red)
-                                 }.contentShape(Rectangle()).padding()
-                                .onTapGesture {
-                                     self.expandCollapse(item)
-                                 }
-                                PasserItemCell(expanded: self.bankCardItemExpand.contains(item), passwordItem: nil, bankCardItem: item, otherItem: nil)
-                                    .animation(Animation.easeInOut(duration: 0.3).delay(0.1))
+                                    HStack {
+                                        Text(item.getItemName())
+                                        Spacer()
+                                        Image(systemName: "checkmark.seal.fill").foregroundColor(Color.green)
+                                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(Color.yellow)
+                                        Image(systemName: "xmark.seal.fill").foregroundColor(Color.red)
+                                    }.contentShape(Rectangle()).padding()
+                                        .onTapGesture {
+                                            self.expandCollapse(item)
+                                    }
+                                    PasserItemCell(expanded: self.bankCardItemExpand.contains(item), passwordItem: nil, bankCardItem: item, otherItem: nil)
+                                        .animation(Animation.easeInOut(duration: 0.3).delay(0.1))
                                 }
                             }.onDelete { indexSet in
                                 self.vault.bankCardItems.remove(atOffsets: indexSet)
@@ -164,23 +163,23 @@ struct ContentView: View {
                             }
                         }
                     }
-                        
+                    
                     if filter == 1 || filter == 4 {
                         Section(header: Text("Other items")) {
                             ForEach(self.vault.otherItems) { item in
                                 VStack {
-                                 HStack {
-                                     Text(item.getItemName())
-                                     Spacer()
-                                    Image(systemName: "checkmark.seal.fill").foregroundColor(Color.green)
-                                    Image(systemName: "exclamationmark.triangle.fill").foregroundColor(Color.yellow)
-                                    Image(systemName: "xmark.seal.fill").foregroundColor(Color.red)
-                                 }.contentShape(Rectangle()).padding()
-                                .onTapGesture {
-                                     self.expandCollapse(item)
-                                 }
-                                PasserItemCell(expanded: self.otherItemExpand.contains(item), passwordItem: nil, bankCardItem: nil, otherItem: item)
-                                    .animation(Animation.easeInOut(duration: 0.3).delay(0.1))
+                                    HStack {
+                                        Text(item.getItemName())
+                                        Spacer()
+                                        Image(systemName: "checkmark.seal.fill").foregroundColor(Color.green)
+                                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(Color.yellow)
+                                        Image(systemName: "xmark.seal.fill").foregroundColor(Color.red)
+                                    }.contentShape(Rectangle()).padding()
+                                        .onTapGesture {
+                                            self.expandCollapse(item)
+                                    }
+                                    PasserItemCell(expanded: self.otherItemExpand.contains(item), passwordItem: nil, bankCardItem: nil, otherItem: item)
+                                        .animation(Animation.easeInOut(duration: 0.3).delay(0.1))
                                 }
                             }.onDelete { indexSet in
                                 self.vault.otherItems.remove(atOffsets: indexSet)
@@ -188,23 +187,8 @@ struct ContentView: View {
                             }
                         }
                     }
-                }.listStyle(GroupedListStyle()).onAppear { UITableView.appearance().separatorStyle = .singleLine }
-                .sheet(isPresented: self.$showOutsider) {
-                        OutsiderView()
+                }.listStyle(GroupedListStyle()).onAppear { UITableView.appearance().separatorStyle = .singleLine
                 }
-                 
-                /*
-                Button(action: {
-                    self.showOutsider = true
-                }) {
-                    ButtonUI(name: "Outsider")
-                    
-                    ///sheet determines whether modalview should be displayed
-                }.padding()
-                    .sheet(isPresented: self.$showOutsider) {
-                        OutsiderView()
-                }
- */
             }
         }
     }
@@ -217,7 +201,7 @@ struct ContentView: View {
                 passwordItemExpand.append(item as! PasswordItem)
             }
         }
-        
+            
         else if ((item as? BankCardItem) != nil) {
             if bankCardItemExpand.contains(item as! BankCardItem) {
                 bankCardItemExpand.remove(at: bankCardItemExpand.firstIndex(of: item as! BankCardItem)!)
@@ -225,7 +209,7 @@ struct ContentView: View {
                 bankCardItemExpand.append(item as! BankCardItem)
             }
         }
-        
+            
         else if ((item as? OtherItem) != nil) {
             if otherItemExpand.contains(item as! OtherItem) {
                 otherItemExpand.remove(at: otherItemExpand.firstIndex(of: item as! OtherItem)!)

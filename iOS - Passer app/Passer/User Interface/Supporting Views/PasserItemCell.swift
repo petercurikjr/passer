@@ -15,7 +15,10 @@ struct PasserItemCell: View {
     let bankCardItem: BankCardItem?
     let otherItem: OtherItem?
     
+    @State var chosenName = ""
+    
     @State private var showOutsider = false
+    @EnvironmentObject var vault: Vault
     
     var body: some View {
         VStack {
@@ -61,7 +64,6 @@ struct PasserItemCell: View {
                         }) {
                             ButtonUI(name: "Outsider")
                             
-                            ///sheet determines whether modalview should be displayed
                         }.scaleEffect(0.8)
                         .buttonStyle(BorderlessButtonStyle())
                         
@@ -69,12 +71,13 @@ struct PasserItemCell: View {
                             
                         }) {
                             ButtonUI(name: "Edit")
-                            
-                            ///sheet determines whether modalview should be displayed
                         }.scaleEffect(0.8)
                         .buttonStyle(BorderlessButtonStyle())
                     }
                 }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25)
+                .onAppear(perform: {
+                    self.chosenName = self.passwordItem!.getItemName()
+                })
             }
                     
             else if expanded && bankCardItem != nil {
@@ -120,25 +123,24 @@ struct PasserItemCell: View {
                     HStack(alignment: .center) {
                         Button(action: {
                             self.showOutsider = true
-                            print("Tap")
+                            print("Outsider button tapped")
                         }) {
                             ButtonUI(name: "Outsider")
                             
-                            ///sheet determines whether modalview should be displayed
                         }.scaleEffect(0.8)
-                            .sheet(isPresented: self.$showOutsider) {
-                                OutsiderView()
-                        }
+                        .buttonStyle(BorderlessButtonStyle())
                         
                         Button(action: {
                             
                         }) {
                             ButtonUI(name: "Edit")
-                            
-                            ///sheet determines whether modalview should be displayed
                         }.scaleEffect(0.8)
+                        .buttonStyle(BorderlessButtonStyle())
                     }
                 }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25)
+                .onAppear(perform: {
+                    self.chosenName = self.bankCardItem!.getItemName()
+                })
             }
                 
             else if expanded && otherItem != nil {
@@ -184,29 +186,28 @@ struct PasserItemCell: View {
                     HStack(alignment: .center) {
                         Button(action: {
                             self.showOutsider = true
-                            print("Tap")
                         }) {
                             ButtonUI(name: "Outsider")
                             
-                            ///sheet determines whether modalview should be displayed
                         }.scaleEffect(0.8)
-                            .sheet(isPresented: self.$showOutsider) {
-                                OutsiderView()
-                        }
+                        .buttonStyle(BorderlessButtonStyle())
                         
                         Button(action: {
                             
                         }) {
                             ButtonUI(name: "Edit")
-                            
-                            ///sheet determines whether modalview should be displayed
                         }.scaleEffect(0.8)
+                        .buttonStyle(BorderlessButtonStyle())
                     }
                 }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25)
+                .onAppear(perform: {
+                    self.chosenName = self.otherItem!.getItemName()
+                })
             }
         }
         .sheet(isPresented: self.$showOutsider) {
-                OutsiderView()
+            OutsiderFirstView(chosenPassword: self.passwordItem, chosenBankCard: self.bankCardItem, chosenOther: self.otherItem, chosenName: self.chosenName)
+                .environmentObject(self.vault)
         }
     }
 }

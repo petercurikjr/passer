@@ -37,12 +37,16 @@ struct CodeCountdownView: View {
     
     @ObservedObject var server = ServerDelegate()
     
+    let chosenPasswords: [PasswordItem]
+    let chosenBankCards: [BankCardItem]
+    let chosenOthers: [OtherItem]
+    
     var body: some View {
         VStack {
-            if(self.server.sixdigitData != nil && self.server.serverDown == false) {
+            if(self.server.approvedByServer != nil && self.server.serverDown == false) {
                 HStack {
                     ///Here, im sure that sixdigitCode is not nil (thanks to the if statement), so I can confidently persuade Swift that the value contains something (by using "!")
-                    Text((self.server.sixdigitData?.sixdigitCode)!.prefix(3))
+                    Text((self.server.approvedByServer?.sixdigitCode)!.prefix(3))
                         .font(.system(size: 40))
                         .fontWeight(.thin)
                         .tracking(20)
@@ -51,7 +55,7 @@ struct CodeCountdownView: View {
                         .padding(.trailing, 2)
                         
                     ///Split the verification code to two Text elements for a esthetical gap between the two code halves
-                    Text((server.sixdigitData?.sixdigitCode)!.suffix(3))
+                    Text((server.approvedByServer?.sixdigitCode)!.suffix(3))
                         .font(.system(size: 40))
                         .fontWeight(.thin)
                         .tracking(20)
@@ -68,11 +72,11 @@ struct CodeCountdownView: View {
                 HStack {
                     Text("Time remaining: ")
                     Text(diff[0] + ":" + diff[1])
-                        .foregroundColor(didItEnd(time: self.diff) ? Color("rectCol1") : Color.primary)
+                        .foregroundColor(didItEnd(time: self.diff) ? Color.red : Color.primary)
                         .animation(nil)
                         .frame(width: 50)
                         .onReceive(timer) { _ in
-                            self.diff = timeDelta(initial: (self.server.sixdigitData?.timestamp)!)
+                            self.diff = timeDelta(initial: (self.server.approvedByServer?.timestamp)!)
                             if didItEnd(time: self.diff) {
                                 self.disabledButton = false
                             }
@@ -81,7 +85,7 @@ struct CodeCountdownView: View {
                 
                 Button(action: {
                     ///Get new data from server
-                    self.server.reload()
+                    self.server.newSixdigitCode(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
                    }) {
                        ButtonUI(name: "Generate a new code")
                    }.padding()
@@ -100,7 +104,7 @@ struct CodeCountdownView: View {
                         
                         Button(action: {
                             ///Get new data from server
-                            self.server.reload()
+                            self.server.newSixdigitCode(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
                             ///Restart timer
                             self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                         }) {
@@ -116,12 +120,16 @@ struct CodeCountdownView: View {
                 }
             }
         }.padding().padding(.top,150)
+        .onAppear(perform: {
+            self.server.newSixdigitCode(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
+        })
+        
     }
 }
 
 struct CodeCountdownView_Previews: PreviewProvider {
     static var previews: some View {
         ///.constant deals with creating Binding property variables in preview
-        CodeCountdownView()
+        CodeCountdownView(chosenPasswords: [PasswordItem](), chosenBankCards: [BankCardItem](), chosenOthers: [OtherItem]())
     }
 }

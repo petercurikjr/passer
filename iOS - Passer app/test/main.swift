@@ -12,19 +12,7 @@ var sixdigitCode = ["1","2","3","4","5","6"]
 var codeJoined = sixdigitCode.joined()
 sixdigitCode.append("4")
 
-var paths: [URL]?
-var path: URL?
-path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-
-let filenames = ["a.txt","b.txt","c.txt"]
-
-for i in 0...2 {
-    if path == nil {
-        print("Couldn't find a place for Passer app data. Error in \(i). file")
-    }
-    else {
-        paths?.append(path!)
-        paths![i].appendPathComponent(filenames[i])
-    }
-}
+var arr = [1,2,3,4,5]
+arr.removeLast(arr.count-1)
+print(arr)
 

@@ -23,54 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7507F059-304C-4FEE-B2A1-E8942E05E5A5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Passer/User Interface/Supporting Views/CodeCountdownView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "body"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "7507F059-304C-4FEE-B2A1-E8942E05E5A5 - 57b8389251b549ad"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Text, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.onReceive&lt;A where A1: Combine.Publisher, A1.Failure == Swift.Never&gt;(_: A1, perform: (A1.Output) -&gt; ()) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Text, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.animation(Swift.Optional&lt;SwiftUI.Animation&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.animation(Swift.Optional&lt;SwiftUI.Animation&gt;) -&gt; some&gt;&gt;.0, Passer.ActivityIndicator&gt;&gt; in Passer.CodeCountdownView.body.getter : some"
-                  moduleName = "Passer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/petercurikjr/Documents/School/FEI%20STU/3bc/bakalarska%20praca/passwordmanager/iOS%20-%20Passer%20app/Passer/User%20Interface/Supporting%20Views/CodeCountdownView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "74"
-                  endingLineNumber = "74"
-                  offsetFromSymbolStart = "1885">
-               </Location>
-               <Location
-                  uuid = "7507F059-304C-4FEE-B2A1-E8942E05E5A5 - ced8bd5b88096008"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Foundation.Date) -&gt; () in closure #2 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Text, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.onReceive&lt;A where A1: Combine.Publisher, A1.Failure == Swift.Never&gt;(_: A1, perform: (A1.Output) -&gt; ()) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, SwiftUI.Text, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.animation(Swift.Optional&lt;SwiftUI.Animation&gt;) -&gt; some&gt;&gt;.0)&gt;, SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.animation(Swift.Optional&lt;SwiftUI.Animation&gt;) -&gt; some&gt;&gt;.0, Passer.ActivityIndicator&gt;&gt; in Passer.CodeCountdownView.body.getter : some"
-                  moduleName = "Passer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/petercurikjr/Documents/School/FEI%20STU/3bc/bakalarska%20praca/passwordmanager/iOS%20-%20Passer%20app/Passer/User%20Interface/Supporting%20Views/CodeCountdownView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "75"
-                  endingLineNumber = "75"
-                  offsetFromSymbolStart = "195">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "20880736-7F2E-4168-B7B4-FC2161AC413B"
             shouldBeEnabled = "No"
             ignoreCount = "0"

@@ -16,6 +16,10 @@ class Vault: ObservableObject {
     private var vaultFileIsEmpty: Bool = true
     
     init() {
+        
+    }
+    
+    init(withFileSystemIntegration: Bool) {
         let filenames = ["jedna.txt","dva.txt","tri.txt"]
         var fileExists = true
         
@@ -132,6 +136,12 @@ class Vault: ObservableObject {
         
         return false
     }
+}
+
+class PasserItemsContainer: ObservableObject {
+    @Published var passwordItems = [PasswordItem]()
+    @Published var bankCardItems = [BankCardItem]()
+    @Published var otherItems = [OtherItem]()
 }
 
 

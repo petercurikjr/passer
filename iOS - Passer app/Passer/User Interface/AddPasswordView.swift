@@ -161,7 +161,7 @@ struct AddPasswordView: View {
                 }
                 
                 else if itemType == 3 {
-                    Section(header: Text("One of the fields is required.")) {
+                    Section(header: Text("Field1 is required.")) {
                         TextField("Field 1", text: $field1, onEditingChanged: { _ in
                             if !self.field1.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
