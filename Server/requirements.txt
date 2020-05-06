@@ -15,7 +15,6 @@ Pillow==5.1.0
 pycairo==1.16.2
 pycrypto==2.6.1
 pycups==1.9.73
-pygobject==3.26.1
 pyinotify==0.9.6
 pyRFC3339==1.0
 python-dateutil==2.6.1
