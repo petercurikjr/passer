@@ -1,1 +1,1 @@
-web: gunicorn requesthandler:app
+web: gunicorn src.requesthandler:app --log-file=-
