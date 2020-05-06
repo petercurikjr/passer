@@ -17,11 +17,15 @@ dic = {}
 @cache.cached(timeout=0.001)
 def processDataFromApp():
     incomingData = request.get_json()
+    
+    deviceID = incomingData['deviceID']
     sixdigitCode = incomingData['sixdigitCode']
-    uuid = incomingData['deviceID']
     dateStr = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-    data = [sixdigitCode,dateStr]
-    dic[uuid] = data
+    passwordItems = incomingData.get('passwordItems')
+    bankCardItems = incomingData.get('bankCardItems')
+    otherItems = incomingData.get('otherItems')
+    
+    dic[deviceID] = [sixdigitCode, dateStr, passwordItems, bankCardItems, otherItems]
     verifyTimeStamps(datetime.now());
     return jsonify(dic)
 
@@ -29,14 +33,16 @@ def processDataFromApp():
 def processDataFromWeb():
     incomingData = request.get_json()
     sixdigitTyped = incomingData['sixdigitTyped']
-    return str(verify(sixdigitTyped))
+    key = verify(sixdigitTyped)
+    if key != None:
+        return jsonify(dic[key])
+    return 'Wrong code'
 
 def verify(sixdigitTyped):
-    for item in dic.keys():
-        sixdigitFromCache = dic[item][0]
-        if sixdigitFromCache == sixdigitTyped:
-            return True
-    return False
+    for deviceID in dic.keys():
+        if dic[deviceID][0] == sixdigitTyped:
+            return deviceID
+    return None
 
 def verifyTimeStamps(currentDate):
     for item in list(dic.keys()):
