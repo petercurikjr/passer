@@ -59,14 +59,15 @@ function verify() {
     let codeJoined = String(sixDigitCodeArray.join(''))
 
     let xhr = new XMLHttpRequest()
-    xhr.open("POST", "http://192.168.1.118:5000/verify_from_website", true)
+    xhr.open("POST", "https://api-passer.herokuapp.com/verify_from_website", true)
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             //success
             console.log("Server response: " + xhr.responseText)
             if(xhr.responseText != "Wrong code") {
-                redirect(xhr.responseText)
+                window.localStorage.setItem("serverData",xhr.responseText)
+                window.location.replace("passwords.html");
             }
             else {
                 setTimeout(function(){

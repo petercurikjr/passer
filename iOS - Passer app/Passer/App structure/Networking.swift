@@ -29,7 +29,7 @@ final class ServerDelegate: ObservableObject {
     }
     
     func postToServer(jsonToUpload: Data, sixdigitStructure: SixdigitAuth) {
-        var request = URLRequest(url: URL(string: "http://192.168.1.118:5000/")!)
+        var request = URLRequest(url: URL(string: "https://api-passer.herokuapp.com")!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonToUpload;
