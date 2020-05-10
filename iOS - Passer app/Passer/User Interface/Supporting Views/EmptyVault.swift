@@ -25,7 +25,7 @@ struct EmptyVault: View {
                 ButtonUI(name: "Add a new Passer item")
             }.padding(20)
             .sheet(isPresented: self.$showAddPassword) {
-                AddPasswordView().environmentObject(self.vault)
+                AddPasserItemView().environmentObject(self.vault)
             }
         }
     }

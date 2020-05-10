@@ -18,6 +18,7 @@ struct PasserItemCell: View {
     @State var chosenName = ""
     
     @State private var showOutsider = false
+    @State private var showEdit = false
     @EnvironmentObject var vault: Vault
     
     var body: some View {
@@ -46,10 +47,46 @@ struct PasserItemCell: View {
                         Divider()
                         
                         VStack {
-                            Text("Password strength:")
-                                .bold()
-                            Text("Good")
-                                .foregroundColor(Color.green)
+                            if self.passwordItem!.passwordStrength().isEmpty {
+                                HStack {
+                                    Text("Password strength: ").bold()
+                                    Text("Good").foregroundColor(Color.green).bold()
+                                }
+                            }
+                                
+                            else if self.passwordItem!.passwordStrength().count == 1 && !self.passwordItem!.passwordStrength().contains(.short) {
+                                HStack {
+                                   Text("Password strength: ").bold()
+                                   Text("Vulnerable").foregroundColor(Color.yellow).bold()
+                                }
+                                if self.passwordItem!.passwordStrength().contains(.nolower) {
+                                    Text("No lowercase letters.")
+                                }
+                                else if self.passwordItem!.passwordStrength().contains(.noupper) {
+                                    Text("No uppercase letters.")
+                                }
+                                else if self.passwordItem!.passwordStrength().contains(.nonumbers) {
+                                    Text("No numbers.")
+                                }
+                            }
+                            else if self.passwordItem!.passwordStrength().count > 1 || self.passwordItem!.passwordStrength().contains(.short) {
+                                HStack {
+                                    Text("Password strength: ").bold()
+                                    Text("Critical").foregroundColor(Color.red).bold()
+                                }
+                                if self.passwordItem!.passwordStrength().contains(.short) {
+                                    Text("Password too short.")
+                                }
+                                if self.passwordItem!.passwordStrength().contains(.nolower) {
+                                    Text("No lowercase letters.")
+                                }
+                                if self.passwordItem!.passwordStrength().contains(.noupper) {
+                                    Text("No uppercase letters.")
+                                }
+                                if self.passwordItem!.passwordStrength().contains(.nonumbers) {
+                                    Text("No numbers.")
+                                }
+                            }
                         }
                         
                         Spacer()
@@ -60,19 +97,20 @@ struct PasserItemCell: View {
                     HStack(alignment: .center) {
                         Button(action: {
                             self.showOutsider = true
-                            print("Outsider button tapped")
                         }) {
                             ButtonUI(name: "Outsider")
                             
                         }.scaleEffect(0.8)
                         .buttonStyle(BorderlessButtonStyle())
-                        
+                        /*
                         Button(action: {
-                            
+                            print("Edit button tapped")
+                            self.showEdit = true
                         }) {
                             ButtonUI(name: "Edit")
                         }.scaleEffect(0.8)
                         .buttonStyle(BorderlessButtonStyle())
+                         */
                     }
                 }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25)
                 .onAppear(perform: {
@@ -109,10 +147,22 @@ struct PasserItemCell: View {
                         Divider()
                         
                         VStack {
-                            Text("Password strength:")
+                            Text("Card state:")
                                 .bold()
-                            Text("Good")
-                                .foregroundColor(Color.green)
+                            
+                            if self.bankCardItem!.bankCardExpireDate() == .ok {
+                                Text("OK")
+                                    .foregroundColor(Color.green).bold()
+                            }
+                            else if self.bankCardItem!.bankCardExpireDate() == .expiresoon {
+                                Text("Will expire soon")
+                                    .foregroundColor(Color.yellow).bold()
+                            }
+                            else {
+                                Text("Expired")
+                                    .foregroundColor(Color.red).bold()
+                            }
+                           
                         }
                         
                         Spacer()
@@ -123,19 +173,20 @@ struct PasserItemCell: View {
                     HStack(alignment: .center) {
                         Button(action: {
                             self.showOutsider = true
-                            print("Outsider button tapped")
                         }) {
                             ButtonUI(name: "Outsider")
                             
                         }.scaleEffect(0.8)
                         .buttonStyle(BorderlessButtonStyle())
-                        
+                        /*
                         Button(action: {
-                            
+                            print("Edit button tapped")
+                            self.showEdit = true
                         }) {
                             ButtonUI(name: "Edit")
                         }.scaleEffect(0.8)
                         .buttonStyle(BorderlessButtonStyle())
+                        */
                     }
                 }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25)
                 .onAppear(perform: {
@@ -169,15 +220,6 @@ struct PasserItemCell: View {
                             }
                         }.padding().padding(.top).padding(.bottom)
                         
-                        Divider()
-                        
-                        VStack {
-                            Text("Password strength:")
-                                .bold()
-                            Text("Good")
-                                .foregroundColor(Color.green)
-                        }
-                        
                         Spacer()
                     }
                     
@@ -191,24 +233,32 @@ struct PasserItemCell: View {
                             
                         }.scaleEffect(0.8)
                         .buttonStyle(BorderlessButtonStyle())
-                        
+                        /*
                         Button(action: {
-                            
+                            print("Edit button tapped")
+                            self.showEdit = true
                         }) {
                             ButtonUI(name: "Edit")
                         }.scaleEffect(0.8)
                         .buttonStyle(BorderlessButtonStyle())
+                         */
                     }
+                    
                 }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25)
                 .onAppear(perform: {
                     self.chosenName = self.otherItem!.getItemName()
                 })
             }
         }
+        .sheet(isPresented: self.$showEdit) {
+            EditPasserItemView()
+                .environmentObject(self.vault)
+        }
         .sheet(isPresented: self.$showOutsider) {
             OutsiderFirstView(chosenPassword: self.passwordItem, chosenBankCard: self.bankCardItem, chosenOther: self.otherItem, chosenName: self.chosenName)
                 .environmentObject(self.vault)
         }
+ 
     }
 }
 

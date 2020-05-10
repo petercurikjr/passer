@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC0699BF2467816900258131 /* EditPasserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0699BE2467816900258131 /* EditPasserItemView.swift */; };
 		BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D5936241A395800DAF9BD /* SixdigitCode.swift */; };
-		BC1B2C01244E713C000154C5 /* AddPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C00244E713C000154C5 /* AddPasswordView.swift */; };
+		BC1B2C01244E713C000154C5 /* AddPasserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */; };
 		BC1B2C03244E73B7000154C5 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C02244E73B7000154C5 /* AppView.swift */; };
 		BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C04244E73F9000154C5 /* SettingsView.swift */; };
 		BC56FA6424589855007B02EE /* EmptyVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC56FA6324589855007B02EE /* EmptyVault.swift */; };
@@ -48,8 +49,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BC0699BE2467816900258131 /* EditPasserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasserItemView.swift; sourceTree = "<group>"; };
 		BC0D5936241A395800DAF9BD /* SixdigitCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixdigitCode.swift; sourceTree = "<group>"; };
-		BC1B2C00244E713C000154C5 /* AddPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasswordView.swift; sourceTree = "<group>"; };
+		BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasserItemView.swift; sourceTree = "<group>"; };
 		BC1B2C02244E73B7000154C5 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		BC1B2C04244E73F9000154C5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		BC56FA6324589855007B02EE /* EmptyVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyVault.swift; sourceTree = "<group>"; };
@@ -161,8 +163,9 @@
 				BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */,
 				BC1B2C02244E73B7000154C5 /* AppView.swift */,
 				BC1B2C04244E73F9000154C5 /* SettingsView.swift */,
-				BC1B2C00244E713C000154C5 /* AddPasswordView.swift */,
+				BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */,
 				BCBEBF33245EE5F40071B20C /* OutsiderFirstView.swift */,
+				BC0699BE2467816900258131 /* EditPasserItemView.swift */,
 			);
 			path = "User Interface";
 			sourceTree = "<group>";
@@ -279,7 +282,7 @@
 				BC1B2C03244E73B7000154C5 /* AppView.swift in Sources */,
 				BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */,
 				BCC7515C24401B9500D3F099 /* TimeDelta.swift in Sources */,
-				BC1B2C01244E713C000154C5 /* AddPasswordView.swift in Sources */,
+				BC1B2C01244E713C000154C5 /* AddPasserItemView.swift in Sources */,
 				BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */,
 				BCC7515A24400D4C00D3F099 /* CodeCountdownView.swift in Sources */,
 				BCC75150243F929200D3F099 /* OptionSixdigit.swift in Sources */,
@@ -290,6 +293,7 @@
 				BCC75152243F93AC00D3F099 /* OptionQR.swift in Sources */,
 				BCC7514C243E2EFA00D3F099 /* OutsiderView.swift in Sources */,
 				BC808AF22433F61400EF8EB5 /* Networking.swift in Sources */,
+				BC0699BF2467816900258131 /* EditPasserItemView.swift in Sources */,
 				BCBEBF34245EE5F40071B20C /* OutsiderFirstView.swift in Sources */,
 				BCC52BC2245DC9CF004FCD52 /* PasserItemCell.swift in Sources */,
 			);

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct AddPasswordView: View {
+struct AddPasserItemView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var vault: Vault
@@ -109,7 +109,9 @@ struct AddPasswordView: View {
                 
                 if self.itemType == 1 {
                     Section(header: Text("Field 'Password' is mandatory.")) {
-                        TextField("Username or an email", text: $username).autocapitalization(.none)
+                        TextField("Username or an email", text: $username)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                         TextField("Password", text: $password, onEditingChanged: { _ in
                             if !self.password.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
@@ -117,9 +119,12 @@ struct AddPasswordView: View {
                             else {
                                 self.buttonDisabled = true
                             }
-                        }).autocapitalization(.none)
-                        TextField("Website", text: $url).autocapitalization(.none)
-                    
+                        })
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                        TextField("Website", text: $url)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                     }
                 }
                 
@@ -132,15 +137,21 @@ struct AddPasswordView: View {
                             else {
                                 self.buttonDisabled = true
                             }
-                        }).autocapitalization(.none)
-                        TextField("Valid until", text: $expireDate, onEditingChanged: { _ in
+                        })
+                            .keyboardType(.numberPad)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                        TextField("Valid until MM/YY", text: $expireDate, onEditingChanged: { _ in
                             if !self.cardNumber.isEmpty && !self.expireDate.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
                             }
                             else {
                                 self.buttonDisabled = true
                             }
-                        }).autocapitalization(.none)
+                        })
+                            .keyboardType(.numberPad)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                         TextField("CVV/CVC code", text: $cvv, onEditingChanged: { _ in
                             if !self.cardNumber.isEmpty && !self.expireDate.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
@@ -148,7 +159,10 @@ struct AddPasswordView: View {
                             else {
                                 self.buttonDisabled = true
                             }
-                        }).autocapitalization(.none)
+                        })
+                            .keyboardType(.numberPad)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                         TextField("PIN number", text: $pinNumber, onEditingChanged: { _ in
                             if !self.cardNumber.isEmpty && !self.expireDate.isEmpty && !self.cvv.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
@@ -156,7 +170,10 @@ struct AddPasswordView: View {
                             else {
                                 self.buttonDisabled = true
                             }
-                        }).autocapitalization(.none)
+                        })
+                            .keyboardType(.numberPad)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                     }
                 }
                 
@@ -169,7 +186,9 @@ struct AddPasswordView: View {
                             else {
                                 self.buttonDisabled = true
                             }
-                        }).autocapitalization(.none)
+                        })
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                         TextField("Field 2", text: $field2, onEditingChanged: { _ in
                             if !self.field1.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
@@ -177,7 +196,9 @@ struct AddPasswordView: View {
                             else {
                                 self.buttonDisabled = true
                             }
-                        }).autocapitalization(.none)
+                        })
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                         TextField("Field 3", text: $field3, onEditingChanged: { _ in
                             if !self.field1.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
@@ -185,7 +206,9 @@ struct AddPasswordView: View {
                             else {
                                 self.buttonDisabled = true
                             }
-                        }).autocapitalization(.none)
+                        })
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                         TextField("Field 4", text: $field4, onEditingChanged: { _ in
                             if !self.field1.isEmpty && !self.itemname.isEmpty {
                                 self.buttonDisabled = false
@@ -193,7 +216,9 @@ struct AddPasswordView: View {
                             else {
                                 self.buttonDisabled = true
                             }
-                        }).autocapitalization(.none)
+                        })
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
                     }
                 }
                 
@@ -267,8 +292,8 @@ struct AddPasswordView: View {
     }
 }
 
-struct AddPasswordView_Previews: PreviewProvider {
+struct AddPasserItemView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPasswordView()
+        AddPasserItemView()
     }
 }

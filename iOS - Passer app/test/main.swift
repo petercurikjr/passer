@@ -14,5 +14,8 @@ sixdigitCode.append("4")
 
 var arr = [1,2,3,4,5]
 arr.removeLast(arr.count-1)
-print(arr)
+
+var num = 12
+var num2 = 1
+print((num - num2) % 12)
 

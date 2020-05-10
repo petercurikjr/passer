@@ -48,6 +48,50 @@ final class PasswordItem: Identifiable, Codable, Equatable, PasserItem {
         return lhs.id == rhs.id
     }
     
+    enum Rating {
+        case short
+        case nonumbers
+        case noupper
+        case nolower
+    }
+    
+    func passwordStrength() -> [Rating] {
+        var lowercased = false
+        var uppercased = false
+        var numbers = false
+        
+        var output = [Rating]()
+        
+        if self.password.count < 8 {
+            output.append(.short)
+        }
+        let characters = [Character] (self.password)
+        
+        for ch in characters {
+            if ch.isLowercase {
+                lowercased = true
+            }
+            else if ch.isUppercase {
+                uppercased = true
+            }
+            else if ch.isNumber {
+                numbers = true
+            }
+        }
+        
+        if lowercased && !uppercased {
+            output.append(.noupper)
+        }
+        if !lowercased && uppercased {
+            output.append(.nolower)
+        }
+        if !numbers {
+            output.append(.nonumbers)
+        }
+        
+        return output
+    }
+    
     func getUsername() -> String? { return self.username }
     func setUsername(itemname: String) { self.itemname = itemname }
     func getPassword() -> String { return self.password }
@@ -88,6 +132,53 @@ final class BankCardItem: Identifiable, Codable, Equatable, PasserItem  {
     
     static func == (lhs: BankCardItem, rhs: BankCardItem) -> Bool {
         return lhs.id == rhs.id
+    }
+    
+    enum Expire {
+        case expiresoon
+        case expired
+        case ok
+    }
+    
+    func bankCardExpireDate() -> Expire {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy"
+        let currentYear = dateFormatter.string(from: currentDate)
+        dateFormatter.dateFormat = "MM"
+        let currentMonth = dateFormatter.string(from: currentDate)
+        
+        let cardMonth = self.expireDate.prefix(2)
+        let cardYear = self.expireDate.suffix(2)
+        
+        //put here just for testing purposes
+        if (Int(cardMonth) == nil) || (Int(cardYear) == nil) {
+            return .ok
+        }
+        
+        let yearDelta = (Int(currentYear)! - Int(cardYear)!)
+        let monthDelta = (Int(currentMonth)! - Int(cardMonth)!)
+
+        if yearDelta > 0 {
+            return .expired
+        }
+            
+        else if yearDelta == 0 {
+            if monthDelta > 0 {
+                return .expired
+            }
+            else if monthDelta >= -3 {
+                return .expiresoon
+            }
+        }
+            
+        else if yearDelta == -1 {
+            if monthDelta >= 9 && monthDelta <= 11 {
+                return .expiresoon
+            }
+        }
+        
+        return .ok
     }
     
     func getCardNumber() -> String { return self.cardNumber }
