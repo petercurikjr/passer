@@ -45,6 +45,10 @@ struct CodeCountdownView: View {
         VStack {
             if(self.server.approvedByServer != nil && self.server.serverDown == false) {
                 HStack {
+                    Text("Tap to go back").font(.footnote)
+                    Image(systemName: "arrow.up")
+                }
+                HStack {
                     ///Here, im sure that sixdigitCode is not nil (thanks to the if statement), so I can confidently persuade Swift that the value contains something (by using "!")
                     Text((self.server.approvedByServer?.sixdigitCode)!.prefix(3))
                         .font(.system(size: 40))
@@ -63,9 +67,10 @@ struct CodeCountdownView: View {
                         .multilineTextAlignment(.center)
                         .padding(.leading, 2)
                                         
-                }.padding(.bottom, 30)
-                Text("This is your six-digit verification code.")
-                Text("Visit pass.me and enter it to access your passwords.")
+                }.padding(.bottom, 30).padding(.top, 50)
+                Text("Visit netlify.passer.app website")
+                Text("and enter this code to access selected items.")
+                Text("")
                     .multilineTextAlignment(.center)
                 
                 

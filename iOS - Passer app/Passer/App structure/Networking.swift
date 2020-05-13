@@ -33,7 +33,7 @@ final class ServerDelegate: ObservableObject {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonToUpload;
-        
+                
         ///Timeout settings
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForResource = TimeInterval(10)
@@ -56,10 +56,9 @@ final class ServerDelegate: ObservableObject {
             }
             
             ///Success
-            if let data = data,
-                let dataString = String(data: data, encoding: .utf8) {
+            if data != nil {
                 self.processServerResult(sixdigitStructure: sixdigitStructure)
-                print(dataString)
+                print("server ok")
             }
         })
         task.resume()

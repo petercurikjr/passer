@@ -177,32 +177,20 @@ struct OutsiderFirstView: View {
     }
     
     private func selectDeselectAll() {
+        self.chosenPasswords.removeAll()
+        self.chosenBankCards.removeAll()
+        self.chosenOthers.removeAll()
         
-        if self.chosenPassword != nil {
-            self.chosenPasswords.removeLast(chosenPasswords.count-1)
-        }
-        else {
-            self.chosenPasswords.removeAll()
-        }
-        
-        if self.chosenBankCard != nil {
-            self.chosenBankCards.removeLast(chosenBankCards.count-1)
-        }
-        else {
-            self.chosenBankCards.removeAll()
-        }
-        
-        if self.chosenOther != nil {
-            self.chosenOthers.removeLast(chosenOthers.count-1)
-        }
-        else {
-            self.chosenOthers.removeAll()
-        }
-
         if self.checkedAll {
             self.chosenPasswords.append(contentsOf: vault.passwordItems)
             self.chosenBankCards.append(contentsOf: vault.bankCardItems)
             self.chosenOthers.append(contentsOf: vault.otherItems)
+        }
+        
+        else {
+            if self.chosenPassword != nil { self.chosenPasswords.append(self.chosenPassword!) }
+            else if self.chosenBankCard != nil { self.chosenBankCards.append(self.chosenBankCard!) }
+            else if self.chosenOther != nil { self.chosenOthers.append(self.chosenOther!) }
         }
     }
 }

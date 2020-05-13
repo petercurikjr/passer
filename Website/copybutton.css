@@ -21,16 +21,17 @@ button {
 }
 
 .copy-button {
-  width: 12rem;
+  width: 10rem;
   height: auto;
   margin: 0em 0em 0em -1em;
+  padding: 0em;
 }
 .copy-button .circle {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: relative;
   display: block;
-  margin: -1px 0px -2px -5px;
-  left: 12px;
+  margin: -1px 0px -2px 0px;
+  left: 14px;
   width: 0rem;
   height: 3rem;
   background: #282936;
@@ -68,7 +69,7 @@ button {
   text-transform: uppercase;
 }
 .copy-button:hover .circle {
-  width: 100%;
+  width: 93%;
   opacity: 100%;
   -webkit-opacity: 1;
 }
