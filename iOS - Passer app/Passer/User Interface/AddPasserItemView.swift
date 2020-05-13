@@ -22,6 +22,7 @@ struct AddPasserItemView: View {
     @State private var username: String = ""
     @State private var password: String = ""    ///Mandatory
     @State private var url: String = ""
+    @State private var passwHidden = true
     
     ///BankCardItem
     @State private var cardNumber: String = ""  ///Mandatory
@@ -112,16 +113,45 @@ struct AddPasserItemView: View {
                         TextField("Username or an email", text: $username)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
-                        TextField("Password", text: $password, onEditingChanged: { _ in
-                            if !self.password.isEmpty && !self.itemname.isEmpty {
-                                self.buttonDisabled = false
+                        
+                        ZStack {
+                            HStack {
+                                if passwHidden {
+                                    SecureField("Password", text: $password, onCommit: {
+                                        if !self.password.isEmpty && !self.itemname.isEmpty {
+                                            self.buttonDisabled = false
+                                        }
+                                        else {
+                                            self.buttonDisabled = true
+                                        }
+                                    })
+                                        .autocapitalization(.none)
+                                        .disableAutocorrection(true)
+                                }
+                                    
+                                else {
+                                    TextField("Password", text: $password, onEditingChanged: { _ in
+                                        if !self.password.isEmpty && !self.itemname.isEmpty {
+                                            self.buttonDisabled = false
+                                        }
+                                        else {
+                                            self.buttonDisabled = true
+                                        }
+                                    })
+                                        .autocapitalization(.none)
+                                        .disableAutocorrection(true)
+                                }
+                                
+                                //Spacer()
+                                
+                                Image(systemName: passwHidden ? "eye.slash.fill" : "eye.fill")
+                                    .onTapGesture {
+                                        self.passwHidden.toggle()
+                                    }
                             }
-                            else {
-                                self.buttonDisabled = true
-                            }
-                        })
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
+                        }
+                        
+                        
                         TextField("Website", text: $url)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
@@ -138,7 +168,6 @@ struct AddPasserItemView: View {
                                 self.buttonDisabled = true
                             }
                         })
-                            .keyboardType(.numberPad)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                         TextField("Valid until MM/YY", text: $expireDate, onEditingChanged: { _ in
@@ -149,7 +178,6 @@ struct AddPasserItemView: View {
                                 self.buttonDisabled = true
                             }
                         })
-                            .keyboardType(.numberPad)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                         TextField("CVV/CVC code", text: $cvv, onEditingChanged: { _ in
@@ -160,7 +188,6 @@ struct AddPasserItemView: View {
                                 self.buttonDisabled = true
                             }
                         })
-                            .keyboardType(.numberPad)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                         TextField("PIN number", text: $pinNumber, onEditingChanged: { _ in

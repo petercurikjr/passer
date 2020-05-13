@@ -7,33 +7,56 @@
 //
 
 import SwiftUI
+import LocalAuthentication
 
 struct AppView: View {
     
     ///Accessible by all child views. vault was created in SceneDelegate.swift when launching the app
     @EnvironmentObject var vault: Vault
+    @State var authenticated = false
     
     var body: some View {
-        /*
-        //use this if tabview starts killing the app:
-        ContentView()
-        */
-        
-        TabView() {
-            ContentView()
-                .tabItem {
-                    Image(systemName: "pencil.and.ellipsis.rectangle")
-                    Text("Items")
-                }.tag(1)
-            
-            SettingsView()
-                .tabItem {
-                    Image(systemName: "gear")
-                    Text("Settings")
-                }.tag(2)
-        }
-         
+        VStack {
+            if authenticated {
+                TabView() {
+                    ContentView()
+                        .tabItem {
+                            Image(systemName: "pencil.and.ellipsis.rectangle")
+                            Text("Items")
+                        }.tag(1)
+                    
+                    SettingsView()
+                        .tabItem {
+                            Image(systemName: "gear")
+                            Text("Settings")
+                        }.tag(2)
+                }
+            }
+        }.onAppear(perform: {
+            if !self.vault.isEmpty() {
+                self.authenticateUser()
+            }
+            else {
+                self.authenticated = true
+            }
+        })
     }
+    
+    private func authenticateUser() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Unlock passer", reply: { success, error in
+                DispatchQueue.main.async {
+                    if success {
+                        self.authenticated = true
+                    }
+                }
+            })
+        }
+    }
+    
 }
 
 struct AppView_Previews: PreviewProvider {

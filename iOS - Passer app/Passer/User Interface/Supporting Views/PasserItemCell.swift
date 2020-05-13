@@ -25,7 +25,7 @@ struct PasserItemCell: View {
         VStack {
             if expanded && passwordItem != nil {
                 VStack {
-                    VStack {
+                    HStack {
                         VStack(alignment: .leading) {
                             VStack(alignment: .leading) {
                                 Text("Username or an email: ")
@@ -42,85 +42,81 @@ struct PasserItemCell: View {
                                     .bold().font(.headline)
                                 Text(passwordItem!.getUrl() ?? "")
                             }
-                        }.padding().padding(.top).padding(.bottom)
-                        
+                        }.padding().padding(.vertical).padding(.trailing)
                         Divider()
-                        
                         VStack {
-                            if self.passwordItem!.passwordStrength().isEmpty {
-                                HStack {
-                                    Text("Password strength: ").bold()
-                                    Text("Good").foregroundColor(Color.green).bold()
+                            VStack {
+                                if self.passwordItem!.passwordStrength().isEmpty {
+                                    VStack {
+                                        Text("Password: ").bold()
+                                        Text("Strong").foregroundColor(Color.green).bold()
+                                    }.padding(.top)
                                 }
-                            }
-                                
-                            else if self.passwordItem!.passwordStrength().count == 1 && !self.passwordItem!.passwordStrength().contains(.short) {
-                                HStack {
-                                   Text("Password strength: ").bold()
-                                   Text("Vulnerable").foregroundColor(Color.yellow).bold()
+                                    
+                                else if self.passwordItem!.passwordStrength().count == 1 && !self.passwordItem!.passwordStrength().contains(.short) {
+                                    VStack {
+                                        Text("Password strength: ").bold()
+                                        Text("Vulnerable").foregroundColor(Color.yellow).bold()
+                                    }.padding(.top)
+                                    if self.passwordItem!.passwordStrength().contains(.nolower) {
+                                        Text("No lowercase letters.")
+                                    }
+                                    else if self.passwordItem!.passwordStrength().contains(.noupper) {
+                                        Text("No uppercase letters.")
+                                    }
+                                    else if self.passwordItem!.passwordStrength().contains(.nonumbers) {
+                                        Text("No numbers.")
+                                    }
                                 }
-                                if self.passwordItem!.passwordStrength().contains(.nolower) {
-                                    Text("No lowercase letters.")
+                                else if self.passwordItem!.passwordStrength().count > 1 || self.passwordItem!.passwordStrength().contains(.short) {
+                                    VStack {
+                                        Text("Password strength: ").bold()
+                                        Text("Critical").foregroundColor(Color.red).bold()
+                                    }.padding(.top)
+                                    if self.passwordItem!.passwordStrength().contains(.short) {
+                                        Text("Password too short.")
+                                    }
+                                    if self.passwordItem!.passwordStrength().contains(.nolower) {
+                                        Text("No lowercase letters.")
+                                    }
+                                    if self.passwordItem!.passwordStrength().contains(.noupper) {
+                                        Text("No uppercase letters.")
+                                    }
+                                    if self.passwordItem!.passwordStrength().contains(.nonumbers) {
+                                        Text("No numbers.")
+                                    }
                                 }
-                                else if self.passwordItem!.passwordStrength().contains(.noupper) {
-                                    Text("No uppercase letters.")
-                                }
-                                else if self.passwordItem!.passwordStrength().contains(.nonumbers) {
-                                    Text("No numbers.")
-                                }
-                            }
-                            else if self.passwordItem!.passwordStrength().count > 1 || self.passwordItem!.passwordStrength().contains(.short) {
-                                HStack {
-                                    Text("Password strength: ").bold()
-                                    Text("Critical").foregroundColor(Color.red).bold()
-                                }
-                                if self.passwordItem!.passwordStrength().contains(.short) {
-                                    Text("Password too short.")
-                                }
-                                if self.passwordItem!.passwordStrength().contains(.nolower) {
-                                    Text("No lowercase letters.")
-                                }
-                                if self.passwordItem!.passwordStrength().contains(.noupper) {
-                                    Text("No uppercase letters.")
-                                }
-                                if self.passwordItem!.passwordStrength().contains(.nonumbers) {
-                                    Text("No numbers.")
-                                }
-                            }
+                            }.padding()
+                            HStack(alignment: .center) {
+                                Button(action: {
+                                    self.showOutsider = true
+                                }) {
+                                    ButtonUI(name: "Outsider")
+                                    
+                                }.scaleEffect(0.8)
+                                    .buttonStyle(BorderlessButtonStyle())
+                                /*
+                                 Button(action: {
+                                 print("Edit button tapped")
+                                 self.showEdit = true
+                                 }) {
+                                 ButtonUI(name: "Edit")
+                                 }.scaleEffect(0.8)
+                                 .buttonStyle(BorderlessButtonStyle())
+                                 */
+                            }.padding(.top,30)
+                            Spacer()
                         }
-                        
-                        Spacer()
-                    }
-                    
-                    Divider()
-                    
-                    HStack(alignment: .center) {
-                        Button(action: {
-                            self.showOutsider = true
-                        }) {
-                            ButtonUI(name: "Outsider")
-                            
-                        }.scaleEffect(0.8)
-                        .buttonStyle(BorderlessButtonStyle())
-                        /*
-                        Button(action: {
-                            print("Edit button tapped")
-                            self.showEdit = true
-                        }) {
-                            ButtonUI(name: "Edit")
-                        }.scaleEffect(0.8)
-                        .buttonStyle(BorderlessButtonStyle())
-                         */
-                    }
-                }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25)
-                .onAppear(perform: {
-                    self.chosenName = self.passwordItem!.getItemName()
-                })
+                    }.padding(.trailing)
+                }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25).padding(.bottom)
+                    .onAppear(perform: {
+                        self.chosenName = self.passwordItem!.getItemName()
+                    })
             }
-                    
+                
             else if expanded && bankCardItem != nil {
                 VStack {
-                    VStack {
+                    HStack {
                         VStack(alignment: .leading) {
                             VStack(alignment: .leading) {
                                 Text("Card number: ")
@@ -142,112 +138,110 @@ struct PasserItemCell: View {
                                     .bold().font(.headline)
                                 Text(bankCardItem!.getPin() ?? "")
                             }
-                        }.padding().padding(.top).padding(.bottom)
-                        
+                        }.padding().padding(.vertical).padding(.trailing)
                         Divider()
                         
                         VStack {
-                            Text("Card state:")
-                                .bold()
+                            VStack {
+                                Text("Card:")
+                                    .bold().padding(.top)
+                                
+                                if self.bankCardItem!.bankCardExpireDate() == .ok {
+                                    Text("OK")
+                                        .foregroundColor(Color.green).bold()
+                                }
+                                else if self.bankCardItem!.bankCardExpireDate() == .expiresoon {
+                                    Text("Will expire soon")
+                                        .foregroundColor(Color.yellow).bold()
+                                }
+                                else {
+                                    Text("Expired")
+                                        .foregroundColor(Color.red).bold()
+                                }
+                                
+                            }.padding()
                             
-                            if self.bankCardItem!.bankCardExpireDate() == .ok {
-                                Text("OK")
-                                    .foregroundColor(Color.green).bold()
-                            }
-                            else if self.bankCardItem!.bankCardExpireDate() == .expiresoon {
-                                Text("Will expire soon")
-                                    .foregroundColor(Color.yellow).bold()
-                            }
-                            else {
-                                Text("Expired")
-                                    .foregroundColor(Color.red).bold()
-                            }
-                           
+                            Spacer()
+                            
+                            HStack(alignment: .center) {
+                                Button(action: {
+                                    self.showOutsider = true
+                                }) {
+                                    ButtonUI(name: "Outsider")
+                                    
+                                }.scaleEffect(0.8)
+                                    .buttonStyle(BorderlessButtonStyle())
+                                /*
+                                 Button(action: {
+                                 print("Edit button tapped")
+                                 self.showEdit = true
+                                 }) {
+                                 ButtonUI(name: "Edit")
+                                 }.scaleEffect(0.8)
+                                 .buttonStyle(BorderlessButtonStyle())
+                                 */
+                            }.padding(.top,30)
+                            Spacer()
                         }
-                        
-                        Spacer()
-                    }
-                    
-                    Divider()
-                    
-                    HStack(alignment: .center) {
-                        Button(action: {
-                            self.showOutsider = true
-                        }) {
-                            ButtonUI(name: "Outsider")
-                            
-                        }.scaleEffect(0.8)
-                        .buttonStyle(BorderlessButtonStyle())
-                        /*
-                        Button(action: {
-                            print("Edit button tapped")
-                            self.showEdit = true
-                        }) {
-                            ButtonUI(name: "Edit")
-                        }.scaleEffect(0.8)
-                        .buttonStyle(BorderlessButtonStyle())
-                        */
-                    }
-                }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25)
-                .onAppear(perform: {
-                    self.chosenName = self.bankCardItem!.getItemName()
-                })
+                    }.padding(.trailing)
+                }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25).padding(.bottom)
+                    .onAppear(perform: {
+                        self.chosenName = self.bankCardItem!.getItemName()
+                    })
             }
                 
             else if expanded && otherItem != nil {
                 VStack {
-                    VStack {
+                    HStack {
                         VStack(alignment: .leading) {
                             VStack(alignment: .leading) {
-                                Text("Field1: ")
+                                Text("Field1:               ")
                                     .bold().font(.headline)
                                 Text(otherItem!.getField1() ?? "")
                             }.padding(.bottom)
                             VStack(alignment: .leading) {
-                                Text("Field2: ")
+                                Text("Field2:               ")
                                     .bold().font(.headline)
                                 Text(otherItem!.getField2() ?? "")
                             }.padding(.bottom)
                             VStack(alignment: .leading) {
-                                Text("Field3: ")
+                                Text("Field3:               ")
                                     .bold().font(.headline)
                                 Text(otherItem!.getField3() ?? "")
                             }.padding(.bottom)
                             VStack(alignment: .leading) {
-                                Text("Field4: ")
+                                Text("Field4:               ")
                                     .bold().font(.headline)
                                 Text(otherItem!.getField4() ?? "")
                             }
-                        }.padding().padding(.top).padding(.bottom)
+                        }.padding().padding(.vertical).padding(.trailing)
                         
-                        Spacer()
-                    }
-                    
-                    Divider()
-                    
-                    HStack(alignment: .center) {
-                        Button(action: {
-                            self.showOutsider = true
-                        }) {
-                            ButtonUI(name: "Outsider")
-                            
-                        }.scaleEffect(0.8)
-                        .buttonStyle(BorderlessButtonStyle())
-                        /*
-                        Button(action: {
-                            print("Edit button tapped")
-                            self.showEdit = true
-                        }) {
-                            ButtonUI(name: "Edit")
-                        }.scaleEffect(0.8)
-                        .buttonStyle(BorderlessButtonStyle())
-                         */
-                    }
-                    
-                }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25)
-                .onAppear(perform: {
-                    self.chosenName = self.otherItem!.getItemName()
-                })
+                        Divider()
+                        
+                        HStack(alignment: .center) {
+                            Button(action: {
+                                self.showOutsider = true
+                            }) {
+                                ButtonUI(name: "Outsider")
+                                
+                            }.scaleEffect(0.8)
+                                .buttonStyle(BorderlessButtonStyle())
+                            /*
+                             Button(action: {
+                             print("Edit button tapped")
+                             self.showEdit = true
+                             }) {
+                             ButtonUI(name: "Edit")
+                             }.scaleEffect(0.8)
+                             .buttonStyle(BorderlessButtonStyle())
+                             */
+                        }
+                        
+                    }.background(Color("gray2").opacity(0.1).shadow(radius: 30)).cornerRadius(25).padding(.bottom)
+                        .onAppear(perform: {
+                            self.chosenName = self.otherItem!.getItemName()
+                        })
+                }
             }
         }
         .sheet(isPresented: self.$showEdit) {
@@ -258,7 +252,7 @@ struct PasserItemCell: View {
             OutsiderFirstView(chosenPassword: self.passwordItem, chosenBankCard: self.bankCardItem, chosenOther: self.otherItem, chosenName: self.chosenName)
                 .environmentObject(self.vault)
         }
- 
+        
     }
 }
 

@@ -26,7 +26,6 @@ struct ContentView: View {
     @EnvironmentObject var vault: Vault
     
     var body: some View {
-        
         VStack {
             if(self.vault.isEmpty()) {
                 EmptyVault()
@@ -35,7 +34,7 @@ struct ContentView: View {
             else {
                 VStack {
                     HStack {
-                        Text("Your secrets")
+                        Text("Passer")
                             .bold()
                             .font(.largeTitle)
                         Spacer()
@@ -50,17 +49,22 @@ struct ContentView: View {
                                 AddPasserItemView().environmentObject(self.vault)
                         }
                     }
-                    
-                    HStack {
-                        Text("Manage and view your passwords, credit card items, and more.")
-                            .font(.subheadline)
-                        Spacer()
-                    }
                 }.padding(30).multilineTextAlignment(.leading).padding(.top)
                 
                 VStack {
                     ScrollView(.horizontal) {
                         HStack {
+                            Button(action: {
+                                for i in 0..<self.groupSelector.count {
+                                    self.groupSelector[i] = false
+                                }
+                                self.groupSelector[3].toggle()
+                                
+                            }) {
+                                GroupsSelector(groupName: "All", count: vault.passwordItems.count + vault.bankCardItems.count + vault.otherItems.count,
+                                               color1: groupSelector[3] ? "blue1" : "gray1",
+                                               color2: groupSelector[3] ? "blue2" : "gray2", emoji: "📝")
+                            }.buttonStyle(PlainButtonStyle())
                             Button(action: {
                                 for i in 0..<self.groupSelector.count {
                                     self.groupSelector[i] = false
@@ -110,17 +114,6 @@ struct ContentView: View {
                                     ((self.filter == 1 || self.filter == 4) ? vault.otherItems.filter { $0.getFavourites() == true }.count : 0),
                                                color1: groupSelector[2] ? "hot1" : "gray1",
                                                color2: groupSelector[2] ? "hot2" : "gray2", emoji: "⭐️")
-                            }.buttonStyle(PlainButtonStyle())
-                            Button(action: {
-                                for i in 0..<self.groupSelector.count {
-                                    self.groupSelector[i] = false
-                                }
-                                self.groupSelector[3].toggle()
-                                
-                            }) {
-                                GroupsSelector(groupName: "All", count: vault.passwordItems.count + vault.bankCardItems.count + vault.otherItems.count,
-                                               color1: groupSelector[3] ? "blue1" : "gray1",
-                                               color2: groupSelector[3] ? "blue2" : "gray2", emoji: "📝")
                             }.buttonStyle(PlainButtonStyle())
                         }
                     }.padding(.horizontal)

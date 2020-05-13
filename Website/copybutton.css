@@ -36,6 +36,7 @@ button {
   background: #282936;
   border-radius: 1.625rem;
   opacity: 0%;
+  -webkit-opacity: 0;
 }
 .copy-button .circle .icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
@@ -69,6 +70,7 @@ button {
 .copy-button:hover .circle {
   width: 100%;
   opacity: 100%;
+  -webkit-opacity: 1;
 }
 .copy-button:hover .circle .icon.arrow {
   background: #fff;
