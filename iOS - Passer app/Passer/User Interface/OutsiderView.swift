@@ -62,17 +62,17 @@ struct OutsiderView: View {
                     Button(action: {
                         self.triggerQR()
                     }) {
-                        ZStack {
+                        VStack {
                             OptionQR().opacity(viewDigitAlone ? 0 : 1).animation(Animation.easeInOut(duration: 1))
                         }.scaleEffect(self.animationAmount)
-                            .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
-                            .contentShape(Rectangle())
+                        .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
+                        .contentShape(Rectangle())
                         
                     }.offset(y: viewQRAlone ? -120 : 0)
-                        .animation(Animation.easeInOut(duration: 0.5).delay(0.5))
-                        .buttonStyle(PlainButtonStyle())
-                        .padding()
-                        .disabled(viewDigitAlone)
+                    .animation(Animation.easeInOut.delay(0.5))
+                    .buttonStyle(PlainButtonStyle())
+                    .padding()
+                    .disabled(viewDigitAlone)
 
                     Button(action: {
                         self.triggerSixdigit()
@@ -98,6 +98,12 @@ struct OutsiderView: View {
                     CodeCountdownView(chosenPasswords: self.chosenPasswords, chosenBankCards: self.chosenBankCards, chosenOthers: self.chosenOthers)
                 }
             }.opacity(viewDigitAlone ? 1 : 0).animation(Animation.easeInOut(duration: 0.4).delay(viewDigitAlone ? 1 : 0))
+            
+            ZStack {
+                if self.viewQRAlone {
+                QRScannerView(chosenPasswords: self.chosenPasswords, chosenBankCards: self.chosenBankCards, chosenOthers: self.chosenOthers)
+                }
+            }.opacity(viewQRAlone ? 1 : 0).animation(Animation.easeInOut(duration: 0.4).delay(viewQRAlone ? 1 : 0))
                 
         }
     }

@@ -1,8 +1,33 @@
 var sixDigitCodeArray = ["","","","","",""]
+let sessionID = Date.now().toString(36) + Math.random().toString(36).substr(2, 5)
 
 //Initial state. Only the first box of sixdigitcode is writable
 function startingJS() {
     localStorage.clear()
+    generateQRcode()
+
+        setInterval(function() {
+            let xhr = new XMLHttpRequest()
+            xhr.open("POST", "https://api-passer.herokuapp.com/verifyQRfromwebsite", true)
+            xhr.setRequestHeader("Content-Type", "application/json")
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    //success
+                    if(xhr.responseText != "Nothing") {
+                        window.localStorage.setItem("serverData",xhr.responseText)
+                        window.location.replace("passwords.html");
+                    }
+                }
+            }
+            let data = 
+            {
+                "sessionID": sessionID
+            }
+
+            let jsonData = JSON.stringify(data)
+            xhr.send(jsonData)
+        }, 1500)   
+
     for(var i=2; i<=6; i++) {
         document.getElementById(i).disabled = true
     }
@@ -60,12 +85,11 @@ function verify() {
     let codeJoined = String(sixDigitCodeArray.join(''))
 
     let xhr = new XMLHttpRequest()
-    xhr.open("POST", "https://api-passer.herokuapp.com/verify_from_website", true)
+    xhr.open("POST", "https://api-passer.herokuapp.com/verifySixDigitfromwebsite", true)
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             //success
-            console.log("Server response: " + xhr.responseText)
             if(xhr.responseText != "Wrong code") {
                 window.localStorage.setItem("serverData",xhr.responseText)
                 window.location.replace("passwords.html");
@@ -86,9 +110,7 @@ function verify() {
 
             }
         }
-
-
-    };
+    }
     let data = 
         {
             "sixdigitTyped": codeJoined
@@ -106,6 +128,15 @@ function clear() {
     }
     sixDigitCodeArray = []
     children[0].disabled = false
+}
+
+function generateQRcode() {
+    var qr = new QRCode(document.getElementById("qr-image"), {
+        width: 120,
+        height: 120,
+        correctLevel : QRCode.CorrectLevel.L
+    })
+    qr.makeCode(sessionID)
 }
 
 //Loading graphics

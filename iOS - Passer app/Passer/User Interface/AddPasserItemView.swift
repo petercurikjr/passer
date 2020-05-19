@@ -270,8 +270,6 @@ struct AddPasserItemView: View {
                                     .tag(1)
                                 Text("Work 💼")
                                     .tag(2)
-                                Text("Other...")
-                                    .tag(3)
                                 }.pickerStyle(SegmentedPickerStyle())
                             .offset(x: toggleIsOn ? 0 : -1000, y: 0).animation(Animation.easeInOut(duration: 0.4))
                             

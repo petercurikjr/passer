@@ -12,7 +12,7 @@ struct ContentView: View {
     ///State means "variable can update the view (locally)"
     @State private var showAddPassword = false
     
-    @State private var groupSelector = [false,false,false,true]
+    @State private var groupSelector = [true,false,false,false]
     @State private var passwordGroups = [PasswordItem]()
     @State private var bankCardGroups = [BankCardItem]()
     @State private var otherGroups = [OtherItem]()
@@ -49,78 +49,80 @@ struct ContentView: View {
                                 AddPasserItemView().environmentObject(self.vault)
                         }
                     }
-                }.padding(30).multilineTextAlignment(.leading).padding(.top)
+                }.padding(.horizontal, 30).multilineTextAlignment(.leading).padding(.vertical).padding(.top)
                 
                 VStack {
-                    ScrollView(.horizontal) {
-                        HStack {
-                            Button(action: {
-                                for i in 0..<self.groupSelector.count {
-                                    self.groupSelector[i] = false
-                                }
-                                self.groupSelector[3].toggle()
-                                
-                            }) {
-                                GroupsSelector(groupName: "All", count: vault.passwordItems.count + vault.bankCardItems.count + vault.otherItems.count,
-                                               color1: groupSelector[3] ? "blue1" : "gray1",
-                                               color2: groupSelector[3] ? "blue2" : "gray2", emoji: "📝")
-                            }.buttonStyle(PlainButtonStyle())
-                            Button(action: {
-                                for i in 0..<self.groupSelector.count {
-                                    self.groupSelector[i] = false
-                                }
-                                self.groupSelector[0].toggle()
-                                self.passwordGroups = self.vault.passwordItems.filter { $0.getGroup() == 1 }
-                                self.bankCardGroups = self.vault.bankCardItems.filter { $0.getGroup() == 1 }
-                                self.otherGroups = self.vault.otherItems.filter { $0.getGroup() == 1 }
-                            }) {
-                                GroupsSelector(groupName: "Personal", count:
-                                    ((self.filter == 1 || self.filter == 2) ? vault.passwordItems.filter { $0.getGroup() == 1 }.count : 0) +
-                                    ((self.filter == 1 || self.filter == 3) ? vault.bankCardItems.filter { $0.getGroup() == 1 }.count : 0) +
-                                    ((self.filter == 1 || self.filter == 4) ? vault.otherItems.filter { $0.getGroup() == 1 }.count : 0),
-                                               color1: groupSelector[0] ? "blue1" : "gray1",
-                                               color2: groupSelector[0] ? "blue2" : "gray2", emoji: "👤")
-                            }.buttonStyle(PlainButtonStyle())
-                            Button(action: {
-                                for i in 0..<self.groupSelector.count {
-                                    self.groupSelector[i] = false
-                                }
-                                self.groupSelector[1].toggle()
-                                self.passwordGroups = self.vault.passwordItems.filter { $0.getGroup() == 2 }
-                                self.bankCardGroups = self.vault.bankCardItems.filter { $0.getGroup() == 2 }
-                                self.otherGroups = self.vault.otherItems.filter { $0.getGroup() == 2 }
-                                
-                            }) {
-                                GroupsSelector(groupName: "Work", count:
-                                    ((self.filter == 1 || self.filter == 2) ? vault.passwordItems.filter { $0.getGroup() == 2 }.count : 0) +
-                                    ((self.filter == 1 || self.filter == 3) ? vault.bankCardItems.filter { $0.getGroup() == 2 }.count : 0) +
-                                    ((self.filter == 1 || self.filter == 4) ? vault.otherItems.filter { $0.getGroup() == 2 }.count : 0),
-                                               color1: groupSelector[1] ? "blue1" : "gray1",
-                                               color2: groupSelector[1] ? "blue2" : "gray2", emoji: "💼")
-                            }.buttonStyle(PlainButtonStyle())
-                            Button(action: {
-                                for i in 0..<self.groupSelector.count {
-                                    self.groupSelector[i] = false
-                                }
-                                self.groupSelector[2].toggle()
-                                self.passwordGroups = self.vault.passwordItems.filter { $0.getFavourites() == true }
-                                self.bankCardGroups = self.vault.bankCardItems.filter { $0.getFavourites() == true }
-                                self.otherGroups = self.vault.otherItems.filter { $0.getFavourites() == true }
-        
-                            }) {
-                                GroupsSelector(groupName: "Favourites", count:
-                                    ((self.filter == 1 || self.filter == 2) ? vault.passwordItems.filter { $0.getFavourites() == true }.count : 0) +
+                    HStack {
+                        Button(action: {
+                            for i in 0..<self.groupSelector.count {
+                                self.groupSelector[i] = false
+                            }
+                            self.groupSelector[0].toggle()
+                            
+                        }) {
+                            GroupsSelector(groupName: "All groups", count: vault.passwordItems.count + vault.bankCardItems.count + vault.otherItems.count,
+                                           color1: groupSelector[0] ? "blue1" : "gray1",
+                                           color2: groupSelector[0] ? "blue2" : "gray2", emoji: "📝")
+                        }.buttonStyle(PlainButtonStyle())
+                        Spacer()
+                        Button(action: {
+                            for i in 0..<self.groupSelector.count {
+                                self.groupSelector[i] = false
+                            }
+                            self.groupSelector[3].toggle()
+                            self.passwordGroups = self.vault.passwordItems.filter { $0.getFavourites() == true }
+                            self.bankCardGroups = self.vault.bankCardItems.filter { $0.getFavourites() == true }
+                            self.otherGroups = self.vault.otherItems.filter { $0.getFavourites() == true }
+                            
+                        }) {
+                            GroupsSelector(groupName: "Favourites", count:
+                                ((self.filter == 1 || self.filter == 2) ? vault.passwordItems.filter { $0.getFavourites() == true }.count : 0) +
                                     ((self.filter == 1 || self.filter == 3) ? vault.bankCardItems.filter { $0.getFavourites() == true }.count : 0) +
                                     ((self.filter == 1 || self.filter == 4) ? vault.otherItems.filter { $0.getFavourites() == true }.count : 0),
-                                               color1: groupSelector[2] ? "hot1" : "gray1",
-                                               color2: groupSelector[2] ? "hot2" : "gray2", emoji: "⭐️")
-                            }.buttonStyle(PlainButtonStyle())
-                        }
-                    }.padding(.horizontal)
-                }
+                                           color1: groupSelector[3] ? "hot1" : "gray1",
+                                           color2: groupSelector[3] ? "hot2" : "gray2", emoji: "⭐️")
+                        }.buttonStyle(PlainButtonStyle())
+                    }
+                    HStack {
+                        Button(action: {
+                            for i in 0..<self.groupSelector.count {
+                                self.groupSelector[i] = false
+                            }
+                            self.groupSelector[1].toggle()
+                            self.passwordGroups = self.vault.passwordItems.filter { $0.getGroup() == 1 }
+                            self.bankCardGroups = self.vault.bankCardItems.filter { $0.getGroup() == 1 }
+                            self.otherGroups = self.vault.otherItems.filter { $0.getGroup() == 1 }
+                        }) {
+                            GroupsSelector(groupName: "Personal", count:
+                                ((self.filter == 1 || self.filter == 2) ? vault.passwordItems.filter { $0.getGroup() == 1 }.count : 0) +
+                                    ((self.filter == 1 || self.filter == 3) ? vault.bankCardItems.filter { $0.getGroup() == 1 }.count : 0) +
+                                    ((self.filter == 1 || self.filter == 4) ? vault.otherItems.filter { $0.getGroup() == 1 }.count : 0),
+                                           color1: groupSelector[1] ? "blue1" : "gray1",
+                                           color2: groupSelector[1] ? "blue2" : "gray2", emoji: "👤")
+                        }.buttonStyle(PlainButtonStyle())
+                        Spacer()
+                        Button(action: {
+                            for i in 0..<self.groupSelector.count {
+                                self.groupSelector[i] = false
+                            }
+                            self.groupSelector[2].toggle()
+                            self.passwordGroups = self.vault.passwordItems.filter { $0.getGroup() == 2 }
+                            self.bankCardGroups = self.vault.bankCardItems.filter { $0.getGroup() == 2 }
+                            self.otherGroups = self.vault.otherItems.filter { $0.getGroup() == 2 }
+                            
+                        }) {
+                            GroupsSelector(groupName: "Work", count:
+                                ((self.filter == 1 || self.filter == 2) ? vault.passwordItems.filter { $0.getGroup() == 2 }.count : 0) +
+                                    ((self.filter == 1 || self.filter == 3) ? vault.bankCardItems.filter { $0.getGroup() == 2 }.count : 0) +
+                                    ((self.filter == 1 || self.filter == 4) ? vault.otherItems.filter { $0.getGroup() == 2 }.count : 0),
+                                           color1: groupSelector[2] ? "blue1" : "gray1",
+                                           color2: groupSelector[2] ? "blue2" : "gray2", emoji: "💼")
+                        }.buttonStyle(PlainButtonStyle())
+                    }
+                }.padding(.horizontal)
                 
                 Picker(selection: $filter, label: Text("")) {
-                    Text("All")
+                    Text("All items")
                         .tag(1)
                     Text("Passwords")
                         .tag(2)
@@ -133,7 +135,7 @@ struct ContentView: View {
                 List {
                     if filter == 1 || filter == 2 {
                         Section(header: Text("Password items")) {
-                            ForEach(self.groupSelector[3] ? self.vault.passwordItems : self.passwordGroups) { item in
+                            ForEach(self.groupSelector[0] ? self.vault.passwordItems : self.passwordGroups) { item in
                                 VStack {
                                     HStack {
                                         Text(item.getItemName())
@@ -144,7 +146,7 @@ struct ContentView: View {
                                         else if item.passwordStrength().count > 1 || item.passwordStrength().contains(.short) {
                                             Image(systemName: "xmark.seal.fill").foregroundColor(Color.red)
                                         }
-                                    }.contentShape(Rectangle()).padding()
+                                    }.contentShape(Rectangle()).padding(2)
                                         .onTapGesture {
                                             self.expandCollapse(item)
                                     }
@@ -161,7 +163,7 @@ struct ContentView: View {
                     
                     if filter == 1 || filter == 3 {
                         Section(header: Text("Bank card items")) {
-                            ForEach(self.groupSelector[3] ? self.vault.bankCardItems : self.bankCardGroups) { item in
+                            ForEach(self.groupSelector[0] ? self.vault.bankCardItems : self.bankCardGroups) { item in
                                 VStack {
                                     HStack {
                                         Text(item.getItemName())
@@ -172,7 +174,7 @@ struct ContentView: View {
                                         else if item.bankCardExpireDate() == .expired {
                                             Image(systemName: "xmark.seal.fill").foregroundColor(Color.red)
                                         }
-                                    }.contentShape(Rectangle()).padding()
+                                    }.contentShape(Rectangle()).padding(2)
                                         .onTapGesture {
                                             self.expandCollapse(item)
                                     }
@@ -188,12 +190,12 @@ struct ContentView: View {
                     
                     if filter == 1 || filter == 4 {
                         Section(header: Text("Other items")) {
-                            ForEach(self.groupSelector[3] ? self.vault.otherItems : self.otherGroups) { item in
+                            ForEach(self.groupSelector[0] ? self.vault.otherItems : self.otherGroups) { item in
                                 VStack {
                                     HStack {
                                         Text(item.getItemName())
                                         Spacer()
-                                    }.contentShape(Rectangle()).padding()
+                                    }.contentShape(Rectangle()).padding(2)
                                         .onTapGesture {
                                             self.expandCollapse(item)
                                     }

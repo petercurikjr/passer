@@ -48,14 +48,14 @@ struct PasserItemCell: View {
                             VStack {
                                 if self.passwordItem!.passwordStrength().isEmpty {
                                     VStack {
-                                        Text("Password: ").bold()
+                                        Text("Password:").bold()
                                         Text("Strong").foregroundColor(Color.green).bold()
                                     }.padding(.top)
                                 }
                                     
                                 else if self.passwordItem!.passwordStrength().count == 1 && !self.passwordItem!.passwordStrength().contains(.short) {
                                     VStack {
-                                        Text("Password strength: ").bold()
+                                        Text("Password:").bold()
                                         Text("Vulnerable").foregroundColor(Color.yellow).bold()
                                     }.padding(.top)
                                     if self.passwordItem!.passwordStrength().contains(.nolower) {
@@ -70,7 +70,7 @@ struct PasserItemCell: View {
                                 }
                                 else if self.passwordItem!.passwordStrength().count > 1 || self.passwordItem!.passwordStrength().contains(.short) {
                                     VStack {
-                                        Text("Password strength: ").bold()
+                                        Text("Password:").bold()
                                         Text("Critical").foregroundColor(Color.red).bold()
                                     }.padding(.top)
                                     if self.passwordItem!.passwordStrength().contains(.short) {

@@ -29,7 +29,7 @@ final class ServerDelegate: ObservableObject {
     }
     
     func postToServer(jsonToUpload: Data, sixdigitStructure: SixdigitAuth) {
-        var request = URLRequest(url: URL(string: "https://api-passer.herokuapp.com")!)
+        var request = URLRequest(url: URL(string: "https://api-passer.herokuapp.com/sixdigit")!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonToUpload;
@@ -58,7 +58,41 @@ final class ServerDelegate: ObservableObject {
             ///Success
             if data != nil {
                 self.processServerResult(sixdigitStructure: sixdigitStructure)
-                print("server ok")
+                print(String(data: data!, encoding: .utf8)!)
+            }
+        })
+        task.resume()
+    }
+    
+    func postToServer(sessionID: Data) {
+        var request = URLRequest(url: URL(string: "https://api-passer.herokuapp.com/qr")!)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = sessionID;
+                
+        ///Timeout settings
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForResource = TimeInterval(10)
+        let session = URLSession(configuration: configuration)
+        
+        print(String(data: sessionID, encoding: String.Encoding.utf8)!)
+        let task = session.uploadTask(with: request, from: sessionID, completionHandler: {
+            (data, response, error) in
+            
+            if let error = error {
+                print("error: \(error)")
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse,
+                (200...299).contains(response.statusCode) else {
+                print("server error")
+                return
+            }
+            
+            ///Success
+            if data != nil {
+                print(String(data: data!, encoding: .utf8)!)
             }
         })
         task.resume()

@@ -24,14 +24,15 @@ struct GroupsSelector: View {
             VStack(alignment: .trailing) {
                 HStack {
                     Text(emoji)
+                    Text(groupName)
+                        .font(.headline)
                     Spacer()
                     Text(String(count))
-                }.padding(.horizontal).padding(.vertical, 10).font(.body)
+                }.padding(.horizontal).font(.body)
                 
-                Text(groupName)
-                    .font(.headline).padding(.horizontal)
+                
             }
-        }.frame(width: 150, height: 80)
+        }.frame(width: 185, height: 40)
     }
 }
 

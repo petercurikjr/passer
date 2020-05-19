@@ -124,15 +124,10 @@ class Vault: ObservableObject {
                 return
         }
         
-        ///To String
-        let passwordStr = String(data: passwordJson, encoding: .utf8)!
-        let bankcardStr = String(data: bankcardJson, encoding: .utf8)!
-        let otherStr = String(data: otherJson, encoding: .utf8)!
-        
         ///To Ciphertext
-        let passwordEncrypt = vaultEncrypt(dataToEncrypt: passwordStr)
-        let bankcardEncrypt = vaultEncrypt(dataToEncrypt: bankcardStr)
-        let otherEncrypt = vaultEncrypt(dataToEncrypt: otherStr)
+        let passwordEncrypt = vaultEncrypt(dataToEncrypt: passwordJson)
+        let bankcardEncrypt = vaultEncrypt(dataToEncrypt: bankcardJson)
+        let otherEncrypt = vaultEncrypt(dataToEncrypt: otherJson)
         
         ///Write file
         do {
@@ -145,7 +140,7 @@ class Vault: ObservableObject {
         }
     }
     
-    private func vaultEncrypt(dataToEncrypt: String) -> Data? {
+    private func vaultEncrypt(dataToEncrypt: Data) -> Data? {
         ///Check for algorithm support
         let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorX963SHA256AESGCM
         guard SecKeyIsAlgorithmSupported(self.publicKey!, .encrypt, algorithm) else {
@@ -155,10 +150,8 @@ class Vault: ObservableObject {
         
         ///Encrypt process
         var error: Unmanaged<CFError>?
-        let dataToEncryptFormatted = dataToEncrypt.data(using: .utf8)!
-        let encryptedData = SecKeyCreateEncryptedData(self.publicKey!, algorithm, dataToEncryptFormatted as CFData, &error) as Data?
 
-        return encryptedData
+        return SecKeyCreateEncryptedData(self.publicKey!, algorithm, dataToEncrypt as CFData, &error) as Data?
     }
     
     private func vaultDecrypt(dataToDecrypt: Data?) -> Data? {
