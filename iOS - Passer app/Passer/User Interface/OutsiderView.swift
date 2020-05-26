@@ -52,7 +52,7 @@ struct OutsiderView: View {
                     }
                     
                     HStack {
-                        Text("Choose one of the verification methods below.")
+                        Text("Choose one of the verification methods below. Selected method expires after 2 minutes or after successful verification.")
                             .font(.subheadline)
                         Spacer()
                     }
@@ -68,7 +68,7 @@ struct OutsiderView: View {
                         .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
                         .contentShape(Rectangle())
                         
-                    }.offset(y: viewQRAlone ? -120 : 0)
+                    }.offset(y: viewQRAlone ? -140 : 0)
                     .animation(Animation.easeInOut.delay(0.5))
                     .buttonStyle(PlainButtonStyle())
                     .padding()
@@ -83,7 +83,7 @@ struct OutsiderView: View {
                         .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
                         .contentShape(Rectangle())
                     
-                    }.offset(y: viewDigitAlone ? -300 : 0)
+                    }.offset(y: viewDigitAlone ? -330 : 0)
                     .animation(Animation.easeInOut.delay(0.5))
                     .buttonStyle(PlainButtonStyle())
                     .padding()

@@ -36,11 +36,12 @@ struct QRScannerView: View {
                 HStack {
                     Text("Tap to go back").font(.footnote)
                     Image(systemName: "arrow.up")
-                }.padding(.bottom, 70)
+                }.padding(.bottom, 50)
                 Text("Visit netlify.passer.app website")
                 Text("and scan the QR code to access selected items.")
                 CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
                     .frame(width: 350, height: 300)
+                    .padding(.bottom)
             }
             else {
                 ActivityIndicator(shouldAnimate: self.$spinner)
@@ -58,7 +59,6 @@ struct QRScannerView: View {
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
         switch result {
         case .success(let code):
-            print(code)
             let qr = QRAuth(sessionID: code, passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
             guard let json = try? JSONEncoder().encode(qr) else {
                 return

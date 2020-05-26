@@ -26,7 +26,7 @@ function startingJS() {
 
             let jsonData = JSON.stringify(data)
             xhr.send(jsonData)
-        }, 1500)   
+        }, 1000)   
 
     for(var i=2; i<=6; i++) {
         document.getElementById(i).disabled = true
@@ -40,7 +40,6 @@ function getEntryID(input) {
 
     if(parseInt(val) >= 0 && parseInt(val) <= 9) {
         sixDigitCodeArray[fieldNumber-1] = val
-        console.log("Array:", sixDigitCodeArray)
 
         //Automatic switching to next entry field
         if(fieldNumber !== 6) {

@@ -75,7 +75,6 @@ final class ServerDelegate: ObservableObject {
         configuration.timeoutIntervalForResource = TimeInterval(10)
         let session = URLSession(configuration: configuration)
         
-        print(String(data: sessionID, encoding: String.Encoding.utf8)!)
         let task = session.uploadTask(with: request, from: sessionID, completionHandler: {
             (data, response, error) in
             

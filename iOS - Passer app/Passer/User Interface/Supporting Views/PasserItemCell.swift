@@ -57,33 +57,33 @@ struct PasserItemCell: View {
                                     VStack {
                                         Text("Password:").bold()
                                         Text("Vulnerable").foregroundColor(Color.yellow).bold()
-                                    }.padding(.top)
+                                    }.padding(.vertical)
                                     if self.passwordItem!.passwordStrength().contains(.nolower) {
-                                        Text("No lowercase letters.")
+                                        Text("No lowercase letters.").font(.footnote)
                                     }
                                     else if self.passwordItem!.passwordStrength().contains(.noupper) {
-                                        Text("No uppercase letters.")
+                                        Text("No uppercase letters.").font(.footnote)
                                     }
                                     else if self.passwordItem!.passwordStrength().contains(.nonumbers) {
-                                        Text("No numbers.")
+                                        Text("No numbers.").font(.footnote)
                                     }
                                 }
                                 else if self.passwordItem!.passwordStrength().count > 1 || self.passwordItem!.passwordStrength().contains(.short) {
                                     VStack {
                                         Text("Password:").bold()
                                         Text("Critical").foregroundColor(Color.red).bold()
-                                    }.padding(.top)
+                                    }.padding(.vertical)
                                     if self.passwordItem!.passwordStrength().contains(.short) {
-                                        Text("Password too short.")
+                                        Text("Password too short.").font(.footnote)
                                     }
                                     if self.passwordItem!.passwordStrength().contains(.nolower) {
-                                        Text("No lowercase letters.")
+                                        Text("No lowercase letters.").font(.footnote)
                                     }
                                     if self.passwordItem!.passwordStrength().contains(.noupper) {
-                                        Text("No uppercase letters.")
+                                        Text("No uppercase letters.").font(.footnote)
                                     }
                                     if self.passwordItem!.passwordStrength().contains(.nonumbers) {
-                                        Text("No numbers.")
+                                        Text("No numbers.").font(.footnote)
                                     }
                                 }
                             }.padding()

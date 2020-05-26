@@ -204,6 +204,11 @@ input {
 .attributes {
     margin-left: 1em;
     display: flex;
-    align-items: center; 
+    flex-direction: column;
+}
+
+.attr-wrapper {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 }
