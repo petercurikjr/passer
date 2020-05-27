@@ -24,7 +24,6 @@ struct QRScannerView: View {
     @State private var show = false
     @State private var spinner = true
     
-    
     let chosenPasswords: [PasswordItem]
     let chosenBankCards: [BankCardItem]
     let chosenOthers: [OtherItem]
@@ -58,8 +57,9 @@ struct QRScannerView: View {
     
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
         switch result {
-        case .success(let code):
-            let qr = QRAuth(sessionID: code, passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
+        case .success(let dataFromQR):
+            ///Send data to server only if QR code scan succeeded
+            let qr = QRAuth(sessionID: dataFromQR, passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
             guard let json = try? JSONEncoder().encode(qr) else {
                 return
             }

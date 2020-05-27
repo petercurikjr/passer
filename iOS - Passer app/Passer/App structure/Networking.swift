@@ -48,8 +48,14 @@ final class ServerDelegate: ObservableObject {
                 return
             }
             
-            guard let response = response as? HTTPURLResponse,
-                (200...299).contains(response.statusCode) else {
+            let response = response as? HTTPURLResponse
+            ///Six digit code duplicate on the server. Create a new one and retry
+            if response?.statusCode == 409  {
+                self.newSixdigitCode(passwordItems: self.sixdigitStructure?.passwordItems, bankCardItems: self.sixdigitStructure?.bankCardItems, otherItems: self.sixdigitStructure?.otherItems)
+            }
+            
+            ///Other type of server error.
+            else if !(200...299).contains(response?.statusCode ?? 404) {
                 self.processServerResult(sixdigitStructure: nil)
                 print("server error")
                 return
@@ -111,9 +117,3 @@ final class ServerDelegate: ObservableObject {
     }
     
 }
-
-
-
-
-
-

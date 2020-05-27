@@ -21,8 +21,8 @@ struct SixdigitAuth: Codable {
 
 func generateStruct(passwordItems: [PasswordItem]?, bankCardItems: [BankCardItem]?, otherItems: [OtherItem]?) -> SixdigitAuth {
     ///Generate uuid of a device
-    //let uuid = UIDevice.current.identifierForVendor?.uuidString
-    let uuid = String(Int.random(in: 0 ... 1000))
+    let uuid = (UIDevice.current.identifierForVendor?.uuidString)!
+    //let uuid = String(Int.random(in: 0 ... 1000))
     
     ///Generate sixdigitcode
     var sixdigitCode: [String] = []
