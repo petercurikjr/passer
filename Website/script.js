@@ -11,12 +11,9 @@ function startingJS() {
             xhr.open("POST", "https://api-passer.herokuapp.com/verifyQRfromwebsite", true)
             xhr.setRequestHeader("Content-Type", "application/json")
             xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    //success
-                    if(xhr.responseText != "Nothing") {
-                        window.localStorage.setItem("serverData",xhr.responseText)
-                        window.location.replace("passwords.html");
-                    }
+                if (xhr.readyState === 4 && xhr.status === 201) {
+                    window.localStorage.setItem("serverData",xhr.responseText)
+                    window.location.replace("passwords.html")
                 }
             }
             let data = 
@@ -87,27 +84,23 @@ function verify() {
     xhr.open("POST", "https://api-passer.herokuapp.com/verifySixDigitfromwebsite", true)
     xhr.setRequestHeader("Content-Type", "application/json")
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            //success
-            if(xhr.responseText != "Wrong code") {
-                window.localStorage.setItem("serverData",xhr.responseText)
-                window.location.replace("passwords.html");
-            }
-            else {
-                setTimeout(function(){
-                    let spinner = document.getElementsByClassName("lds-spinner")
-                    for(var i=0; i<spinner.length; i++) {
-                        spinner[i].style.display = "none"
-                    }
-                    let error = document.getElementById("error")
-                    error.style.display = "block"
-                }, 500);
+        if (xhr.readyState === 4 && xhr.status === 201) {
+            window.localStorage.setItem("serverData",xhr.responseText)
+            window.location.replace("passwords.html")
+        }
+        else {
+            setTimeout(function(){
+                let spinner = document.getElementsByClassName("lds-spinner")
+                for(var i=0; i<spinner.length; i++) {
+                    spinner[i].style.display = "none"
+                }
+                let error = document.getElementById("error")
+                error.style.display = "block"
+            }, 500);
 
-                setTimeout(function(){
-                    clear()
-                }, 2000)
-
-            }
+            setTimeout(function(){
+                clear()
+            }, 2000)
         }
     }
     let data = 
