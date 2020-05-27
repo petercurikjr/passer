@@ -6,9 +6,10 @@ window.onload = function() {
     //get the value of the first key in a json object
     jsonValue = jsonObj[Object.keys(jsonObj)[0]]
     copyButtonListener()
+    console.log(jsonObj)
 
     //iterate through the returned value, which is an array of arrays
-    for(let i=0; i<jsonValue.length-1; i++) {
+    for(let i=0; i<jsonValue.length-2; i++) {
         for(let passerItem of jsonValue[i]) {
             if(jsonValue[i] != null) {}
                 htmlToAdd += 
