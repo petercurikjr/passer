@@ -176,7 +176,7 @@
     \def\@rok{#3}}
 \newcommand{\printDatum}{\@den.\@mesiac.\@rok}
 
-\def\@studijnyProgram{Aplikovan\a'a informatika}
+\def\@studijnyProgram{aplikovan\a'a informatika}
 \def\FEIstudyProgramme#1{\def\@studijnyProgram{#1}}
 \newcommand{\printStudijnyProgram}{\@studijnyProgram}
 
@@ -188,11 +188,11 @@
 \def\FEIstudyFieldNumber#1{\def\@cisloStudijnehoOdboru{#1}}
 \newcommand{\printCisloStudijnehoOdboru}{\@cisloStudijnehoOdboru}
 
-\def\@nazovStudijnehoOdboru{9.2.9 Aplikovan\a'a informatika}
+\def\@nazovStudijnehoOdboru{informatika}
 \def\FEIstudyField#1{\def\@nazovStudijnehoOdboru{#1}}
 \newcommand{\printNazovStudijnehoOdboru}{\@nazovStudijnehoOdboru}
 
-\def\@nazovStudijnehoOdboruEn{9.2.9 Applied Informatics}
+\def\@nazovStudijnehoOdboruEn{Computer Science}
 \def\FEIstudyFieldEn#1{\def\@nazovStudijnehoOdboruEn{#1}}
 \newcommand{\printNazovStudijnehoOdboruEn}{\@nazovStudijnehoOdboruEn}
 
@@ -405,7 +405,7 @@
             \hspace*{5cm}\= \kill
             \@tempStudProgr \> \@skolaStudPr \\
             \ifthenelse{\boolean{isThesis}}
-            {\@tempCisloStud \> \printCisloStudijnehoOdboru \\
+            {%\@tempCisloStud \> \printCisloStudijnehoOdboru \\
              \@tempNazovStud \> \@skolaStudPrCisl \\
              \@tempSkolPracov \> \@skolaSkolPrac \\
              \@tempVedPrace \> \printVeduciZaverecnejPrace \\

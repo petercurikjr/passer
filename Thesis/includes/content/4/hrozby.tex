@@ -1,0 +1,18 @@
+\section{Hrozby}
+\label{hrozby}
+V minulej kapitole sme do hĺbky ukázali implementáciu nášho riešenia. Máme aplikáciu Passer, ktorá dokáže uchovávať citlivé informácie používateľa a sprístupniť ich bezpečne na cudzom zariadení. 
+
+To, či je systém naozaj bezpečný sa ukáže až po tom, ako vnikne do terénu \cite{practicalcryptography}. Existuje mnoho moderných šifrovacích algoritmov, ktoré môžu byť oveľa lepšie než tie súčasné. Avšak napriek tomu sa masovo nepoužívajú, pretože to, či je niečo bezpečné sa vždy ukáže až časom. Preto sú dnešným svetovým štandardom algoritmy ako AES, či SHA. Pritom AES bolo akceptované už pred 19-timi rokmi a SHA (256) pred 18-timi. Ale napriek tomu sa tieto algoritmy používajú. Boli overené časom. Sú bezpečné, ak sú v správnych rukách a správne použité.
+
+V našej implementácii sa spoliehame na Secure Enclave. Ak by sa útočník vedel nabúrať do SE, dostal by prístup ku všetkým kľúčom vo vnútri. A keby útočník prelomil SE iPhone-u, ktorý má nainštalovaný Passer, útočník by vedel dešifrovať všetky Passer dáta používateľa.
+
+Ak by chcel útočník ukradnúť dáta v cache servera, musel by nájsť stroj, na ktorom je spustený skript. Z neho by musel vybrať pamäť RAM a zamraziť ju tekutým dusíkom (Cold boot attack \cite{coldboot}). Tak by dáta ostali v cache po ľubovoľne dlhú dobu. 
+
+Iný spôsob, ako ukradnúť dáta je brute-force útok. Na webstránke má útočník dve minúty na to, aby spomedzi milión možností trafil konkrétny, aktívny šesťciferný kód. Avšak naša webstránka vytvára oneskorenie pred ďalším pokusom písania. Väčšie nebezpečenstvo predstavuje botnet. Botnet je skupina počítačov, ktoré plnia príkazy ich ,,veliteľa'' (v našom prípade útočník). Uvažujme, že by mal botnet 1000 strojov. Každý z nich by nepretržite, automatizovane zadával rôzne šesťciferné kódy. Mal by otvorených 10 okien prehliadača, takže by paralelne skúšal 10 pokusov naraz. S našim oneskorením na webstránke za 2 minúty stíha jeden stroj v botnete 400 pokusov. Ak je v botnete 1000 takýchto strojov, za 2 minúty stihnú neuveriteľných 400 000 pokusov. To je pokrytie takmer polovice priestoru, do ktorého sa útočník snaží trafiť. 
+
+\subsection{Kopírovanie do schránky}
+Celkom závažný problém je moment, kedy sa používateľ na webstránke dostane k svojim údajom. Potrebuje si ich skopírovať, aby ich vedel použiť. Pointa je, že tento úkon je cielený na cudzie zariadenia. To znamená, že ak používateľ dokončí svoju prácu a odíde od cudzieho zariadenia, je viac než pravdepodobné, že jeden zo svojich citlivých údajov nechá v schránke. 
+
+Potom stačí, aby útočník počkal, kým obeť odíde. Po jej odchode príde k zariadeniu. Získa reťazec uložený v schránke a ukradne ho. Na tento problém sme nenašli riešenie.
+
+
