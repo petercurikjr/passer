@@ -231,6 +231,12 @@ class Vault: ObservableObject {
         
         return false
     }
+    
+    func vaultErase() {
+        self.passwordItems.removeAll()
+        self.bankCardItems.removeAll()
+        self.otherItems.removeAll()
+    }
 }
 
 class PasserItemsContainer: ObservableObject {

@@ -9,8 +9,22 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @State private var alert = false
+    @EnvironmentObject var vault: Vault
+
     var body: some View {
-        Text("Settings")
+        Button(action: {
+            self.alert = true
+        }){
+            Text("Erase all Passer data").foregroundColor(Color.red)
+        }
+        .alert(isPresented: self.$alert){
+             Alert(title: Text("Are you sure?"), primaryButton: Alert.Button.default(Text("Yes"), action: {
+                self.vault.vaultErase()
+             }), secondaryButton: Alert.Button.cancel(Text("No"), action: {
+                 print("no clicked")
+             }))
+        }
     }
 }
 

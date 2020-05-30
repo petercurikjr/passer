@@ -124,6 +124,7 @@
 		BC8A781A240FC8FB004077A8 /* Passer */ = {
 			isa = PBXGroup;
 			children = (
+				BCF53404248088D300BE777D /* Preview Content */,
 				BCEED3A6244A615200E6C0A3 /* App structure */,
 				BCEED3A5244A612D00E6C0A3 /* User Interface */,
 				BC8A781B240FC8FB004077A8 /* AppDelegate.swift */,
@@ -163,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				BCB4F63D243C9D9B00174E7E /* Supporting Views */,
-				BC8A7821240FC8FD004077A8 /* Assets.xcassets */,
 				BC8A781F240FC8FB004077A8 /* ContentView.swift */,
 				BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */,
 				BC1B2C02244E73B7000154C5 /* AppView.swift */,
@@ -186,6 +186,14 @@
 				BCF351FD244A631500E7A03F /* InternetConnectivity.swift */,
 			);
 			path = "App structure";
+			sourceTree = "<group>";
+		};
+		BCF53404248088D300BE777D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BC8A7821240FC8FD004077A8 /* Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

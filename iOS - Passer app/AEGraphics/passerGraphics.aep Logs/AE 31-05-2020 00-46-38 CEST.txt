@@ -1,0 +1,1 @@
+  31/05/2020 00:46:38 CEST: Starting composition “logo”.  Output To: /Users/petercurikjr/Documents/School/FEI STU/3bc/bakalarska praca/passwordmanager/iOS - Passer app/AEGraphics/logo_[#####].jpg    31/05/2020 00:46:38 CEST: Finished composition “logo”.  Total Time Elapsed: 0 SecondsLog closed on 31/05/2020 at 00:46:38 CEST
