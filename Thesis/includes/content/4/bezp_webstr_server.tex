@@ -1,0 +1,8 @@
+\subsection{Server a webstránka}
+Pri týchto komponentoch je dôležité, aby pri výmene informácií bol protokol HTTP zabezpečený a Eva\footnote{pri spomínanom Bobovi a Alici je Eva chápaná ako útočník, ktorý chce spojenie narušiť alebo čerpať z neho citlivé informácie} nevedela kanál čítať. Z toho dôvodu sú oba komponenty zabezpečené HTTPS protokolom, ktorý zaobaľuje vrstvu HTTP do TLS vrstvy. Tá šifruje informácie, ktoré cestujú z Passera na server, zo servera na webstránku, z webstránky na server.
+
+Server nemá žiadne dáta vo filesystéme. Teda, narozdiel od Passera nemusíme riešiť problematiku ukladania a výmeny kľúčov. Jediné dáta, ktoré server uchováva sú v cache. Tie musia byť v plaintexte. Z hľadiska bezpečnosti sa spoliehame na správnu konfiguráciu servera, jeho operačného systému a web servera, na ktorom je spustený náš Python skript.
+
+Webstránka je na tom podobne. Prijaté dáta od servera po úspešnej verifikácii používateľom sú rovnako v plaintexte. Používateľ musí byť schopný ich skopírovať. Šifrovaný text je pre neho nepoužiteľný.
+
+Hneď po získaní dát od servera vyčistíme local storage webstránky. Inak by boli dáta dohľadateľné, pokiaľ je otvorený prehliadač na cudzom zariadení.

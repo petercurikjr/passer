@@ -1,8 +1,9 @@
 \subsection{Vzájomné interakcie}
 \label{vzajomne_interakcie}
+Ukázali sme implementáciu jednotlivých komponentov. Tie spolu komunikujú (\figurename{ \ref{idea}}) a vymieňajú si dáta. Táto podkapitola rozoberá implementačné detaily týchto procesov.  
 
 \subsubsection{Passer - Server (šesťciferný kód)}
-Teraz ukážeme príklad, ako server spracováva HTTP POST request od aplikácie Passer. Aplikácia odošle nový, šesťciferný verifikačný kód spolu s heslami, ktoré používateľ cez Outsider odoslal. Inými slovami, pošle JSON štruktúru \texttt{SixdigitAuth} (spomíname v \nameref{passer}). Štruktúra môže vyzerať nasledovne: 
+Teraz ukážeme príklad, ako server spracováva HTTP POST requesty od aplikácie Passer. Aplikácia odošle nový, šesťciferný, verifikačný kód spolu s heslami, ktoré používateľ cez Outsider odoslal. JSON štruktúra \texttt{SixdigitAuth} (spomíname v \nameref{passer}) môže vyzerať nasledovne: 
 \newline
 \lstset{literate={č}{{\v{c}}}1{ú}{{\'u}}1}
 \begin{lstlisting}[basicstyle=\small]
@@ -29,20 +30,18 @@ Teraz ukážeme príklad, ako server spracováva HTTP POST request od aplikácie
 \indent V tejto ukážke si používateľ vybral možnosť verifikácie pomocou šesťciferného kódu a posiela jedno heslo - \textit{Gmail účet}. Server tieto dáta očakáva v tomto bloku kódu:
 \newline
 \begin{lstlisting}[language=Python, basicstyle=\small]
-@app.route('/sixdigit', methods=['POST'])
+@app.route(`/sixdigit', methods=[`POST'])
 def processSixDigitFromApp():
     incomingData = request.get_json()
     
-    deviceID = incomingData['deviceID']
-    sixdigitCode = incomingData['sixdigitCode']
-    passwordItems = incomingData.get('passwordItems')
-    bankCardItems = incomingData.get('bankCardItems')
-    otherItems = incomingData.get('otherItems')
+    deviceID = incomingData[`deviceID']
+    sixdigitCode = incomingData[`sixdigitCode']
+    passwordItems = incomingData.get(`passwordItems')
+    bankCardItems = incomingData.get(`bankCardItems')
+    otherItems = incomingData.get(`otherItems')
 \end{lstlisting}
 \leavevmode\newline
-\indent Server si uloží jednotlivé atribúty JSON štruktúry do premenných. Všimnime si, že JSON atribút \texttt{timestamp} server vôbec nespracuje. Hovorili sme, že \texttt{timestamp} slúži len pre počítanie zostávajúceho času pre aplikáciu Passer. Tento čas je avšak orientačný. Medzi vytvorením inštancie \texttt{SixdigitAuth} (vtedy vzniká časový odtlačok) a zapísaním verifikácie do Flask cache existuje určité časové oneskorenie. Preto by bolo nepresné, aby server uvažoval \texttt{timestamp} ako čas do expirácie verifikácie. 
-
-Po spracovaní JSON štruktúry nasleduje kontrola duplicít. Nasledujúci diagram ukazuje logiku ukladania dát do cache servera (pri šesťcifernom kóde): 
+\indent Server si uloží jednotlivé atribúty JSON štruktúry do premenných. Po spracovaní štruktúry nasleduje kontrola duplicít. Nasledujúci diagram ukazuje logiku ukladania dát do cache servera (pri šesťcifernom kóde): 
 \newline
 \begin{figure}[H]
   \centering
@@ -51,19 +50,17 @@ Po spracovaní JSON štruktúry nasleduje kontrola duplicít. Nasledujúci diagr
   \label{cache-diagram}
 \end{figure}
 
-Šesťciferný kód je namapovaný na ID zariadenia, ktorý je kľúč. A následne daný kód slúži ako kľúč v druhom zázname, na ktorý sú namapované Passer položky používateľa.
-
-Dôvod, prečo potrebujeme až dve mapovania vysvetlíme. Potrebujeme zaručiť, aby sa dvom rôznym používateľom (teda dvom rôznym ID zariadenia) nemohol vygenerovať rovnaký kód. Rovnako potrebujeme, aby jeden používateľ (teda jedno ID zariadenia) nemal na sebe viacero jednorázových kódov (spomíname v \nameref{passer}). 
+Šesťciferný kód je namapovaný na ID zariadenia. Passer položky používateľa sú namapované na daný šesťciferný kód. Používame dve mapovania, lebo potrebujeme zaručiť, aby sa dvom rôznym používateľom (teda dvom rôznym ID zariadenia) nemohol vygenerovať rovnaký kód. Rovnako potrebujeme, aby jeden používateľ (teda jedno ID zariadenia) nebol kľúčom k viacero jednorázovým kódom (spomíname v \nameref{passer}). 
 
 Pred zápisom novej verifikácie do cache najprv skontrolujeme, či nenastal jeden z dvoch konfliktných stavov, ktoré sme práve opísali.
 
-Ako prvé zistíme, či v cache existuje kľúč, ktorý by sa zhodoval so šesťciferným kódom, ktorý práve prišiel. Ak existuje, server vráti kód 409, čo znamená CONFLICT \cite{http_response}. Passer na to zareaguje opakovaním celej operácie. Čo obnáša zaslanie \texttt{SixdigitAuth} štruktúry v JSON formáte s novým kódom. 
+Ako prvé zistíme, či zadaný šesťciferný kód existuje ako kľúč v cache. Ak áno, server vráti kód 409, čo znamená CONFLICT \cite{http_response}. Passer na to zareaguje opakovaním celej operácie.
 \begin{lstlisting}[language=Python, basicstyle=\small]
     if cache.has(sixdigitCode):
         return 409
 \end{lstlisting}
 
-Druhá kontrola spočíva v tom, či pre daného používateľa už existuje nejaký šesťciferný kód. Kontrolujeme, či v cache existuje kľúč, ktorý by sa zhodoval s \texttt{deviceID}, teda s ID zariadenia. Ak existuje, musíme vymazať obe mapovania. 
+Druhá kontrola spočíva v tom, či pre daného používateľa už existuje nejaký šesťciferný kód. Ak existuje, musíme vymazať obe mapovania. 
 \begin{lstlisting}[language=Python, basicstyle=\small]
     if cache.has(deviceID):
         userOldVerifData = cache.get(deviceID)
@@ -71,40 +68,43 @@ Druhá kontrola spočíva v tom, či pre daného používateľa už existuje nej
         cache.delete(userOldVerifData)
 \end{lstlisting}
 
-Po týchto operáciách môže prebehnúť samotný zápis do cache. Pomocou \texttt{cache.set()} nastavíme mapovanie kľúč:hodnota a povieme, ako dlho má tento záznam existovať. Obe mapovania (\texttt{deviceID:sixdigitCode} a \texttt{sixdigitCode:}Passer položky) budú trvať po dobu dvoch minút.
+Po týchto operáciách môže prebehnúť samotný zápis do cache. Pomocou \texttt{cache.set()} nastavíme mapovanie kľúč:hodnota a povieme, ako dlho má tento záznam existovať. Obe mapovania (\figurename{ \ref{cache-diagram}})  budú existovať na serveri po dobu dvoch minút.
+\newline
 \begin{lstlisting}[language=Python, basicstyle=\small]
     cache.set(deviceID,sixdigitCode,timeout=2*60)
     cache.set(sixdigitCode,[passwordItems, bankCardItems, otherItems, deviceID],timeout=2*60)
-    return 'server: ok', 201
+    return `server: ok', 201
 \end{lstlisting}
 
 Po úspešnej operácii Passer zobrazí používateľovi šesťciferný kód so zostávajúcim časom platnosti a inštrukciami.
 \subsubsection{Webstránka - Server (šesťciferný kód)}
 Používateľ už obdržal kód, ktorý môže použiť na webstránke na prístup k svojim položkám. Po jeho zadaní sa v JavaScript kóde webstránky spustí HTTP POST request na server. Posiela mu kód zadaný používateľom a čaká, ako odpovie server. Server sa snaží získať dáta namapované ku kľúču (\texttt{data = cache.get(sixdigitTyped)}). Kľúč je používateľom zadaný šesťciferný kód. 
 
-Ak by kód nebol správne zadaný, kľúč v cache by sa nenašiel. Tým pádom by \texttt{data} boli \texttt{None}. Podľa toho sa mení správanie kódu nižšie: 
+Ak v cache neexistuje kľúč, ktorý by sa rovnal zadanému šesťcifernému kódu, premenná \texttt{data} bude \texttt{None}. Podľa toho sa mení návratová hodnota funkcie. 
 \begin{lstlisting}[language=Python, basicstyle=\small]
     if data != None:
         cache.delete(sixdigitTyped)
         cache.delete(data[-1])
         response[sixdigitTyped] = data
         return response
-    return 'Wrong code'
+    return `Wrong code'
 \end{lstlisting}
 
-Predtým, než vráti dáta späť webstránke, server vymaže záznamy v cache. Najskôr záznam pod kľúčom šesťciferného kódu, potom záznam pod kľúčom ID zariadenia (posledný člen zoznamu \texttt{data}). Následne vráti dáta.
+Predtým, než vráti dáta späť webstránke, server vymaže záznamy v cache. Najskôr záznam pod kľúčom šesťciferného kódu, potom záznam pod kľúčom ID zariadenia. Následne vráti dáta.
 
-Webstránka presmeruje používateľa na podstránku \texttt{.../passwords.html} a to nasledovne: \texttt{window.location.replace("passwords.html")}. Predtým ale potrebuje určitým spôsobom odovzdať dáta, ktoré práve od servera získala podstránke. JavaScript ponúka mnoho riešení, jedno z nich je local storage \cite{localstorage}.
+Webstránka presmeruje používateľa na podstránku \texttt{.../passwords.html} a to nasledovne: \texttt{window.location.replace("passwords.html")}. Predtým ale potrebuje určitým spôsobom odovzdať podstránke dáta, ktoré práve od servera získala. JavaScript ponúka mnoho riešení, jedno z nich je local storage \cite{localstorage}.
 
 \begin{sloppypar}
-    Ide o schopnosť ukladať dáta v tvare kľúč:hodnota (podobné, ako cache na serveri) lokálne v prehliadači. Pomocou \texttt{window.localStorage.setItem("serverData",xhr.responseText)} uložíme do local storage odpoveď zo servera pod kľúč \texttt{serverData}. Následne sme schopní dáta z local storage vybrať \texttt{const serverData = window.localStorage.getItem("serverData")
-    } a pracovať s nimi. Hneď po načítaní do premennej \texttt{serverData} je potrebné vyčistiť local storage, inak by boli tieto dáta v pamäti aj počas ďalších sessions, ako uvádza \cite{localstorage}. Jednoduchým kódom \texttt{localStorage.clear()} je náš problém vyriešený.
+    Pomocou \texttt{window.localStorage.setItem("serverData",xhr.responseText)} uložíme do local storage odpoveď zo servera pod kľúč \texttt{serverData}. Následne sme schopní dáta z local storage vybrať, uložiť do premennej: \texttt{const serverData = window.localStorage.getItem("serverData")
+    } a pracovať s nimi. Hneď po načítaní je potrebné vyčistiť local storage, inak by boli tieto dáta v pamäti aj počas ďalších sessions, ako uvádza \cite{localstorage}. Preto použijeme \texttt{localStorage.clear()}.
 \end{sloppypar}
 
 \subsubsection{Passer - Server - Webstránka (QR kód)}
-Ako sme spomínali v sekcii \nameref{passer}, verifikácia pomocou QR kódu je špecifická. Počas nej prebieha interkacia so všetkými troma komponentmi (v úvodzovkách) naraz. 
+Ako sme spomínali v sekcii \nameref{passer}, verifikácia pomocou QR kódu je špecifická. Počas nej prebieha interakcia so všetkými troma komponentmi (v úvodzovkách) naraz. 
 
-Hneď po načítaní webstránky sa vygeneruje takzvaná session id: \texttt{let sessionID = Date.now().toString(36) + Math.random().toString(36).substr(2, 5)}. JavaScript používa aktuálny čas pre dosiahnutie jedinečnosti. To nemusí byť dostačujúce, preto sa k výslednému reťazcu pripája ešte náhodný reťazec pomocou funkcie \texttt{Math.random()}. Táto session id sa zakóduje do vygenerovaného QR kódu. Je zrejmé, že QR kód je zakaždým jedinečný, nakoľko obsahuje jedinečný session id reťazec.
+\begin{sloppypar}
+    Hneď po načítaní webstránky sa vygeneruje session id: \texttt{let sessionID = Date.now().toString(36) + Math.random().toString(36).substr(2, 5)}. Tento identifikátor vznikne operáciou zreťazenia aktuálneho času a náhodného čísla. Výsledný reťazec sa zakóduje do vygenerovaného QR kódu. Je zrejmé, že QR kód je zakaždým jedinečný, nakoľko obsahuje jedinečný session id reťazec.
+\end{sloppypar}
 
 Generovanie kódu je vďaka knižnici QRCode.js nasledovné: 
 \newline
@@ -121,7 +121,7 @@ function generateQRcode() {
 \leavevmode\newline
 \noindent V poslednom riadku si môžme všimnúť, že vytvárame QR kód s príslušnými dátami, teda s našim session id. To znamená, že ak niekto náš QR kód naskenuje, získa toto session id.
 
-Tento bod je kľúčový. Pomocou session id sa vie používateľ s Passerom verifikovať, že je to práve on, kto kód naskenoval. Po naskenovaní v Passeri aplikácia vytvorí štruktúru, podobnú \texttt{SixdigitAuth}. Vyzerá takto:
+Vďaka tomuto reťazcu sa vie používateľ s Passerom verifikovať na webstránke. Princíp je teda podobný ako pri šesťcifernom kóde. Po naskenovaní v Passeri aplikácia vytvorí štruktúru, podobnú \texttt{SixdigitAuth}. Vyzerá takto:
 \newline
 \begin{lstlisting}[language=Swift, basicstyle=\small]
 struct QRAuth: Codable {
@@ -132,7 +132,7 @@ struct QRAuth: Codable {
 }
 \end{lstlisting}
 \leavevmode\newline
-\noindent \texttt{sessionID} je session id naskenovaná z QR kódu. K nemu pridáme polia Passer položiek, ktoré sa spolu so \texttt{sessionID} odošlú na server rovnakým spôsobom, ako pri šesťcifernom kóde. Pri QR verifikácii je len jedno mapovanie v cache servera: 
+\noindent Atribút \texttt{sessionID} je session id naskenovaná z QR kódu. Ďalšie atribúty sú polia Passer položiek, ktoré sa spolu so \texttt{sessionID} odošlú na server rovnakým spôsobom, ako pri šesťcifernom kóde. Pri QR verifikácii je len jedno mapovanie v cache servera: 
 \newline
 \begin{figure}[H]
   \centering
@@ -141,10 +141,10 @@ struct QRAuth: Codable {
   \label{cache-diagramQR}
 \end{figure}
 
-Medzičasom webstránka cyklicky kontroluje server, či už existuje v cache kľúč s daným session id. Aby sa zabránilo preťaženiu, robí tak iba raz za sekundu. Akonáhle webstránka dostane pozitívnu odpoveď a dáta používateľa, prestane kontrolovať server a presmeruje používateľa na podstránku \texttt{.../passwords.html}. Kontrola prítomnosti verifikácie v cache je založená na rovnakom princípe ako pri šesťcifernom kóde, takže hlbšiu analýzu tu nie je potrebné robiť.
+Medzičasom webstránka cyklicky kontroluje server, či už existuje v cache kľúč s daným session id. Aby sa zabránilo preťaženiu, robí tak iba raz za sekundu. Akonáhle webstránka dostane pozitívnu odpoveď a dáta používateľa, požívateľ je presmerovaný na podstránku \texttt{.../passwords.html}. Operácie, ktoré vykonáva server s verifikačným reťazcom sú takmer totožné s operáciami pri overovaní šesťciferného kódu.
 
-Ukážeme ešte spôsob kontrolovania servera na strane webstránky:
-\newline
+Ukážeme ešte spôsob cyklického kontrolovania servera na strane webstránky:
+\newpage
 \begin{lstlisting}[language=JavaScript, basicstyle=\small]
 setInterval(function() {
     let xhr = new XMLHttpRequest()
@@ -162,7 +162,7 @@ setInterval(function() {
 }, 1000) 
 \end{lstlisting}
 \leavevmode\newline
-\indent Celý \texttt{XMLHTTPRequest()} objekt sa spúšťa až exekúciou riadku \texttt{xhr.send()} v dolnej časti kódu. Podobná logika requestov sa vykonáva aj v jazyku Swift, na ktorom je postavený Passer.
+\indent \texttt{XMLHTTPRequest()} sa spúšťa až exekúciou riadku \texttt{xhr.send()} v dolnej časti kódu. Podobná logika requestov sa vykonáva aj v jazyku Swift, na ktorom je postavený Passer.
 
 \leavevmode\newline
-\indent Toto sú všetky interakcie našich troch komponentov, ktoré zhmotnili ideu celej práce. Týmto spôsobom sme docielili prístup používateľa k svojim dátam aj mimo Passera.
+\indent Toto sú všetky interakcie našich troch komponentov, ktoré vystihujú myšlienku celej práce. Týmto spôsobom sme docielili prístup používateľa k svojim dátam aj mimo ekosystém.

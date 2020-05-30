@@ -1,0 +1,17 @@
+\section{Bezpečnosť}
+Prvotným princípom práce je ochrániť dáta v čase, keď existujú mimo ekosystému. Avšak je potrebné zabezpečiť celé riešenie, keďže bezpečnosť je dôležitým aspektom našej aplikácie.
+
+Riadime sa princípmi z \cite{practicalcryptography}: Prvým nepriateľom bezpečnosti je komplexnosť. Preto sme sa snažili o návrh jednoduchých modulov s malým počtom interakcií.
+
+Systém je len tak bezpečný ako jeho najzraniteľnejšia časť. Preto musíme rovnako kvalitne zabezpečiť každý komponent a modul. Ak existuje trhlina v systéme, útočník ju využije. Je to jednoduchšie, ako prelomiť tú časť systému, ktorá je kvalitne zabezpečená. 
+
+V našom riešení sa budeme pozerať na bezpečnosť jednotlivých modulov.
+\begin{itemize}
+    \item[-] Ako chráni Passer citlivé dáta v čase, keď aplikácia nie je používaná
+    \item[-] Ako je zabezpečený prenos dát medzi jednotlivými komponentami
+    \item[-] Ako sú chránené komponenty server a webstránka
+\end{itemize}
+
+\input{includes/content/4/bezp_passer}
+\input{includes/content/4/bezp_webstr_server}
+\input{includes/content/4/hrozby}

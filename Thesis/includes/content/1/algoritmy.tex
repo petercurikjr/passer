@@ -1,0 +1,9 @@
+\subsection{Prehľad kryptografických algoritmov}
+S nasledujúcimi algoritmami budeme pracovať počas implementácie bezpečnostných aspektov. Podotkneme, že neimplementujeme vlastnú kryptografiu. Riešenie sa spolieha na existujúce algoritmy a knižnice. 
+\begin{itemize}
+    \item[-] Advanced Encryption Standard (AES) je štandardný algoritmus pre symetrické šifrovanie \cite{aes}. To znamená, že kľúč na šifrovanie a dešifrovanie pomocou tohto algoritmu je rovnaký. Pomocou tohto kľúča vieme šifrovať ľubovoľne dlhý text. Veľkosť kľúča môže byť 128, 192 alebo 256 bitov.
+    \item[-] Secure Hash Algorithms (SHA-2) je sada hašovacích algoritmov podľa súčasného štandardu \cite{sha}. Hašovanie spočíva v zakódovaní ľubovoľne veľkého vstupu na výstup s konštantnou dĺžkou. Hašovacia funkcia je jednosmerná, čo znamená, že nevieme nájsť pôvodný vstup pre daný výstup.  
+    \item[-] Password-Based Key Derivation Function (PBKDF) je štandardná funkcia \cite{pbkdf}, ktorá odvodí kryptografický kľúč z textového reťazca. Je založená na viacnásobnej aplikácii hašovacej funkcie, pričom zvyšovaním počtu opakovaní sťažujeme možnosť útoku hrubou silou.
+    \item[-] Transport Layer Security (TLS) je bezpečná nadstavba komunikačného sieťového protokolu TCP/IP \cite{tls}. Umožňuje nadviazať bezpečné spojenie medzi klientom a serverom. Prenášané dáta sú šifrované a chránené pred modifikovaním. Protokol HTTPS je protokol HTTP s ochrannou vrstvou TLS. 
+\end{itemize}
+
