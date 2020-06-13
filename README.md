@@ -1,5 +1,5 @@
 # Passer
-This project began as a final thesis of my bachelor studies at FEI STU, Bratislava. It deals with the problem outside the password manager's ecosystem. The goal is to simplify user's access to his items inside the password manager on a foreign device.
+This project began as a final thesis of my bachelor studies at FEI STU, Bratislava. It deals with the problem outside the password manager's ecosystem. The goal is to simplify user's access to his items stored the password manager on a foreign device.
 
 Outcome of this thesis is a password manager app named **Passer**. The above mentioned foreign device doesn't have the Passer app. Passer offers a solution here. It is user-friendly and time-efficient while maintaining security protocols.
 
@@ -24,3 +24,6 @@ Check out [Passer - Backend](https://github.com/petercurikjr/passer-backend).
 Items sent with **Outsider** are accessible on the server for two minutes. You can access them on the website by entering a correct one-time verification. Either by entering a six digit code generated in the iOS **Passer** app, or by scanning a website's QR code, also with **Passer** app. After successful verification, selected items sent with **Outsider** are accessible.
 
 Try it yourself: [Passer - Website](https://passer.netlify.app).
+
+##### Thesis
+You can read my whole insight and solution to this problem by reading the bachelor thesis. Find the '.pdf'  file in *Thesis* folder.
