@@ -1,7 +1,7 @@
 # Passer
-This project began as a final thesis of my bachelor studies at FEI STU, Bratislava. It deals with the problem outside the password manager's ecosystem. The goal is to simplify user's access to his items stored the password manager on a foreign device.
+This project began as a final thesis of my bachelor studies at FEI STU, Bratislava. It deals with the problem outside the password manager's ecosystem. The goal is to simplify user's access to his password manager items on a foreign device that doesn't have this password manager installed.
 
-Outcome of this thesis is a password manager app named **Passer**. The above mentioned foreign device doesn't have the Passer app. Passer offers a solution here. It is user-friendly and time-efficient while maintaining security protocols.
+Outcome of this thesis is an app named **Passer**. The above mentioned foreign device doesn't have the Passer app. Passer offers a solution here. It can transfer selected data to foreign devices. Process is user-friendly and time-efficient while maintaining security standards and protocols.
 
 Passer consists of three elements:
 1. iOS app
