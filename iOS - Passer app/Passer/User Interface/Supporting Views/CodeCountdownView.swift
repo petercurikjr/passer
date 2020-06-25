@@ -68,10 +68,18 @@ struct CodeCountdownView: View {
                         .padding(.leading, 2)
                     
                 }.padding(.bottom, 30).padding(.top, 50)
-                Text("Visit netlify.passer.app website")
-                Text("and enter this code to access selected items.")
+                Text("Visit website below")
+                Text("and enter this code to access selected items:")
                 Text("")
                     .multilineTextAlignment(.center)
+                Button(action: {
+                    //open website
+                    let website = "https://passer.netlify.app"
+                    let url = URL(string: website)
+                    UIApplication.shared.open(url!)
+                }) {
+                    Text("https://passer.netlify.app")
+                }
                 
                 
                 HStack {
@@ -97,6 +105,7 @@ struct CodeCountdownView: View {
                     .disabled(self.disabledButton)
                     .opacity(didItEnd(time: self.diff) ? 1 : 0)
                     .animation(Animation.easeInOut)
+                //Spacer()
             }
                 
             else {
@@ -124,11 +133,11 @@ struct CodeCountdownView: View {
                     ActivityIndicator(shouldAnimate: self.$spinner)
                 }
             }
-        }.padding().padding(.top,150)
+            Spacer()
+        }.padding()
             .onAppear(perform: {
                 self.server.newSixdigitCode(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
             })
-        
     }
 }
 

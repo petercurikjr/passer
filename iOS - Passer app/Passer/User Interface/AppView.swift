@@ -17,7 +17,7 @@ struct AppView: View {
     
     var body: some View {
         VStack {
-            if authenticated {
+            if 1==1/*authenticated*/ {
                 TabView() {
                     ContentView()
                         .tabItem {
@@ -33,12 +33,17 @@ struct AppView: View {
                 }
             }
         }.onAppear(perform: {
+            print("Testing phase. Authentication and cryptographic features turned off.")
+            
+            /*
             if !self.vault.isEmpty() {
                 self.authenticateUser()
             }
             else {
                 self.authenticated = true
             }
+            */
+            
         })
     }
     

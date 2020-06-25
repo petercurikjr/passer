@@ -31,12 +31,11 @@ struct QRScannerView: View {
     var body: some View {
         VStack {
             if show {
-                Spacer()
                 HStack {
                     Text("Tap to go back").font(.footnote)
                     Image(systemName: "arrow.up")
                 }.padding(.bottom, 50)
-                Text("Visit netlify.passer.app website")
+                Text("Visit website https://passer.netlify.app on another device")
                 Text("and scan the QR code to access selected items.")
                 CodeScannerView(codeTypes: [.qr], completion: self.handleScan)
                     .frame(width: 350, height: 300)

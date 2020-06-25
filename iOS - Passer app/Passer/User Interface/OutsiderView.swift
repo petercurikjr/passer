@@ -24,8 +24,8 @@ struct OutsiderView: View {
     let chosenOthers: [OtherItem]
     
     var body: some View {
-        ZStack {
-            VStack {
+        VStack {
+            if !self.oneOfThem {
                 HStack {
                     Button(action: {
                         self.goBack.toggle()
@@ -33,7 +33,7 @@ struct OutsiderView: View {
                         Image(systemName: "arrow.left")
                             .padding(.top, 20)
                             .padding(.leading, 25)
-                    }.disabled(self.oneOfThem).opacity(self.oneOfThem ? 0 : 1).animation(Animation.easeInOut(duration: 0.5))
+                    }
                     Spacer()
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
@@ -42,8 +42,12 @@ struct OutsiderView: View {
                             .padding(.top, 20)
                             .padding(.trailing, 25)
                     }
-                }
-                 VStack {
+                }.opacity(self.oneOfThem ? 0 : 1)
+                    .disabled(self.oneOfThem)
+            }
+            
+            if !self.oneOfThem {
+                VStack {
                     HStack {
                         Text("Outsider")
                             .bold()
@@ -56,56 +60,54 @@ struct OutsiderView: View {
                             .font(.subheadline)
                         Spacer()
                     }
-                 }.padding(30).multilineTextAlignment(.leading).opacity(oneOfThem ? 0 : 1).animation(Animation.easeInOut(duration: 1).delay(0.2))
-                
-                VStack {
-                    Button(action: {
-                        self.triggerQR()
-                    }) {
-                        VStack {
-                            OptionQR().opacity(viewDigitAlone ? 0 : 1).animation(Animation.easeInOut(duration: 1))
-                        }.scaleEffect(self.animationAmount)
-                        .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
-                        .contentShape(Rectangle())
-                        
-                    }.offset(y: viewQRAlone ? -140 : 0)
-                    .animation(Animation.easeInOut.delay(0.5))
-                    .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .disabled(viewDigitAlone)
-
-                    Button(action: {
-                        self.triggerSixdigit()
-                    }) {
-                        VStack {
-                            OptionSixdigit().opacity(viewQRAlone ? 0 : 1).animation(Animation.easeInOut(duration: 1))
-                        }.scaleEffect(self.animationAmount)
-                        .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
-                        .contentShape(Rectangle())
-                    
-                    }.offset(y: viewDigitAlone ? -330 : 0)
-                    .animation(Animation.easeInOut.delay(0.5))
-                    .buttonStyle(PlainButtonStyle())
-                    .padding()
-                    .disabled(viewQRAlone)
-                }
-                Spacer()
+                }.padding(30).multilineTextAlignment(.leading).opacity(oneOfThem ? 0 : 1).animation(Animation.easeInOut(duration: 1).delay(0.2))
             }
-           
-            ZStack {
-                ///condition so that it doesn't generate a new code once user closes the verification code option
-                if self.viewDigitAlone {
-                    CodeCountdownView(chosenPasswords: self.chosenPasswords, chosenBankCards: self.chosenBankCards, chosenOthers: self.chosenOthers)
-                }
-            }.opacity(viewDigitAlone ? 1 : 0).animation(Animation.easeInOut(duration: 0.4).delay(viewDigitAlone ? 1 : 0))
             
-            ZStack {
-                if self.viewQRAlone {
-                QRScannerView(chosenPasswords: self.chosenPasswords, chosenBankCards: self.chosenBankCards, chosenOthers: self.chosenOthers)
+            VStack {
+                if !self.viewDigitAlone {
+                    VStack {
+                        Button(action: {
+                            self.triggerQR()
+                        }) {
+                            OptionQR().opacity(viewDigitAlone ? 0 : 1).animation(Animation.easeInOut(duration: 1))
+                                .scaleEffect(self.animationAmount)
+                                .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
+                                .contentShape(Rectangle())
+                        }//.offset(y: viewQRAlone ? 70 : 0)
+                            .animation(Animation.easeInOut.delay(0.5))
+                            .buttonStyle(PlainButtonStyle())
+                            .padding()
+                            .disabled(viewDigitAlone)
+                        
+                        if self.viewQRAlone {
+                            QRScannerView(chosenPasswords: self.chosenPasswords, chosenBankCards: self.chosenBankCards, chosenOthers: self.chosenOthers)
+                        }
+                    }
                 }
-            }.opacity(viewQRAlone ? 1 : 0).animation(Animation.easeInOut(duration: 0.4).delay(viewQRAlone ? 1 : 0))
                 
-        }
+                if !self.viewQRAlone {
+                    VStack {
+                        Button(action: {
+                            self.triggerSixdigit()
+                        }) {
+                            OptionSixdigit().opacity(viewQRAlone ? 0 : 1).animation(Animation.easeInOut(duration: 1))
+                                .scaleEffect(self.animationAmount)
+                                .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
+                                .contentShape(Rectangle())
+                        }//.offset(y: viewDigitAlone ? -150 : 0)
+                            .animation(Animation.easeInOut.delay(0.5))
+                            .buttonStyle(PlainButtonStyle())
+                            .padding()
+                            .disabled(viewQRAlone)
+                        
+                        if self.viewDigitAlone {
+                            CodeCountdownView(chosenPasswords: self.chosenPasswords, chosenBankCards: self.chosenBankCards, chosenOthers: self.chosenOthers)
+                        }
+                    }
+                }
+            }
+            Spacer()
+        }.padding(.top, self.oneOfThem ? 50 : 0)
     }
     
     func triggerSixdigit() {

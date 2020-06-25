@@ -14,6 +14,7 @@ class Vault: ObservableObject {
     @Published var otherItems = [OtherItem]()
     private var userDirPaths = [URL]()
     private var vaultFileIsEmpty: Bool = true
+    
     private var privateKey: SecKey? = nil
     private var publicKey: SecKey? = nil
 
@@ -21,6 +22,7 @@ class Vault: ObservableObject {
         let filenames = ["passworditems_passer.txt","bankcarditems_passer.txt","otheritems_passer.txt"]
         var fileExists = true
         
+        /*
         let privateKey = loadKey(name: "passerkey")
         if privateKey == nil {
             guard let initialKey = try? createAndStoreKey(name: "passerkey", requiresBiometry: false) else {
@@ -40,6 +42,7 @@ class Vault: ObservableObject {
         }
         
         self.publicKey = publicKey
+         */
         
         
         for i in 0..<filenames.endIndex {
@@ -57,6 +60,7 @@ class Vault: ObservableObject {
             do {
                 for i in 0..<filenames.endIndex {
                     let dataFromStorage = try Data(contentsOf: self.userDirPaths[i])
+                    /*
                     let decryptedDataFromStorage = vaultDecrypt(dataToDecrypt: dataFromStorage)
                     guard decryptedDataFromStorage != nil else {
                         print("Decryption error. Data may be corrupted or user's vault is empty.")
@@ -72,6 +76,17 @@ class Vault: ObservableObject {
                     else if i == 2 {
                         self.otherItems = try JSONDecoder().decode(Array<OtherItem>.self, from: decryptedDataFromStorage!)
                     }
+                    */
+                    if i == 0 {
+                        self.passwordItems = try JSONDecoder().decode(Array<PasswordItem>.self, from: dataFromStorage)
+                    }
+                    else if i == 1 {
+                        self.bankCardItems = try JSONDecoder().decode(Array<BankCardItem>.self, from: dataFromStorage)
+                    }
+                    else if i == 2 {
+                        self.otherItems = try JSONDecoder().decode(Array<OtherItem>.self, from: dataFromStorage)
+                    }
+                
                 }
                 
                 print("Contents loaded into Passer successfully.")
@@ -123,17 +138,25 @@ class Vault: ObservableObject {
             else {
                 return
         }
-        
+         
+        /*
         ///To Ciphertext
         let passwordEncrypt = vaultEncrypt(dataToEncrypt: passwordJson)
         let bankcardEncrypt = vaultEncrypt(dataToEncrypt: bankcardJson)
         let otherEncrypt = vaultEncrypt(dataToEncrypt: otherJson)
+         */
         
         ///Write file
         do {
+            /*
             try passwordEncrypt!.write(to: self.userDirPaths[0], options: [.atomicWrite])
             try bankcardEncrypt!.write(to: self.userDirPaths[1], options: [.atomicWrite])
             try otherEncrypt!.write(to: self.userDirPaths[2], options: [.atomicWrite])
+             */
+            
+            try passwordJson.write(to: self.userDirPaths[0], options: [.atomicWrite])
+            try bankcardJson.write(to: self.userDirPaths[1], options: [.atomicWrite])
+            try otherJson.write(to: self.userDirPaths[2], options: [.atomicWrite])
         }
         catch {
             print(error)
