@@ -25,7 +25,7 @@ struct AppView: View {
                             Text("Items")
                         }.tag(1)
                     
-                    SettingsView()
+                    SettingsView()	
                         .tabItem {
                             Image(systemName: "gear")
                             Text("Settings")
