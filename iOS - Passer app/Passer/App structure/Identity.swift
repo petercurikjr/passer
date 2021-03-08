@@ -14,20 +14,32 @@ enum Gender: String, Codable {
     case unspecified
 }
 
-final class Identity {
+final class Identity: Codable {
     internal var id: UUID = UUID()
-    internal var firstName: String
-    internal var lastName: String
-    internal var email: String
-    internal var birthDate: Date
+    internal var firstName: String?
+    internal var lastName: String?
+    internal var email: String?
+    internal var birthDate: Date?
+    internal var username: String?
     internal var updatedAt: Date = Date()
-    internal var gender: Gender
+    internal var gender: Gender?
+    internal var address: Address?
     
-    init(firstName: String, lastName: String, email: String, birthDate: Date, gender: Gender) {
+    init(
+        firstName: String,
+        lastName: String,
+        email: String,
+        birthDate: Date,
+        username: String,
+        gender: Gender,
+        address: Address
+    ) {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
         self.birthDate = birthDate
+        self.username = username
         self.gender = gender
+        self.address = address
     }
 }

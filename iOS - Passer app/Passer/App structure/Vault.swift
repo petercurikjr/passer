@@ -14,6 +14,7 @@ class Vault: ObservableObject {
     @Published var otherItems = [OtherItem]()
 
     @Published var identities = [Identity]()
+    
     private var userDirPaths = [URL]()
     private var vaultFileIsEmpty: Bool = true
     
@@ -21,7 +22,7 @@ class Vault: ObservableObject {
     private var publicKey: SecKey? = nil
 
     init() {
-        let filenames = ["passworditems_passer.txt","bankcarditems_passer.txt","otheritems_passer.txt"]
+        let filenames = ["passworditems_passer.txt","bankcarditems_passer.txt","otheritems_passer.txt","identities.txt"]
         var fileExists = true
         
         /*
@@ -88,6 +89,9 @@ class Vault: ObservableObject {
                     else if i == 2 {
                         self.otherItems = try JSONDecoder().decode(Array<OtherItem>.self, from: dataFromStorage)
                     }
+                    else if i == 3 {
+                        self.identities = try JSONDecoder().decode(Array<Identity>.self, from: dataFromStorage)
+                    }
                 
                 }
                 
@@ -131,12 +135,19 @@ class Vault: ObservableObject {
         vaultUpdate(vault: vault)
     }
     
+    func vaultPush(identity: Identity, vault: Vault) {
+        ///Add to the array
+        vault.identities.append(identity)
+        vaultUpdate(vault: vault)
+    }
+    
     ///Updates filesystem with app's changes
     func vaultUpdate(vault: Vault) {
         ///To JSON
         guard let passwordJson = try? JSONEncoder().encode(self.passwordItems),
             let bankcardJson = try? JSONEncoder().encode(self.bankCardItems),
-            let otherJson = try? JSONEncoder().encode(self.otherItems)
+            let otherJson = try? JSONEncoder().encode(self.otherItems),
+            let identitiesJson = try? JSONEncoder().encode(self.identities)
             else {
                 return
         }
@@ -159,6 +170,7 @@ class Vault: ObservableObject {
             try passwordJson.write(to: self.userDirPaths[0], options: [.atomicWrite])
             try bankcardJson.write(to: self.userDirPaths[1], options: [.atomicWrite])
             try otherJson.write(to: self.userDirPaths[2], options: [.atomicWrite])
+            try identitiesJson.write(to: self.userDirPaths[3], options: [.atomicWrite])
         }
         catch {
             print(error)
@@ -261,6 +273,9 @@ class Vault: ObservableObject {
         self.passwordItems.removeAll()
         self.bankCardItems.removeAll()
         self.otherItems.removeAll()
+        self.identities.removeAll()
+        
+        vaultUpdate(vault: self)
     }
 }
 

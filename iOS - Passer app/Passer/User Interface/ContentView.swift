@@ -11,7 +11,6 @@ import SwiftUI
 struct ContentView: View {
     ///State means "variable can update the view (locally)"
     @State private var showAddPassword = false
-    @State private var data: JSONWrapper = generatePasserIdentityStruct()
     
     @State private var groupSelector = [true,false,false,false]
     @State private var passwordGroups = [PasswordItem]()
@@ -23,7 +22,6 @@ struct ContentView: View {
     @State private var otherItemExpand = [OtherItem]()
     @State private var filter = 1
     
-    ///Have to create this only because of .sheet bug not acting like a child to this view
     @EnvironmentObject var vault: Vault
     
     var body: some View {
@@ -44,10 +42,9 @@ struct ContentView: View {
                         }) {
                             Image(systemName: "plus")
                         }
-                            ///Sheets are supposed to be understood as children to a view which creates them. But it does not work for now, Apple promised a fix for this. Until then, we have to pass the EnvironmentObject by hand as a parameter to a view
-                            ///Otherwise, we would not have to create EnvironmentObject in ContentView, since it is already in AppView.
+                            ///Sheets are understood as children to a view which creates them
                             .sheet(isPresented: self.$showAddPassword) {
-                                AddPasserItemView().environmentObject(self.vault)
+                                AddPasserItemView()
                         }
                     }
                 }.padding(.horizontal, 30).multilineTextAlignment(.leading).padding(.vertical).padding(.top)
@@ -212,9 +209,7 @@ struct ContentView: View {
                 }.listStyle(GroupedListStyle()).onAppear { UITableView.appearance().separatorStyle = .singleLine
                 }
             }
-        }.onAppear(perform: {
-            identityToJSON(identity: self.data)
-        })
+        }
     }
     
     private func expandCollapse(_ item: AnyObject) {

@@ -15,19 +15,30 @@ struct EmptyVault: View {
     
     var body: some View {
         VStack {
-            Text("Empty room here!")
-                .font(.headline)
-            Text("Why don't you add some items?")
-            Image(systemName: "arrowtriangle.down.circle.fill")
-            Button(action: {
-                self.showAddPassword = true
-            }) {
-                ButtonUI(name: "Add a new Passer item")
-            }.padding(20)
-            .sheet(isPresented: self.$showAddPassword) {
-                AddPasserItemView().environmentObject(self.vault)
-            }
+            Text("Passer Items")
+                .bold()
+                .font(.largeTitle)
+            Text("Your passwords and other valuable data:")
+                .multilineTextAlignment(.center)
+            Text("all at one place.")
+        }.padding().padding(.vertical)
+
+        Image(systemName: "pencil.and.ellipsis.rectangle")
+            .font(.system(size: 90))
+        
+        Text("Adding these items is simple: just click the button below to start!")
+            .multilineTextAlignment(.center)
+            .padding()
+        
+        
+        Button(action: {
+            self.showAddPassword = true
+        }) {
+            ButtonUI(name: "Add a new Passer Item")
         }
+            .sheet(isPresented: self.$showAddPassword) {
+                AddPasserItemView()
+        }.padding()
     }
 }
 
