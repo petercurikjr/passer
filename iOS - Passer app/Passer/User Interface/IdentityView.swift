@@ -10,11 +10,12 @@ import SwiftUI
 
 struct IdentityView: View {
     @State private var showAddIdentity = false
+    @State private var showIdentityDetails = false
     
     @EnvironmentObject var vault: Vault
     
     var body: some View {
-        if 1==2/*!self.vault.identities.isEmpty*/ {
+        if !self.vault.identities.isEmpty {
             VStack {
                 HStack {
                     Text("Passer Identity")
@@ -28,6 +29,23 @@ struct IdentityView: View {
                     }
                         .sheet(isPresented: self.$showAddIdentity) {
                             AddPasserIdentityView()
+                    }
+                }.padding()
+                
+                VStack {
+                    List(self.vault.identities) { identity in
+                        HStack {
+                            Text(identity.firstName + " " + identity.lastName)
+                            Spacer()
+                            Button(action: {
+                                self.showIdentityDetails = true
+                            }) {
+                                Image(systemName: "person.fill")
+                            }
+                            .sheet(isPresented: self.$showIdentityDetails) {
+                                IdentityDetails(chosenIdentity: identity)
+                            }
+                        }.contentShape(Rectangle()).padding(2)
                     }
                 }
             }.padding(.horizontal, 30).multilineTextAlignment(.leading).padding(.vertical).padding(.top)
@@ -49,7 +67,6 @@ struct IdentityView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                 
-                
                 Button(action: {
                     self.showAddIdentity = true
                 }) {
@@ -58,7 +75,6 @@ struct IdentityView: View {
                     .sheet(isPresented: self.$showAddIdentity) {
                         AddPasserIdentityView()
                 }.padding()
-                
             }
         }
     }

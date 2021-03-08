@@ -11,7 +11,7 @@ import UIKit
 
 struct IdentityStruct: Codable {
     let address: Address?
-    let birthdate: Date?
+    let birthdate: String?
     let email: String?
     let email_verified: Bool?
     let family_name: String?
@@ -49,12 +49,15 @@ struct Device: Codable {
     let deviceId: String
 }
 
-func generatePasserIdentityStruct() -> JSONWrapper {
+func generatePasserIdentityStruct(identity: Identity) -> JSONWrapper {
     //let deviceID = (UIDevice.current.identifierForVendor?.uuidString)!
     let deviceID = "49015420323751"
     let device = Device(deviceId: deviceID)
     let address = Address(country: "SK", formatted: nil, locality: nil, postal_code: nil, region: nil, street_address: nil)
-    let identity = IdentityStruct(address: address, birthdate: nil, email: nil, email_verified: nil, family_name: nil, gender: nil, given_name: nil, locale: nil, middle_name: nil, name: nil, nickname: "funde luka", phone_number: nil, phone_number_verified: nil, picture: nil, preferred_username: nil, profile: nil, updated_at: nil, website: nil, zoneinfo: nil)
+    
+    let date = identity.convertDate(date: identity.birthDate ?? nil, mode: .dashed)
+    
+    let identity = IdentityStruct(address: address, birthdate: date, email: nil, email_verified: nil, family_name: nil, gender: nil, given_name: nil, locale: nil, middle_name: nil, name: nil, nickname: "funde luka", phone_number: nil, phone_number_verified: nil, picture: nil, preferred_username: nil, profile: nil, updated_at: nil, website: nil, zoneinfo: nil)
     
     return JSONWrapper(account: identity, device: device)
 }

@@ -9,21 +9,26 @@
 import Foundation
 
 enum Gender: String, Codable {
-    case male
-    case female
-    case unspecified
+    case male = "Male"
+    case female = "Female"
+    case unspecified = "Unspecified"
 }
 
-final class Identity: Codable {
-    internal var id: UUID = UUID()
-    internal var firstName: String?
-    internal var lastName: String?
-    internal var email: String?
-    internal var birthDate: Date?
-    internal var username: String?
-    internal var updatedAt: Date = Date()
-    internal var gender: Gender?
-    internal var address: Address?
+enum DateModes {
+    case dashed
+    case dotted
+}
+
+final class Identity: Codable, Identifiable {
+    var id: UUID = UUID()
+    var firstName: String
+    var lastName: String
+    var email: String?
+    var birthDate: Date?
+    var username: String?
+    var updatedAt: Date = Date()
+    var gender: Gender?
+    var address: Address?
     
     init(
         firstName: String,
@@ -41,5 +46,16 @@ final class Identity: Codable {
         self.username = username
         self.gender = gender
         self.address = address
+    }
+
+    func convertDate(date: Date?, mode: DateModes) -> String {
+        if date == nil {
+            return ""
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = mode == .dashed ? "yyyy-dd-MM" : "dd.MM.yyyy"
+        
+        return dateFormatter.string(from: date!)
     }
 }
