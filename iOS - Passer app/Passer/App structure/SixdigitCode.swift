@@ -19,7 +19,7 @@ struct SixdigitAuth: Codable {
     let timestamp: Date? ///Not processed by the server. This information is used only for internal purposes (timer countdown in the iOS app)
 }
 
-func generateStruct(passwordItems: [PasswordItem]?, bankCardItems: [BankCardItem]?, otherItems: [OtherItem]?) -> SixdigitAuth {
+func generatePasserItemsStruct(passwordItems: [PasswordItem]?, bankCardItems: [BankCardItem]?, otherItems: [OtherItem]?) -> SixdigitAuth {
     ///Generate uuid of a device
     let uuid = (UIDevice.current.identifierForVendor?.uuidString)!
     //let uuid = String(Int.random(in: 0 ... 1000))
@@ -38,12 +38,14 @@ func generateStruct(passwordItems: [PasswordItem]?, bankCardItems: [BankCardItem
 
 }
 
-func sixdigitJSON(input: SixdigitAuth) -> Data? {
+func sixdigitToJSON(input: SixdigitAuth) -> Data? {
     ///Convert the generated struct to json
     guard let json = try? JSONEncoder().encode(input)
         else {
             return nil
         }
+    
+    print(String(data: json, encoding: String.Encoding.utf8)!)
     
     return json
 }

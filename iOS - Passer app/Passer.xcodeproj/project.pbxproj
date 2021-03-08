@@ -12,6 +12,9 @@
 		BC1B2C01244E713C000154C5 /* AddPasserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */; };
 		BC1B2C03244E73B7000154C5 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C02244E73B7000154C5 /* AppView.swift */; };
 		BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C04244E73F9000154C5 /* SettingsView.swift */; };
+		BC49515025F562EC0006C173 /* AddPasserIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC49514F25F562EC0006C173 /* AddPasserIdentityView.swift */; };
+		BC49515425F5658A0006C173 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC49515325F5658A0006C173 /* Identity.swift */; };
+		BC49515825F56A5A0006C173 /* IdentityJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC49515725F56A5A0006C173 /* IdentityJson.swift */; };
 		BC56FA6424589855007B02EE /* EmptyVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC56FA6324589855007B02EE /* EmptyVault.swift */; };
 		BC6EA52524742EEF00AC543C /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EA52424742EEF00AC543C /* CodeScanner */; };
 		BC6EA52724742FE200AC543C /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EA52624742FE200AC543C /* QRScannerView.swift */; };
@@ -36,6 +39,7 @@
 		BCE956CF245CE68D00F91B54 /* GroupsSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE956CE245CE68D00F91B54 /* GroupsSelector.swift */; };
 		BCF351FE244A631500E7A03F /* InternetConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF351FD244A631500E7A03F /* InternetConnectivity.swift */; };
 		BCF4FE4C245E35760054489F /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4FE4B245E35760054489F /* TestView.swift */; };
+		BCFE11F625F505A700F7EBF3 /* IdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE11F525F505A700F7EBF3 /* IdentityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -56,6 +60,9 @@
 		BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasserItemView.swift; sourceTree = "<group>"; };
 		BC1B2C02244E73B7000154C5 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		BC1B2C04244E73F9000154C5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BC49514F25F562EC0006C173 /* AddPasserIdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasserIdentityView.swift; sourceTree = "<group>"; };
+		BC49515325F5658A0006C173 /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
+		BC49515725F56A5A0006C173 /* IdentityJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityJson.swift; sourceTree = "<group>"; };
 		BC56FA6324589855007B02EE /* EmptyVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyVault.swift; sourceTree = "<group>"; };
 		BC6EA52624742FE200AC543C /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		BC808AF12433F61400EF8EB5 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
@@ -82,6 +89,7 @@
 		BCE956CE245CE68D00F91B54 /* GroupsSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSelector.swift; sourceTree = "<group>"; };
 		BCF351FD244A631500E7A03F /* InternetConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetConnectivity.swift; sourceTree = "<group>"; };
 		BCF4FE4B245E35760054489F /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		BCFE11F525F505A700F7EBF3 /* IdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +179,8 @@
 				BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */,
 				BCBEBF33245EE5F40071B20C /* OutsiderFirstView.swift */,
 				BC0699BE2467816900258131 /* EditPasserItemView.swift */,
+				BCFE11F525F505A700F7EBF3 /* IdentityView.swift */,
+				BC49514F25F562EC0006C173 /* AddPasserIdentityView.swift */,
 			);
 			path = "User Interface";
 			sourceTree = "<group>";
@@ -181,9 +191,11 @@
 				BC0D5936241A395800DAF9BD /* SixdigitCode.swift */,
 				BCC7515B24401B9500D3F099 /* TimeDelta.swift */,
 				BC8A783E240FE11D004077A8 /* Vault.swift */,
+				BC49515325F5658A0006C173 /* Identity.swift */,
 				BC808AF12433F61400EF8EB5 /* Networking.swift */,
 				BC8A782F240FCA5E004077A8 /* PasserItem.swift */,
 				BCF351FD244A631500E7A03F /* InternetConnectivity.swift */,
+				BC49515725F56A5A0006C173 /* IdentityJson.swift */,
 			);
 			path = "App structure";
 			sourceTree = "<group>";
@@ -293,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCF4FE4C245E35760054489F /* TestView.swift in Sources */,
+				BC49515825F56A5A0006C173 /* IdentityJson.swift in Sources */,
 				BC8A7830240FCA5E004077A8 /* PasserItem.swift in Sources */,
 				BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */,
 				BC8A781C240FC8FB004077A8 /* AppDelegate.swift in Sources */,
@@ -302,15 +315,18 @@
 				BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */,
 				BCC7515C24401B9500D3F099 /* TimeDelta.swift in Sources */,
 				BC1B2C01244E713C000154C5 /* AddPasserItemView.swift in Sources */,
+				BC49515425F5658A0006C173 /* Identity.swift in Sources */,
 				BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */,
 				BCC7515A24400D4C00D3F099 /* CodeCountdownView.swift in Sources */,
 				BCC75150243F929200D3F099 /* OptionSixdigit.swift in Sources */,
 				BCE956CF245CE68D00F91B54 /* GroupsSelector.swift in Sources */,
 				BC8A7820240FC8FB004077A8 /* ContentView.swift in Sources */,
 				BC8A783F240FE11D004077A8 /* Vault.swift in Sources */,
+				BCFE11F625F505A700F7EBF3 /* IdentityView.swift in Sources */,
 				BCF351FE244A631500E7A03F /* InternetConnectivity.swift in Sources */,
 				BCC75152243F93AC00D3F099 /* OptionQR.swift in Sources */,
 				BCC7514C243E2EFA00D3F099 /* OutsiderView.swift in Sources */,
+				BC49515025F562EC0006C173 /* AddPasserIdentityView.swift in Sources */,
 				BC808AF22433F61400EF8EB5 /* Networking.swift in Sources */,
 				BC0699BF2467816900258131 /* EditPasserItemView.swift in Sources */,
 				BCBEBF34245EE5F40071B20C /* OutsiderFirstView.swift in Sources */,

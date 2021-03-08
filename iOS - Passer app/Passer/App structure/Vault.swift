@@ -12,6 +12,8 @@ class Vault: ObservableObject {
     @Published var passwordItems = [PasswordItem]()
     @Published var bankCardItems = [BankCardItem]()
     @Published var otherItems = [OtherItem]()
+
+    @Published var identities = [Identity]()
     private var userDirPaths = [URL]()
     private var vaultFileIsEmpty: Bool = true
     
@@ -260,12 +262,6 @@ class Vault: ObservableObject {
         self.bankCardItems.removeAll()
         self.otherItems.removeAll()
     }
-}
-
-class PasserItemsContainer: ObservableObject {
-    @Published var passwordItems = [PasswordItem]()
-    @Published var bankCardItems = [BankCardItem]()
-    @Published var otherItems = [OtherItem]()
 }
 
 

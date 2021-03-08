@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     ///State means "variable can update the view (locally)"
     @State private var showAddPassword = false
+    @State private var data: JSONWrapper = generatePasserIdentityStruct()
     
     @State private var groupSelector = [true,false,false,false]
     @State private var passwordGroups = [PasswordItem]()
@@ -34,7 +35,7 @@ struct ContentView: View {
             else {
                 VStack {
                     HStack {
-                        Text("Passer")
+                        Text("Passer Items")
                             .bold()
                             .font(.largeTitle)
                         Spacer()
@@ -211,7 +212,9 @@ struct ContentView: View {
                 }.listStyle(GroupedListStyle()).onAppear { UITableView.appearance().separatorStyle = .singleLine
                 }
             }
-        }
+        }.onAppear(perform: {
+            identityToJSON(identity: self.data)
+        })
     }
     
     private func expandCollapse(_ item: AnyObject) {

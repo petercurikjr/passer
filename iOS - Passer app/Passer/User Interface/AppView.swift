@@ -25,11 +25,19 @@ struct AppView: View {
                             Text("Items")
                         }.tag(1)
                     
+                    IdentityView()
+                        .tabItem {
+                            Image(systemName: "person.fill")
+                            Text("Identity")
+                        }.tag(2)
+                    
                     SettingsView()	
                         .tabItem {
                             Image(systemName: "gear")
                             Text("Settings")
-                        }.tag(2)
+                        }.tag(3)
+                    
+
                 }
             }
         }.onAppear(perform: {
