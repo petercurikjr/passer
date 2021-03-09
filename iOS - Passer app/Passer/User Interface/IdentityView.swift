@@ -35,7 +35,7 @@ struct IdentityView: View {
                 VStack {
                     List(self.vault.identities) { identity in
                         HStack {
-                            Text(identity.firstName + " " + identity.lastName)
+                            Text(identity.firstName! + " " + identity.lastName!)
                             Spacer()
                             Button(action: {
                                 self.showIdentityDetails = true
@@ -43,7 +43,8 @@ struct IdentityView: View {
                                 Image(systemName: "person.fill")
                             }
                             .sheet(isPresented: self.$showIdentityDetails) {
-                                IdentityDetails(chosenIdentity: identity)
+                                //IdentityDetails(chosenIdentity: identity)
+                                IdentityClaimsChooserView(chosenIdentity: identity)
                             }
                         }.contentShape(Rectangle()).padding(2)
                     }

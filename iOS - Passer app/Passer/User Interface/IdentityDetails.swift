@@ -10,7 +10,7 @@ import SwiftUI
 
 struct IdentityDetails: View {
     let chosenIdentity: Identity
-    @State private var showLoginer = false
+    @State private var showClaimsChooser = false
     
     var body: some View {
         VStack {
@@ -18,24 +18,26 @@ struct IdentityDetails: View {
                 .bold()
                 .font(.largeTitle)
             
-            Text(chosenIdentity.firstName)
-            Text(chosenIdentity.lastName)
+            Text(chosenIdentity.firstName ?? "NaN")
+            Text(chosenIdentity.lastName ?? "NaN")
             Text(chosenIdentity.email ?? "Not provided")
             Text(chosenIdentity.gender?.rawValue ?? Gender.unspecified.rawValue)
             Text(chosenIdentity.convertDate(date: chosenIdentity.birthDate, mode: .dotted))
-            Text(chosenIdentity.convertDate(date: chosenIdentity.birthDate, mode: .dashed))
             
             Button(action: {
-                self.showLoginer = true
+                self.showClaimsChooser = true
             }) {
                 ButtonUI(name: "Loginer")
             }
-        }
+        }.opacity(showClaimsChooser ? 0 : 1).animation(Animation.easeInOut(duration: 0.7))
+        
+        IdentityClaimsChooserView(chosenIdentity: chosenIdentity)
+            .opacity(showClaimsChooser ? 1 : 0).animation(Animation.easeInOut(duration: 0.7))
     }
 }
 
 struct IdentityDetails_Previews: PreviewProvider {
     static var previews: some View {
-        IdentityDetails(chosenIdentity: Identity(firstName: "bla", lastName: "bla", email: "bla", birthDate: Date(), username: "", gender: .male, address: Address(country: "", formatted: "", locality: "", postal_code: "", region: "", street_address: "")))
+        IdentityDetails(chosenIdentity: Identity(firstName: "", lastName: "", email: "", phoneNumber: "", birthDate: Date(), username: "", gender: Gender.male, address: Address(country: nil, formatted: nil, locality: nil, postal_code: nil, region: nil, street_address: nil)))
     }
 }

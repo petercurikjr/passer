@@ -19,21 +19,28 @@ enum DateModes {
     case dotted
 }
 
+struct IdentityAttributes: Codable {
+    
+}
+
 final class Identity: Codable, Identifiable {
     var id: UUID = UUID()
-    var firstName: String
-    var lastName: String
+    var firstName: String?
+    var lastName: String?
     var email: String?
+    var phoneNumber: String?
     var birthDate: Date?
     var username: String?
     var updatedAt: Date = Date()
     var gender: Gender?
     var address: Address?
+    let attrKeys: [String]
     
     init(
         firstName: String,
         lastName: String,
         email: String,
+        phoneNumber: String,
         birthDate: Date,
         username: String,
         gender: Gender,
@@ -42,10 +49,13 @@ final class Identity: Codable, Identifiable {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
+        self.phoneNumber = phoneNumber
         self.birthDate = birthDate
         self.username = username
         self.gender = gender
         self.address = address
+        
+        self.attrKeys = ["First Name", "Last Name", "Username", "Birth Date", "Gender", "Email", "Phone Number", "Street", "City", "ZIP Code", "Country"]
     }
 
     func convertDate(date: Date?, mode: DateModes) -> String {

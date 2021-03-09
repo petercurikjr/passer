@@ -28,6 +28,7 @@
 		BC8A7830240FCA5E004077A8 /* PasserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A782F240FCA5E004077A8 /* PasserItem.swift */; };
 		BC8A783A240FD2ED004077A8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A7839240FD2ED004077A8 /* main.swift */; };
 		BC8A783F240FE11D004077A8 /* Vault.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A783E240FE11D004077A8 /* Vault.swift */; };
+		BCB1C6F325F6039D0006394C /* IdentityClaimsChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB1C6F225F6039D0006394C /* IdentityClaimsChooserView.swift */; };
 		BCB4F63F243C9F0D00174E7E /* ButtonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB4F63E243C9F0D00174E7E /* ButtonUI.swift */; };
 		BCB6F4A8242CF2C9007E84EF /* httppost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A7242CF2C9007E84EF /* httppost.swift */; };
 		BCB6F4AA242CF4AB007E84EF /* crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A9242CF4AB007E84EF /* crypto.swift */; };
@@ -80,6 +81,7 @@
 		BC8A7837240FD2ED004077A8 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8A7839240FD2ED004077A8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BC8A783E240FE11D004077A8 /* Vault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vault.swift; sourceTree = "<group>"; };
+		BCB1C6F225F6039D0006394C /* IdentityClaimsChooserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityClaimsChooserView.swift; sourceTree = "<group>"; };
 		BCB4F63E243C9F0D00174E7E /* ButtonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonUI.swift; sourceTree = "<group>"; };
 		BCB6F4A7242CF2C9007E84EF /* httppost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = httppost.swift; sourceTree = "<group>"; };
 		BCB6F4A9242CF4AB007E84EF /* crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = crypto.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				BC49514F25F562EC0006C173 /* AddPasserIdentityView.swift */,
 				BC87223D25F5EF2C00BE8480 /* IdentityDetails.swift */,
 				BC87224125F5F25500BE8480 /* LoginerView.swift */,
+				BCB1C6F225F6039D0006394C /* IdentityClaimsChooserView.swift */,
 			);
 			path = "User Interface";
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				BCF351FE244A631500E7A03F /* InternetConnectivity.swift in Sources */,
 				BCC75152243F93AC00D3F099 /* OptionQR.swift in Sources */,
 				BCC7514C243E2EFA00D3F099 /* OutsiderView.swift in Sources */,
+				BCB1C6F325F6039D0006394C /* IdentityClaimsChooserView.swift in Sources */,
 				BC49515025F562EC0006C173 /* AddPasserIdentityView.swift in Sources */,
 				BC808AF22433F61400EF8EB5 /* Networking.swift in Sources */,
 				BC0699BF2467816900258131 /* EditPasserItemView.swift in Sources */,

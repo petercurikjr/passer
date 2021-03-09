@@ -14,6 +14,7 @@ final class ServerDelegate: ObservableObject {
     ///This can be also achieved with publishers from Combine framework, but this technique offers a super-easy approch to this problem (which, of course means less control and features of publishing and subscribing, but this is sufficient for our purposes)
     @Published var approvedByServer: SixdigitAuth? = nil
     @Published var serverDown: Bool = false
+    @Published var serverResponse: String = ""
     
     private var sixdigitStructure: SixdigitAuth? = nil
     
@@ -129,7 +130,8 @@ final class ServerDelegate: ObservableObject {
             
             ///Success
             if data != nil {
-                print(String(data: data!, encoding: .utf8)!)
+                self.serverResponse = String(data: data!, encoding: .utf8)!
+                print(self.serverResponse)
             }
         })
         task.resume()

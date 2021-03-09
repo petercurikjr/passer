@@ -11,14 +11,25 @@ import SwiftUI
 struct LoginerView: View {
     
     let chosenIdentity: Identity
+    let chosenAttributes: [Int]
+    @ObservedObject var serverDelegate = ServerDelegate()
     
     var body: some View {
-        Text("Loginer")
+        VStack {
+            Text("Loginer")
+        }
+        .onAppear(perform: {
+            let jsonToSend = identityToJSON(identity: generatePasserIdentityStruct(identity: chosenIdentity, selectedItems: chosenAttributes))
+            self.serverDelegate.postToServer(jsonToUpload: jsonToSend!)
+            
+        })
     }
 }
 
 struct LoginerView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginerView(chosenIdentity: Identity(firstName: "bla", lastName: "bla", email: "bla", birthDate: Date(), username: "", gender: .male, address: Address(country: "", formatted: "", locality: "", postal_code: "", region: "", street_address: "")))
+        LoginerView(
+            chosenIdentity: Identity(firstName: "", lastName: "", email: "", phoneNumber: "", birthDate: Date(), username: "", gender: Gender.male, address: Address(country: nil, formatted: nil, locality: nil, postal_code: nil, region: nil, street_address: nil)),
+            chosenAttributes: [Int]())
     }
 }

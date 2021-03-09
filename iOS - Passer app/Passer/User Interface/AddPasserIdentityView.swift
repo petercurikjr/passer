@@ -138,6 +138,7 @@ struct AddPasserIdentityView: View {
                             firstName: firstName,
                             lastName: lastName,
                             email: email,
+                            phoneNumber: phoneNumber,
                             birthDate: birthDate,
                             username: username,
                             gender: pickedGender,
