@@ -31,7 +31,7 @@ struct ActivityIndicator: UIViewRepresentable {
 struct CodeCountdownView: View {
     
     @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State var diff: [String] = ["",""]
+    @State var diff: [String] = ["02","00"]
     @State var disabledButton = false
     @State private var spinner = true
     
@@ -43,14 +43,14 @@ struct CodeCountdownView: View {
     
     var body: some View {
         VStack {
-            if(self.server.approvedByServer != nil && self.server.serverDown == false) {
+            if(self.server.response != nil && self.server.serverDown == false) {
                 HStack {
                     Text("Tap to go back").font(.footnote)
                     Image(systemName: "arrow.up")
                 }
                 HStack {
                     ///Here, im sure that sixdigitCode is not nil (thanks to the if statement), so I can confidently persuade Swift that the value contains something (by using "!")
-                    Text((self.server.approvedByServer?.sixdigitCode)!.prefix(3))
+                    Text((self.server.response)!.prefix(3))
                         .font(.system(size: 40))
                         .fontWeight(.thin)
                         .tracking(20)
@@ -59,7 +59,7 @@ struct CodeCountdownView: View {
                         .padding(.trailing, 2)
                     
                     ///Split the verification code to two Text elements for a esthetical gap between the two code halves
-                    Text((server.approvedByServer?.sixdigitCode)!.suffix(3))
+                    Text((self.server.response)!.suffix(3))
                         .font(.system(size: 40))
                         .fontWeight(.thin)
                         .tracking(20)
@@ -89,7 +89,7 @@ struct CodeCountdownView: View {
                         .animation(nil)
                         .frame(width: 50)
                         .onReceive(timer) { _ in
-                            self.diff = timeDelta(initial: (self.server.approvedByServer?.timestamp)!)
+                            self.diff = timeDelta(initial: (self.server.timestamp)!)
                             if didItEnd(time: self.diff) {
                                 self.disabledButton = false
                             }
@@ -98,7 +98,7 @@ struct CodeCountdownView: View {
                 
                 Button(action: {
                     ///Get new data from server
-                    self.server.newSixdigitCode(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
+                    self.server.generateRequestBody(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
                 }) {
                     ButtonUI(name: "Generate a new code")
                 }.padding()
@@ -118,7 +118,7 @@ struct CodeCountdownView: View {
                         
                         Button(action: {
                             ///Get new data from server
-                            self.server.newSixdigitCode(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
+                            self.server.generateRequestBody(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
                             ///Restart timer
                             self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                         }) {
@@ -136,7 +136,7 @@ struct CodeCountdownView: View {
             Spacer()
         }.padding()
             .onAppear(perform: {
-                self.server.newSixdigitCode(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
+                self.server.generateRequestBody(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
             })
     }
 }

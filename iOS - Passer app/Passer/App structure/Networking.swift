@@ -12,23 +12,23 @@ final class ServerDelegate: ObservableObject {
     
     ///Published variables can update views which have an @ObservedObject instance of this class. A class needs to conform to ObservableObject in order this to work
     ///This can be also achieved with publishers from Combine framework, but this technique offers a super-easy approch to this problem (which, of course means less control and features of publishing and subscribing, but this is sufficient for our purposes)
-    @Published var approvedByServer: SixdigitAuth? = nil
     @Published var serverDown: Bool = false
-    @Published var serverResponse: String = ""
+    @Published var response: String?
+    @Published var timestamp: Date?
     
-    private var sixdigitStructure: SixdigitAuth? = nil
+    private var requestBody: SixdigitAuth? = nil
     
     init() {
         
     }
     
-    func newSixdigitCode(passwordItems: [PasswordItem]?, bankCardItems: [BankCardItem]?, otherItems: [OtherItem]?) {
-        self.sixdigitStructure = generatePasserItemsStruct(passwordItems: passwordItems, bankCardItems: bankCardItems, otherItems: otherItems)
-        let toJSON = sixdigitToJSON(input: self.sixdigitStructure!)
-        postToServer(jsonToUpload: toJSON!, sixdigitStructure: self.sixdigitStructure!)
+    func generateRequestBody(passwordItems: [PasswordItem]?, bankCardItems: [BankCardItem]?, otherItems: [OtherItem]?) {
+        self.requestBody = generatePasserItemsStruct(passwordItems: passwordItems, bankCardItems: bankCardItems, otherItems: otherItems)
+        let toJSON = sixdigitToJSON(input: self.requestBody!)
+        postToServer(jsonToUpload: toJSON!, requestBody: self.requestBody!)
     }
     
-    func postToServer(jsonToUpload: Data, sixdigitStructure: SixdigitAuth) {
+    func postToServer(jsonToUpload: Data, requestBody: SixdigitAuth) {
         var request = URLRequest(url: URL(string: "https://api-passer.herokuapp.com/sixdigit")!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -44,26 +44,22 @@ final class ServerDelegate: ObservableObject {
             
             if let error = error {
                 print("error: \(error)")
-                self.processServerResult(sixdigitStructure: nil)
+                self.processServerResult(response: nil)
                 return
             }
             
             let response = response as? HTTPURLResponse
-            ///Six digit code duplicate on the server. Create a new one and retry
-            if response?.statusCode == 409  {
-                self.newSixdigitCode(passwordItems: self.sixdigitStructure?.passwordItems, bankCardItems: self.sixdigitStructure?.bankCardItems, otherItems: self.sixdigitStructure?.otherItems)
-            }
             
             ///Other type of server error.
-            else if !(200...299).contains(response?.statusCode ?? 404) {
-                self.processServerResult(sixdigitStructure: nil)
+            if !(200...299).contains(response?.statusCode ?? 404) {
+                self.processServerResult(response: nil)
                 print("server error")
                 return
             }
             
             ///Success
             if data != nil {
-                self.processServerResult(sixdigitStructure: sixdigitStructure)
+                self.processServerResult(response: data)
                 print(String(data: data!, encoding: .utf8)!)
             }
         })
@@ -130,23 +126,24 @@ final class ServerDelegate: ObservableObject {
             
             ///Success
             if data != nil {
-                self.serverResponse = String(data: data!, encoding: .utf8)!
-                print(self.serverResponse)
+                self.processServerResult(response: data)
             }
         })
         task.resume()
     }
     
-    func processServerResult(sixdigitStructure: SixdigitAuth?) {
+    func processServerResult(response: Data?) {
         ///Switch to the main thread
         DispatchQueue.main.async {
-            guard sixdigitStructure != nil else {
+            guard response != nil else {
                 self.serverDown = true
                 return
             }
             
             self.serverDown = false
-            self.approvedByServer = sixdigitStructure
+            self.response = String(data: response!, encoding: .utf8)!
+            
+            self.timestamp = Date()
         }
     }
     
