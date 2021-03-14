@@ -20,7 +20,7 @@ struct EmptyVault: View {
                 .font(.largeTitle)
             Text("Your passwords and other valuable data:")
                 .multilineTextAlignment(.center)
-            Text("all at one place.")
+            Text("all in one place.")
         }.padding().padding(.vertical)
 
         Image(systemName: "pencil.and.ellipsis.rectangle")

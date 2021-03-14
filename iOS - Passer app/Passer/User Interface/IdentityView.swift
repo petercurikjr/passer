@@ -43,8 +43,8 @@ struct IdentityView: View {
                                 Image(systemName: "person.fill")
                             }
                             .sheet(isPresented: self.$showIdentityDetails) {
-                                //IdentityDetails(chosenIdentity: identity)
-                                IdentityClaimsChooserView(chosenIdentity: identity)
+                                IdentityDetails(chosenIdentity: identity)
+                                //IdentityClaimsChooserView(chosenIdentity: identity)
                             }
                         }.contentShape(Rectangle()).padding(2)
                     }

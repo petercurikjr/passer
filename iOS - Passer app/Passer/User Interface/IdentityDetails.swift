@@ -13,26 +13,28 @@ struct IdentityDetails: View {
     @State private var showClaimsChooser = false
     
     var body: some View {
-        VStack {
-            Text("Identity Details")
-                .bold()
-                .font(.largeTitle)
-            
-            Text(chosenIdentity.firstName ?? "NaN")
-            Text(chosenIdentity.lastName ?? "NaN")
-            Text(chosenIdentity.email ?? "Not provided")
-            Text(chosenIdentity.gender?.rawValue ?? Gender.unspecified.rawValue)
-            Text(chosenIdentity.convertDate(date: chosenIdentity.birthDate, mode: .dotted))
-            
-            Button(action: {
-                self.showClaimsChooser = true
-            }) {
-                ButtonUI(name: "Loginer")
-            }
-        }.opacity(showClaimsChooser ? 0 : 1).animation(Animation.easeInOut(duration: 0.7))
+        ZStack {
+            VStack {
+                Text("Identity Details")
+                    .bold()
+                    .font(.largeTitle)
+                
+                Text(chosenIdentity.firstName ?? "NaN")
+                Text(chosenIdentity.lastName ?? "NaN")
+                Text(chosenIdentity.email ?? "Not provided")
+                Text(chosenIdentity.gender?.rawValue ?? Gender.unspecified.rawValue)
+                Text(chosenIdentity.convertDate(date: chosenIdentity.birthDate, mode: .dotted))
+                
+                Button(action: {
+                    self.showClaimsChooser.toggle()
+                }) {
+                    ButtonUI(name: "Loginer")
+                }
+            }.opacity(showClaimsChooser ? 0 : 1).animation(Animation.easeInOut(duration: 0.7))
         
-        IdentityClaimsChooserView(chosenIdentity: chosenIdentity)
-            .opacity(showClaimsChooser ? 1 : 0).animation(Animation.easeInOut(duration: 0.7))
+            IdentityClaimsChooserView(chosenIdentity: chosenIdentity, goBack: self.$showClaimsChooser)
+                .opacity(showClaimsChooser ? 1 : 0).animation(Animation.easeInOut(duration: 0.7))
+        }
     }
 }
 
