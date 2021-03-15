@@ -332,7 +332,7 @@ class Vault: ObservableObject {
                 field1: "1553",
                 field2: "Basement",
                 field3: "Behind picture on the vall",
-                field4: nil,
+                field4: "",
                 itemname: "My home vault",
                 group: nil,
                 favourites: false

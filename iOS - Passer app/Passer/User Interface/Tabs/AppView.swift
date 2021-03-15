@@ -23,7 +23,7 @@ struct AppView: View {
         VStack {
             if 1==1/*authenticated*/ {
                 TabView(selection: $selection) {
-                    ContentView()
+                    ItemsView(numberOfDisplayedItems: vault.passwordItems.count + vault.bankCardItems.count + vault.otherItems.count)
                         .tabItem {
                             Image(systemName: "pencil.and.ellipsis.rectangle")
                             Text("Items")

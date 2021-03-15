@@ -22,12 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
         let vault = Vault()
         let settings = UserSettings()
-        let contentView = AppView(selection: settings.tab == "Items" ? 1 : 2)
+        let itemsView = AppView(selection: settings.tab == "Items" ? 1 : 2)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView.environmentObject(vault).environmentObject(settings))
+            window.rootViewController = UIHostingController(rootView: itemsView.environmentObject(vault).environmentObject(settings))
             self.window = window
             window.makeKeyAndVisible()
         }

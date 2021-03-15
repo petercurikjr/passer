@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ItemsView.swift
 //  Passer
 //
 //  Created by Peter Čuřík Jr. on 04/03/2020.
@@ -8,11 +8,10 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ItemsView: View {
     ///State means "variable can update the view (locally)"
     @State private var showAddPassword = false
     
-    @State private var groupSelector = [true,false,false,false]
     @State private var passwordGroups = [PasswordItem]()
     @State private var bankCardGroups = [BankCardItem]()
     @State private var otherGroups = [OtherItem]()
@@ -20,6 +19,9 @@ struct ContentView: View {
     @State private var passwordItemExpand = [PasswordItem]()
     @State private var bankCardItemExpand = [BankCardItem]()
     @State private var otherItemExpand = [OtherItem]()
+    
+    @State private var groupSelector = [true,false,false,false]
+    @State var numberOfDisplayedItems: Int
     @State private var filter = 1
     
     @EnvironmentObject var vault: Vault
@@ -58,7 +60,7 @@ struct ContentView: View {
                             self.groupSelector[0].toggle()
                             
                         }) {
-                            GroupsSelector(groupName: "All groups", count: vault.passwordItems.count + vault.bankCardItems.count + vault.otherItems.count,
+                            GroupsSelector(groupName: "All groups", count: self.numberOfDisplayedItems,
                                            color1: groupSelector[0] ? "blue1" : "gray1",
                                            color2: groupSelector[0] ? "blue2" : "gray2", emoji: "📝")
                         }.buttonStyle(PlainButtonStyle())
@@ -129,6 +131,9 @@ struct ContentView: View {
                     Text("Other")
                         .tag(4)
                 }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
+                .onReceive([self.filter].publisher.first()) { value in
+                            self.updatedDisplayedNumberOfItems(value: value)
+                 }
                 
                 List {
                     if filter == 1 || filter == 2 {
@@ -238,11 +243,29 @@ struct ContentView: View {
         }
     }
     
+    private func updatedDisplayedNumberOfItems(value: Int) {
+        if value == 1 {
+            self.numberOfDisplayedItems = self.vault.passwordItems.count + self.vault.bankCardItems.count + self.vault.otherItems.count
+        }
+        
+        else if value == 2 {
+            self.numberOfDisplayedItems = self.vault.passwordItems.count
+        }
+        
+        else if value == 3 {
+            self.numberOfDisplayedItems = self.vault.bankCardItems.count
+        }
+        
+        else if value == 4 {
+            self.numberOfDisplayedItems = self.vault.otherItems.count
+        }
+  }
+    
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ItemsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ItemsView(numberOfDisplayedItems: 0)
             .environment(\.colorScheme, .light)
     }
 }
