@@ -70,8 +70,8 @@ func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> I
         }
     }
     
-    //let deviceID = (UIDevice.current.identifierForVendor?.uuidString)!
-    let deviceID = "49015420323751"
+    let deviceID = (UIDevice.current.identifierForVendor?.uuidString)!
+    //let deviceID = "49015420323751"
     let device = Device(deviceId: deviceID)
     
     let address = Address(

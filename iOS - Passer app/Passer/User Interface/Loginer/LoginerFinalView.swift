@@ -36,7 +36,7 @@ struct LoginerFinalView: View {
                     .multilineTextAlignment(.center)
                 Button(action: {
                     //open website
-                    let website = "https://google.com"
+                    let website = "https://tp-ai-login.netlify.app"
                     let url = URL(string: website)
                     UIApplication.shared.open(url!)
                 }) {
