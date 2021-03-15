@@ -11,6 +11,7 @@
 		BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D5936241A395800DAF9BD /* SixdigitCode.swift */; };
 		BC15CF4525FED42E002250D9 /* LoginerFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15CF4425FED42E002250D9 /* LoginerFinalView.swift */; };
 		BC15CF4925FED4C5002250D9 /* OutsiderFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15CF4825FED4C5002250D9 /* OutsiderFinalView.swift */; };
+		BC15CF5425FEE234002250D9 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15CF5325FEE234002250D9 /* UserSettings.swift */; };
 		BC1B2C01244E713C000154C5 /* AddPasserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */; };
 		BC1B2C03244E73B7000154C5 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C02244E73B7000154C5 /* AppView.swift */; };
 		BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C04244E73F9000154C5 /* SettingsView.swift */; };
@@ -63,6 +64,7 @@
 		BC0D5936241A395800DAF9BD /* SixdigitCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixdigitCode.swift; sourceTree = "<group>"; };
 		BC15CF4425FED42E002250D9 /* LoginerFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginerFinalView.swift; sourceTree = "<group>"; };
 		BC15CF4825FED4C5002250D9 /* OutsiderFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutsiderFinalView.swift; sourceTree = "<group>"; };
+		BC15CF5325FEE234002250D9 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasserItemView.swift; sourceTree = "<group>"; };
 		BC1B2C02244E73B7000154C5 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		BC1B2C04244E73F9000154C5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				BC8A782F240FCA5E004077A8 /* PasserItem.swift */,
 				BCF351FD244A631500E7A03F /* InternetConnectivity.swift */,
 				BC49515725F56A5A0006C173 /* IdentityJson.swift */,
+				BC15CF5325FEE234002250D9 /* UserSettings.swift */,
 			);
 			path = "App structure";
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				BC15CF4525FED42E002250D9 /* LoginerFinalView.swift in Sources */,
 				BC56FA6424589855007B02EE /* EmptyVault.swift in Sources */,
 				BC1B2C03244E73B7000154C5 /* AppView.swift in Sources */,
+				BC15CF5425FEE234002250D9 /* UserSettings.swift in Sources */,
 				BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */,
 				BCC7515C24401B9500D3F099 /* TimeDelta.swift in Sources */,
 				BC1B2C01244E713C000154C5 /* AddPasserItemView.swift in Sources */,

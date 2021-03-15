@@ -13,12 +13,16 @@ struct AppView: View {
     
     ///Accessible by all child views. vault was created in SceneDelegate.swift when launching the app
     @EnvironmentObject var vault: Vault
+    @EnvironmentObject var userSettings: UserSettings
     @State var authenticated = false
+    
+    ///Choose a default tab
+    @State var selection: Int
     
     var body: some View {
         VStack {
             if 1==1/*authenticated*/ {
-                TabView() {
+                TabView(selection: $selection) {
                     ContentView()
                         .tabItem {
                             Image(systemName: "pencil.and.ellipsis.rectangle")
@@ -31,7 +35,7 @@ struct AppView: View {
                             Text("Identity")
                         }.tag(2)
                     
-                    SettingsView()	
+                    SettingsView(userSettings: userSettings)	
                         .tabItem {
                             Image(systemName: "gear")
                             Text("Settings")
@@ -74,6 +78,6 @@ struct AppView: View {
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
-        AppView()
+        AppView(selection: 1)
     }
 }
