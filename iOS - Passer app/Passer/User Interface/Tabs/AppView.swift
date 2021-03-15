@@ -21,7 +21,11 @@ struct AppView: View {
     
     var body: some View {
         VStack {
-            if 1==1/*authenticated*/ {
+            ///Use when testing on the emulator
+            if 1==1 {
+            ///Use in production
+            //if authenticated {
+                
                 TabView(selection: $selection) {
                     ItemsView(numberOfDisplayedItems: vault.passwordItems.count + vault.bankCardItems.count + vault.otherItems.count)
                         .tabItem {
@@ -40,13 +44,13 @@ struct AppView: View {
                             Image(systemName: "gear")
                             Text("Settings")
                         }.tag(3)
-                    
-
                 }
             }
         }.onAppear(perform: {
+            ///Use when testing on the emulator
             print("Testing phase. Authentication and cryptographic features turned off.")
             
+            ///Use in production
             /*
             if self.vault.isEmpty() || !userSettings.useBiometry {
                 self.authenticated = true
@@ -56,9 +60,9 @@ struct AppView: View {
                 self.authenticateUser()
             }
             */
-            
         })
     }
+    
     
     private func authenticateUser() {
         let context = LAContext()

@@ -15,21 +15,96 @@ struct IdentityDetails: View {
     var body: some View {
         ZStack {
             VStack {
-                Text("Identity Details")
-                    .bold()
-                    .font(.largeTitle)
+                HStack {
+                    Text("Identity Details")
+                        .bold()
+                        .font(.largeTitle)
+                    Spacer()
+                    Image(systemName: "person.fill")
+                        .font(.system(size: 30))
+                }.padding(.top, 40).padding(.horizontal, 25)
                 
-                Text(chosenIdentity.firstName ?? "NaN")
-                Text(chosenIdentity.lastName ?? "NaN")
-                Text(chosenIdentity.email ?? "Not provided")
-                Text(chosenIdentity.gender?.rawValue ?? Gender.unspecified.rawValue)
-                Text(chosenIdentity.convertDate(date: chosenIdentity.birthDate, mode: .dotted))
+                List {
+                    Text(((chosenIdentity.firstName ?? "") + " " + (chosenIdentity.lastName ?? "")))
+                        .bold()
+                        .font(.headline)
+                
+                    Section(header: Text("Basic information")) {
+                        HStack {
+                            Text("Username:")
+                            Spacer()
+                            Text(chosenIdentity.username ?? "")
+                                .padding(.trailing)
+                        }
+                        HStack {
+                            Text("Gender:")
+                            Spacer()
+                            Text(chosenIdentity.gender?.rawValue ?? Gender.unspecified.rawValue)
+                                .padding(.trailing)
+                        }
+                        HStack {
+                            Text("Birth date:")
+                            Spacer()
+                            Text(chosenIdentity.convertDate(date: chosenIdentity.birthDate, mode: .dotted))
+                                .padding(.trailing)
+                        }
+                    }
+                    
+                    Section(header: Text("Contact")) {
+                        HStack {
+                            Text("Mail:")
+                            Spacer()
+                            Text(chosenIdentity.email ?? "")
+                                .padding(.trailing)
+                        }
+                        HStack {
+                            Text("Phone:")
+                            Spacer()
+                            Text(chosenIdentity.phoneNumber ?? "")
+                                .padding(.trailing)
+                        }
+                    }
+                    
+                    Section(header: Text("Address")) {
+                        HStack {
+                            Text("Street:")
+                            Spacer()
+                            Text(chosenIdentity.address?.street_address ?? "")
+                                .padding(.trailing)
+                        }
+                        HStack {
+                            Text("Postal Code:")
+                            Spacer()
+                            Text(chosenIdentity.address?.postal_code ?? "")
+                                .padding(.trailing)
+                        }
+                        HStack {
+                            Text("City:")
+                            Spacer()
+                            Text(chosenIdentity.address?.locality ?? "")
+                                .padding(.trailing)
+                        }
+                        HStack {
+                            Text("Region:")
+                            Spacer()
+                            Text(chosenIdentity.address?.region ?? "")
+                                .padding(.trailing)
+                        }
+                        HStack {
+                            Text("Country:")
+                            Spacer()
+                            Text(chosenIdentity.address?.country ?? "")
+                                .padding(.trailing)
+                        }
+                    }
+ 
+                }.listStyle(InsetGroupedListStyle())
                 
                 Button(action: {
                     self.showClaimsChooser.toggle()
                 }) {
                     ButtonUI(name: "Loginer")
-                }
+                }.padding(3)
             }.opacity(showClaimsChooser ? 0 : 1).animation(Animation.easeInOut(duration: 0.7))
         
             IdentityClaimsChooserView(chosenIdentity: chosenIdentity, goBack: self.$showClaimsChooser)
