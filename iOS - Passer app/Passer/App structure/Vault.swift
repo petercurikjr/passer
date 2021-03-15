@@ -115,6 +115,229 @@ class Vault: ObservableObject {
                 }
             }
         }
+        
+        generateDummyData()
+    }
+    
+    func generateDummyData() {
+        var birthDateStr = "1997-11-21"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        var birthDate = dateFormatter.date(from: birthDateStr)
+        
+        var addr = Address(
+            country: "Slovakia",
+            formatted: "Slovakia",
+            locality: "Bratislava",
+            postal_code: "83102",
+            region: "Bratislavský kraj",
+            street_address: "Krátka 1"
+        )
+        
+        var tmp = Identity(
+            firstName: "Peter",
+            lastName: "Čuřík",
+            email: "email@email.com",
+            phoneNumber: "+421 904 195 677",
+            birthDate: birthDate!,
+            username: "petercurikjr",
+            gender: Gender.male,
+            address: addr
+        )
+
+        identities.append(tmp)
+        
+        birthDateStr = "1998-05-08"
+        birthDate = dateFormatter.date(from: birthDateStr)
+        
+        addr = Address(
+            country: "Slovakia",
+            formatted: "Slovakia",
+            locality: "Budmerice",
+            postal_code: "83102",
+            region: "Trnavský kraj",
+            street_address: "Krátka 1"
+        )
+        
+        tmp = Identity(
+            firstName: "Matej",
+            lastName: "Friedel",
+            email: "mfriedel@email.com",
+            phoneNumber: "+421 902 114 701",
+            birthDate: birthDate!,
+            username: "mathieu",
+            gender: Gender.male,
+            address: addr
+        )
+        
+        identities.append(tmp)
+        
+        birthDateStr = "1998-02-27"
+        birthDate = dateFormatter.date(from: birthDateStr)
+        
+        addr = Address(
+            country: "Slovakia",
+            formatted: "Slovakia",
+            locality: "Bratislava",
+            postal_code: "83102",
+            region: "Bratislavský kraj",
+            street_address: "Vesmírna 1"
+        )
+        
+        tmp = Identity(
+            firstName: "Ján",
+            lastName: "Korček",
+            email: "jkorcek@email.com",
+            phoneNumber: "+421 905 154 688",
+            birthDate: birthDate!,
+            username: "janci",
+            gender: Gender.male,
+            address: addr
+        )
+        
+        identities.append(tmp)
+        
+        birthDateStr = "1996-12-24"
+        birthDate = dateFormatter.date(from: birthDateStr)
+        
+        addr = Address(
+            country: "Slovakia",
+            formatted: "Slovakia",
+            locality: "Bratislava",
+            postal_code: "83102",
+            region: "Bratislavský kraj",
+            street_address: "Krátka 1"
+        )
+        
+        tmp = Identity(
+            firstName: "Martin",
+            lastName: "Knoško",
+            email: "mknosko@email.com",
+            phoneNumber: "+421 910 788 054",
+            birthDate: birthDate!,
+            username: "Knosky",
+            gender: Gender.male,
+            address: addr
+        )
+        
+        identities.append(tmp)
+        
+        birthDateStr = "1997-04-18"
+        birthDate = dateFormatter.date(from: birthDateStr)
+        
+        addr = Address(
+            country: "Slovakia",
+            formatted: "Slovakia",
+            locality: "Devínska Nová Ves",
+            postal_code: "83102",
+            region: "Bratislavský kraj",
+            street_address: "Za Rohom 58/A"
+        )
+        
+        tmp = Identity(
+            firstName: "Matej",
+            lastName: "Mózer",
+            email: "mmozer@email.com",
+            phoneNumber: "+421 911 984 410",
+            birthDate: birthDate!,
+            username: "matejmozer",
+            gender: Gender.male,
+            address: addr
+        )
+        
+        identities.append(tmp)
+        
+        birthDateStr = "1989-11-17"
+        birthDate = dateFormatter.date(from: birthDateStr)
+        
+        addr = Address(
+            country: "Slovakia",
+            formatted: "Slovakia",
+            locality: "Prešov",
+            postal_code: "75124",
+            region: "Prešovský kraj",
+            street_address: "Horská 25"
+        )
+        
+        tmp = Identity(
+            firstName: "prof. Ing. Pavol",
+            lastName: "Zajac, PhD.",
+            email: "pz@email.com",
+            phoneNumber: "+421 901 051 639",
+            birthDate: birthDate!,
+            username: "pzuim",
+            gender: Gender.male,
+            address: addr
+        )
+        
+        identities.append(tmp)
+        
+        passwordItems.append(
+            PasswordItem(
+                username: "petercurikjr",
+                password: "password123",
+                url: "facebook.com",
+                itemname: "Facebook login",
+                group: nil,
+                favourites: true
+            )
+        )
+        
+        passwordItems.append(
+            PasswordItem(
+                username: "peter.curik",
+                password: "Uf49pmL3Tk",
+                url: nil,
+                itemname: "Office PC credentials",
+                group: nil,
+                favourites: true
+            )
+        )
+        
+        passwordItems.append(
+            PasswordItem(
+                username: "epicgamer",
+                password: "worldoftanks",
+                url: "discord.com",
+                itemname: "Discord gaming profile",
+                group: nil,
+                favourites: false
+            )
+        )
+        
+        passwordItems.append(
+            PasswordItem(
+                username: "Peter Čuřík",
+                password: "stubafei54PCu",
+                url: "is.stuba.sk",
+                itemname: "FEI STU school",
+                group: nil,
+                favourites: true
+            )
+        )
+        
+        bankCardItems.append(
+            BankCardItem(
+                cardNumber: "4432 5692 0445 1278",
+                expireDate: "04/21",
+                cvv: "512",
+                pinNumber: "6640",
+                itemname: "Credit card",
+                group: nil,
+                favourites: true)
+        )
+        
+        otherItems.append(
+            OtherItem(
+                field1: "1553",
+                field2: "Basement",
+                field3: "Behind picture on the vall",
+                field4: nil,
+                itemname: "My home vault",
+                group: nil,
+                favourites: false
+            )
+        )
     }
     
     func vaultPush(passwordItem: PasswordItem, vault: Vault) {
