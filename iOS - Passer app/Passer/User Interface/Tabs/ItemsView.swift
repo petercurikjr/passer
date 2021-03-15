@@ -159,7 +159,7 @@ struct ItemsView: View {
                             }
                             .onDelete { indexSet in
                                 self.vault.passwordItems.remove(atOffsets: indexSet)
-                                self.vault.vaultUpdate(vault: self.vault)
+                                self.vault.vaultUpdate()
                             }
                         }
                     }
@@ -186,7 +186,7 @@ struct ItemsView: View {
                                 }
                             }.onDelete { indexSet in
                                 self.vault.bankCardItems.remove(atOffsets: indexSet)
-                                self.vault.vaultUpdate(vault: self.vault)
+                                self.vault.vaultUpdate()
                             }
                         }
                     }
@@ -207,7 +207,7 @@ struct ItemsView: View {
                                 }
                             }.onDelete { indexSet in
                                 self.vault.otherItems.remove(atOffsets: indexSet)
-                                self.vault.vaultUpdate(vault: self.vault)
+                                self.vault.vaultUpdate()
                             }
                         }
                     }

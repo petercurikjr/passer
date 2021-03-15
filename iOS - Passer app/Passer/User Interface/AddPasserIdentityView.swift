@@ -144,7 +144,7 @@ struct AddPasserIdentityView: View {
                             gender: pickedGender,
                             address: address)
                         
-                        self.vault.vaultPush(identity: newIdentity, vault: self.vault)
+                        self.vault.vaultPush(identity: newIdentity)
                         
                         self.presentationMode.wrappedValue.dismiss()
                     }) {

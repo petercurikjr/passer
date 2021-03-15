@@ -20,12 +20,20 @@ class Vault: ObservableObject {
     
     private var privateKey: SecKey? = nil
     private var publicKey: SecKey? = nil
+    
+    private var filenames = ["passworditems_passer.txt","bankcarditems_passer.txt","otheritems_passer.txt","identities.txt"]
 
+    
     init() {
-        let filenames = ["passworditems_passer.txt","bankcarditems_passer.txt","otheritems_passer.txt","identities.txt"]
-        var fileExists = true
+        ///Use in production
+        //resolveCryptographicKeys()
         
-        /*
+        getDataIfPresent()
+        generateDummyData()
+    }
+    
+    
+    private func resolveCryptographicKeys() {
         let privateKey = loadKey(name: "passerkey")
         if privateKey == nil {
             guard let initialKey = try? createAndStoreKey(name: "passerkey", requiresBiometry: false) else {
@@ -45,8 +53,11 @@ class Vault: ObservableObject {
         }
         
         self.publicKey = publicKey
-         */
-        
+    }
+    
+    
+    private func getDataIfPresent() {
+        var fileExists: Bool = true
         
         for i in 0..<filenames.endIndex {
             ///iOS will find places for our app's data and delete it when the app is deleted. FileManafer.defualt.urls returns an array of all available paths
@@ -59,67 +70,268 @@ class Vault: ObservableObject {
         }
         
         if fileExists {
-            ///Fill arrays from device's storage
-            do {
-                for i in 0..<filenames.endIndex {
-                    let dataFromStorage = try Data(contentsOf: self.userDirPaths[i])
-                    /*
-                    let decryptedDataFromStorage = vaultDecrypt(dataToDecrypt: dataFromStorage)
-                    guard decryptedDataFromStorage != nil else {
-                        print("Decryption error. Data may be corrupted or user's vault is empty.")
-                        return
-                    }
-                    
-                    if i == 0 {
-                        self.passwordItems = try JSONDecoder().decode(Array<PasswordItem>.self, from: decryptedDataFromStorage!)
-                    }
-                    else if i == 1 {
-                        self.bankCardItems = try JSONDecoder().decode(Array<BankCardItem>.self, from: decryptedDataFromStorage!)
-                    }
-                    else if i == 2 {
-                        self.otherItems = try JSONDecoder().decode(Array<OtherItem>.self, from: decryptedDataFromStorage!)
-                    }
-                    */
-                    if i == 0 {
-                        self.passwordItems = try JSONDecoder().decode(Array<PasswordItem>.self, from: dataFromStorage)
-                    }
-                    else if i == 1 {
-                        self.bankCardItems = try JSONDecoder().decode(Array<BankCardItem>.self, from: dataFromStorage)
-                    }
-                    else if i == 2 {
-                        self.otherItems = try JSONDecoder().decode(Array<OtherItem>.self, from: dataFromStorage)
-                    }
-                    else if i == 3 {
-                        self.identities = try JSONDecoder().decode(Array<Identity>.self, from: dataFromStorage)
-                    }
+            for i in 0..<filenames.endIndex {
+                let dataFromStorage = try? Data(contentsOf: self.userDirPaths[i])
                 
-                }
+                ///Use when testing on the emulator
+                initAppData(source: dataFromStorage, i: i)
                 
-                print("Contents loaded into Passer successfully.")
-            }
-                
-            catch {
-                print("An error occured while reading the file from device's storage. Possible corruption of data.", error)
+                ///Use in production
+                //let decryptedDataFromStorage = vaultDecrypt(dataToDecrypt: dataFromStorage)
+                //guard decryptedDataFromStorage != nil else {
+                //    print("Decryption error. Data may be corrupted or user's vault is empty.")
+                //    return
+                //}
+                //initAppData(source: decryptedDataFromStorage!, i: i)
             }
         }
             
         else {
-            ///New file
-            for i in 0..<filenames.endIndex {
-                let success = FileManager.default.createFile(atPath: self.userDirPaths[i].path, contents: nil)
-                if success {
-                    print("Created a new file \(filenames[i]) successfully.")
-                }
-                else {
-                    print("ERROR: Passer cannot create \(filenames[i]).")
-                }
+            ///No files with given filenames found. Create new files with filenames provided
+            initFileStructureIfNil()
+        }
+    }
+
+    
+    private func initAppData(source: Data?, i: Int) {
+        do {
+            if i == 0 {
+                self.passwordItems = try JSONDecoder().decode(Array<PasswordItem>.self, from: source!)
+            }
+            else if i == 1 {
+                self.bankCardItems = try JSONDecoder().decode(Array<BankCardItem>.self, from: source!)
+            }
+            else if i == 2 {
+                self.otherItems = try JSONDecoder().decode(Array<OtherItem>.self, from: source!)
+            }
+            else if i == 3 {
+                self.identities = try JSONDecoder().decode(Array<Identity>.self, from: source!)
             }
         }
         
-        generateDummyData()
+        catch {
+            print("An error occured while reading the file from device's storage. Possible corruption of data.", error)
+        }
     }
     
-    func generateDummyData() {
+    
+    private func initFileStructureIfNil() {
+        for i in 0..<filenames.endIndex {
+            let success = FileManager.default.createFile(atPath: self.userDirPaths[i].path, contents: nil)
+            if success {
+                print("Created a new file \(filenames[i]) successfully.")
+            }
+            else {
+                print("ERROR: Passer cannot create \(filenames[i]).")
+            }
+        }
+    }
+    
+    
+    func vaultPush(passwordItem: PasswordItem) {
+        ///Add to the array
+        passwordItems.append(passwordItem)
+        vaultUpdate()
+    }
+    
+    
+    func vaultPush(bankCardItem: BankCardItem) {
+        ///Add to the array
+        bankCardItems.append(bankCardItem)
+        vaultUpdate()
+    }
+    
+    
+    func vaultPush(otherItem: OtherItem) {
+        ///Add to the array
+        otherItems.append(otherItem)
+        vaultUpdate()
+    }
+    
+    
+    func vaultPush(identity: Identity) {
+        ///Add to the array
+        identities.append(identity)
+        vaultUpdate()
+    }
+    
+    
+    ///Updates filesystem with app's changes
+    func vaultUpdate() {
+        ///Encode the whole vault to JSON
+        let jsonData = encodeDataToJson()
+        guard jsonData.count == 4
+            else {
+                print("Failed to enocde the vault to Json.")
+                return
+            }
+
+        ///Use in production
+        //saveDataToStorage(jsonData: jsonData.compactMap{$0})
+        
+        ///Use when testing on the emulator
+        saveDataToStoragePlainText(jsonData: jsonData.compactMap{$0})
+    }
+
+    
+    private func encodeDataToJson() -> [Data?] {
+        let passwordJson = try? JSONEncoder().encode(self.passwordItems)
+        let bankcardJson = try? JSONEncoder().encode(self.bankCardItems)
+        let otherJson = try? JSONEncoder().encode(self.otherItems)
+        let identitiesJson = try? JSONEncoder().encode(self.identities)
+        
+        var jsonArr = [Data?]()
+        jsonArr.append(passwordJson)
+        jsonArr.append(bankcardJson)
+        jsonArr.append(otherJson)
+        jsonArr.append(identitiesJson)
+        
+        return jsonArr
+    }
+    
+    
+    private func saveDataToStorage(jsonData: [Data]) {
+        ///Encrypt with AES
+        let passwordEncrypt = vaultEncrypt(dataToEncrypt: jsonData[0])
+        let bankcardEncrypt = vaultEncrypt(dataToEncrypt: jsonData[1])
+        let otherEncrypt = vaultEncrypt(dataToEncrypt: jsonData[2])
+        let identityEncrypt = vaultEncrypt(dataToEncrypt: jsonData[3])
+        
+        ///Write file
+        do {
+            try passwordEncrypt!.write(to: self.userDirPaths[0], options: [.atomicWrite])
+            try bankcardEncrypt!.write(to: self.userDirPaths[1], options: [.atomicWrite])
+            try otherEncrypt!.write(to: self.userDirPaths[2], options: [.atomicWrite])
+            try identityEncrypt!.write(to: self.userDirPaths[3], options: [.atomicWrite])
+        }
+        
+        catch {
+            print(error)
+        }
+    }
+    
+    ///This method is used only during development and testing on the emulator
+    private func saveDataToStoragePlainText(jsonData: [Data]) {
+        do {
+            try jsonData[0].write(to: self.userDirPaths[0], options: [.atomicWrite])
+            try jsonData[1].write(to: self.userDirPaths[1], options: [.atomicWrite])
+            try jsonData[2].write(to: self.userDirPaths[2], options: [.atomicWrite])
+            try jsonData[3].write(to: self.userDirPaths[3], options: [.atomicWrite])
+        }
+        catch {
+            print(error)
+        }
+    }
+    
+    
+    private func vaultEncrypt(dataToEncrypt: Data) -> Data? {
+        ///Check for algorithm support
+        let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorX963SHA256AESGCM
+        guard SecKeyIsAlgorithmSupported(self.publicKey!, .encrypt, algorithm) else {
+            print("Selected algorithm is not supported.")
+            return nil
+        }
+        
+        ///Encrypt process
+        var error: Unmanaged<CFError>?
+
+        return SecKeyCreateEncryptedData(self.publicKey!, algorithm, dataToEncrypt as CFData, &error) as Data?
+    }
+    
+    
+    private func vaultDecrypt(dataToDecrypt: Data?) -> Data? {
+        ///Check for algorithm support
+        let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorX963SHA256AESGCM
+        guard SecKeyIsAlgorithmSupported(self.privateKey!, .decrypt, algorithm) else {
+            print("Selected algorithm is not supported.")
+            return nil
+        }
+        
+        ///Decrypt process
+        var error: Unmanaged<CFError>?
+        guard dataToDecrypt != nil else {
+            return nil
+        }
+        
+        return SecKeyCreateDecryptedData(self.privateKey!, algorithm, dataToDecrypt! as CFData, &error) as Data?
+    }
+    
+    
+    private func createAndStoreKey(name: String, requiresBiometry: Bool = false) throws -> SecKey {
+
+        let flags: SecAccessControlCreateFlags
+        if #available(iOS 11.3, *) {
+            flags = requiresBiometry ? [.privateKeyUsage, .biometryCurrentSet] : .privateKeyUsage
+        }
+        else {
+            flags = requiresBiometry ? [.privateKeyUsage, .touchIDCurrentSet] : .privateKeyUsage
+        }
+        
+        let access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,kSecAttrAccessibleWhenUnlockedThisDeviceOnly,flags,nil)!
+        let tag = name.data(using: .utf8)!
+        
+        ///Attributes of the key
+        let attributes: [String: Any] = [
+            ///Size of the key is 256 bits
+            kSecAttrKeyType as String           : kSecAttrKeyTypeEC,
+            kSecAttrKeySizeInBits as String     : 256,
+            kSecAttrTokenID as String           : kSecAttrTokenIDSecureEnclave,
+            kSecPrivateKeyAttrs as String : [
+                kSecAttrIsPermanent as String       : true,
+                kSecAttrApplicationTag as String    : tag,
+                kSecAttrAccessControl as String     : access
+            ]
+        ]
+        
+        var error: Unmanaged<CFError>?
+        
+        ///Creating a private key in Secure Enclave
+        guard let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
+            throw error!.takeRetainedValue() as Error
+        }
+        
+        return privateKey
+    }
+    
+    
+    private func loadKey(name: String) -> SecKey? {
+        let keyName = name.data(using: .utf8)!
+        let query: [String: Any] = [
+            kSecClass as String                 : kSecClassKey,
+            kSecAttrApplicationTag as String    : keyName,
+            kSecAttrKeyType as String           : kSecAttrKeyTypeEC,
+            kSecReturnRef as String             : true
+        ]
+        
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        guard status == errSecSuccess else {
+            return nil
+        }
+        return (item as! SecKey)
+    }
+    
+    
+    func isEmpty() -> Bool {
+        if self.bankCardItems.isEmpty && self.passwordItems.isEmpty && self.otherItems.isEmpty {
+            return true
+        }
+        
+        return false
+    }
+    
+    
+    func vaultErase() {
+        self.passwordItems.removeAll()
+        self.bankCardItems.removeAll()
+        self.otherItems.removeAll()
+        self.identities.removeAll()
+        
+        vaultUpdate()
+    }
+    
+    
+    private func generateDummyData() {
         var birthDateStr = "1997-11-21"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -338,167 +550,6 @@ class Vault: ObservableObject {
                 favourites: false
             )
         )
-    }
-    
-    func vaultPush(passwordItem: PasswordItem, vault: Vault) {
-        ///Add to the array
-        vault.passwordItems.append(passwordItem)
-        vaultUpdate(vault: vault)
-    }
-    
-    func vaultPush(bankCardItem: BankCardItem, vault: Vault) {
-        ///Add to the array
-        vault.bankCardItems.append(bankCardItem)
-        vaultUpdate(vault: vault)
-    }
-    
-    func vaultPush(otherItem: OtherItem, vault: Vault) {
-        ///Add to the array
-        vault.otherItems.append(otherItem)
-        vaultUpdate(vault: vault)
-    }
-    
-    func vaultPush(identity: Identity, vault: Vault) {
-        ///Add to the array
-        vault.identities.append(identity)
-        vaultUpdate(vault: vault)
-    }
-    
-    ///Updates filesystem with app's changes
-    func vaultUpdate(vault: Vault) {
-        ///To JSON
-        guard let passwordJson = try? JSONEncoder().encode(self.passwordItems),
-            let bankcardJson = try? JSONEncoder().encode(self.bankCardItems),
-            let otherJson = try? JSONEncoder().encode(self.otherItems),
-            let identitiesJson = try? JSONEncoder().encode(self.identities)
-            else {
-                return
-        }
-         
-        /*
-        ///To Ciphertext
-        let passwordEncrypt = vaultEncrypt(dataToEncrypt: passwordJson)
-        let bankcardEncrypt = vaultEncrypt(dataToEncrypt: bankcardJson)
-        let otherEncrypt = vaultEncrypt(dataToEncrypt: otherJson)
-         */
-        
-        ///Write file
-        do {
-            /*
-            try passwordEncrypt!.write(to: self.userDirPaths[0], options: [.atomicWrite])
-            try bankcardEncrypt!.write(to: self.userDirPaths[1], options: [.atomicWrite])
-            try otherEncrypt!.write(to: self.userDirPaths[2], options: [.atomicWrite])
-             */
-            
-            try passwordJson.write(to: self.userDirPaths[0], options: [.atomicWrite])
-            try bankcardJson.write(to: self.userDirPaths[1], options: [.atomicWrite])
-            try otherJson.write(to: self.userDirPaths[2], options: [.atomicWrite])
-            try identitiesJson.write(to: self.userDirPaths[3], options: [.atomicWrite])
-        }
-        catch {
-            print(error)
-        }
-    }
-    
-    private func vaultEncrypt(dataToEncrypt: Data) -> Data? {
-        ///Check for algorithm support
-        let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorX963SHA256AESGCM
-        guard SecKeyIsAlgorithmSupported(self.publicKey!, .encrypt, algorithm) else {
-            print("Selected algorithm is not supported.")
-            return nil
-        }
-        
-        ///Encrypt process
-        var error: Unmanaged<CFError>?
-
-        return SecKeyCreateEncryptedData(self.publicKey!, algorithm, dataToEncrypt as CFData, &error) as Data?
-    }
-    
-    private func vaultDecrypt(dataToDecrypt: Data?) -> Data? {
-        ///Check for algorithm support
-        let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorX963SHA256AESGCM
-        guard SecKeyIsAlgorithmSupported(self.privateKey!, .decrypt, algorithm) else {
-            print("Selected algorithm is not supported.")
-            return nil
-        }
-        
-        ///Decrypt process
-        var error: Unmanaged<CFError>?
-        guard dataToDecrypt != nil else {
-            return nil
-        }
-        
-        return SecKeyCreateDecryptedData(self.privateKey!, algorithm, dataToDecrypt! as CFData, &error) as Data?
-    }
-    
-    private func createAndStoreKey(name: String, requiresBiometry: Bool = false) throws -> SecKey {
-
-        let flags: SecAccessControlCreateFlags
-        if #available(iOS 11.3, *) {
-            flags = requiresBiometry ? [.privateKeyUsage, .biometryCurrentSet] : .privateKeyUsage
-        }
-        else {
-            flags = requiresBiometry ? [.privateKeyUsage, .touchIDCurrentSet] : .privateKeyUsage
-        }
-        
-        let access = SecAccessControlCreateWithFlags(kCFAllocatorDefault,kSecAttrAccessibleWhenUnlockedThisDeviceOnly,flags,nil)!
-        let tag = name.data(using: .utf8)!
-        
-        ///Attributes of the key
-        let attributes: [String: Any] = [
-            ///Size of the key is 256 bits
-            kSecAttrKeyType as String           : kSecAttrKeyTypeEC,
-            kSecAttrKeySizeInBits as String     : 256,
-            kSecAttrTokenID as String           : kSecAttrTokenIDSecureEnclave,
-            kSecPrivateKeyAttrs as String : [
-                kSecAttrIsPermanent as String       : true,
-                kSecAttrApplicationTag as String    : tag,
-                kSecAttrAccessControl as String     : access
-            ]
-        ]
-        
-        var error: Unmanaged<CFError>?
-        
-        ///Creating a private key in Secure Enclave
-        guard let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
-            throw error!.takeRetainedValue() as Error
-        }
-        
-        return privateKey
-    }
-    
-    private func loadKey(name: String) -> SecKey? {
-        let keyName = name.data(using: .utf8)!
-        let query: [String: Any] = [
-            kSecClass as String                 : kSecClassKey,
-            kSecAttrApplicationTag as String    : keyName,
-            kSecAttrKeyType as String           : kSecAttrKeyTypeEC,
-            kSecReturnRef as String             : true
-        ]
-        
-        var item: CFTypeRef?
-        let status = SecItemCopyMatching(query as CFDictionary, &item)
-        guard status == errSecSuccess else {
-            return nil
-        }
-        return (item as! SecKey)
-    }
-    
-    func isEmpty() -> Bool {
-        if self.bankCardItems.isEmpty && self.passwordItems.isEmpty && self.otherItems.isEmpty {
-            return true
-        }
-        
-        return false
-    }
-    
-    func vaultErase() {
-        self.passwordItems.removeAll()
-        self.bankCardItems.removeAll()
-        self.otherItems.removeAll()
-        self.identities.removeAll()
-        
-        vaultUpdate(vault: self)
     }
 }
 

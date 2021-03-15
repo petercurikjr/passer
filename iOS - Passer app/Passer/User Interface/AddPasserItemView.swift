@@ -289,19 +289,19 @@ struct AddPasserItemView: View {
                         if self.itemType == 1 {
                             let newItem = PasswordItem(username: self.username.isEmpty ? nil : self.username, password: self.password, url: self.url.isEmpty ? nil : self.url, itemname: self.itemname, group: self.group == 0 ? nil : self.group, favourites: self.favourites)
                             
-                            self.vault.vaultPush(passwordItem: newItem, vault: self.vault)
+                            self.vault.vaultPush(passwordItem: newItem)
                         }
                         
                         else if self.itemType == 2 {
                             let newItem = BankCardItem(cardNumber: self.cardNumber, expireDate: self.expireDate, cvv: self.cvv, pinNumber: self.pinNumber.isEmpty ? nil : self.pinNumber, itemname: self.itemname, group: self.group == 0 ? nil : self.group, favourites: self.favourites)
                             
-                            self.vault.vaultPush(bankCardItem: newItem, vault: self.vault)
+                            self.vault.vaultPush(bankCardItem: newItem)
                         }
                         
                         else if self.itemType == 3 {
                             let newItem = OtherItem(field1: self.field1.isEmpty ? nil : self.field1, field2: self.field2.isEmpty ? nil : self.field2, field3: self.field3.isEmpty ? nil : self.field3, field4: self.field4.isEmpty ? nil : self.field4, itemname: self.itemname, group: self.group == 0 ? nil : self.group, favourites: self.favourites)
                             
-                            self.vault.vaultPush(otherItem: newItem, vault: self.vault)
+                            self.vault.vaultPush(otherItem: newItem)
                         }
                         
                         self.presentationMode.wrappedValue.dismiss()
