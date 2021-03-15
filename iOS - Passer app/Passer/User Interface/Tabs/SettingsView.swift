@@ -7,11 +7,14 @@
 //
 
 import SwiftUI
+import LocalAuthentication
 
 struct SettingsView: View {
     @ObservedObject var userSettings = UserSettings()
     @State private var alert = false
     @EnvironmentObject var vault: Vault
+    
+    @State private var supportedBiometry: String?
     
     var body: some View {
         NavigationView {
@@ -21,6 +24,10 @@ struct SettingsView: View {
                         ForEach(userSettings.tabs, id: \.self) { tab in
                             Text(tab)
                         }
+                    }
+                    
+                    if supportedBiometry != nil {
+                        Toggle("Use \(supportedBiometry!)", isOn: $userSettings.useBiometry)
                     }
                 }
                 
@@ -40,7 +47,26 @@ struct SettingsView: View {
                 }
             }
             .navigationBarTitle("Settings")
+        }.onAppear {
+            self.setSupportedBiometry()
         }
+    }
+    
+    private func setSupportedBiometry() {
+        let context = LAContext()
+        
+        if context.biometryType == .faceID {
+            self.supportedBiometry = "Face ID"
+        }
+        
+        else if context.biometryType == .touchID {
+            self.supportedBiometry = "Touch ID"
+        }
+        
+        else {
+            self.supportedBiometry = nil
+        }
+        
     }
 }
 

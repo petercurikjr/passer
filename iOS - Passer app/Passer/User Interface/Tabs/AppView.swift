@@ -48,11 +48,12 @@ struct AppView: View {
             print("Testing phase. Authentication and cryptographic features turned off.")
             
             /*
-            if !self.vault.isEmpty() {
-                self.authenticateUser()
+            if self.vault.isEmpty() || !userSettings.useBiometry {
+                self.authenticated = true
+                
             }
             else {
-                self.authenticated = true
+                self.authenticateUser()
             }
             */
             
