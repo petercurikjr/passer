@@ -7,47 +7,18 @@
 //
 
 import SwiftUI
-///UIKit provides spinner graphics
-import UIKit
-
-struct ActivityIndicator: UIViewRepresentable {
-    ///Spinner graphics. SwiftUI doesnt support it yet, so I need to wrap a UIKit loading spinner into a struct
-    @Binding var shouldAnimate: Bool
-    
-    func makeUIView(context: Context) -> UIActivityIndicatorView {
-        return UIActivityIndicatorView()
-    }
-    
-    func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) {
-        // Start and stop UIActivityIndicatorView animation
-        if self.shouldAnimate {
-            uiView.startAnimating()
-        } else {
-            uiView.stopAnimating()
-        }
-    }
-}
 
 struct CodeCountdownView: View {
     
     @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var diff: [String] = ["02","00"]
     @State var disabledButton = false
-    @State private var spinner = true
     
-    @ObservedObject var server = ServerDelegate()
-    
-    let chosenPasswords: [PasswordItem]
-    let chosenBankCards: [BankCardItem]
-    let chosenOthers: [OtherItem]
+    let server: ServerDelegate
     
     var body: some View {
         VStack {
             if(self.server.response != nil && self.server.serverDown == false) {
-                HStack {
-                    Text("Tap to go back").font(.footnote)
-                    Image(systemName: "arrow.up")
-                }
                 HStack {
                     ///Here, im sure that sixdigitCode is not nil (thanks to the if statement), so I can confidently persuade Swift that the value contains something (by using "!")
                     Text((self.server.response)!.prefix(3))
@@ -67,20 +38,7 @@ struct CodeCountdownView: View {
                         .multilineTextAlignment(.center)
                         .padding(.leading, 2)
                     
-                }.padding(.bottom, 30).padding(.top, 50)
-                Text("Visit website below")
-                Text("and enter this code to access selected items:")
-                Text("")
-                    .multilineTextAlignment(.center)
-                Button(action: {
-                    //open website
-                    let website = "https://passer.netlify.app"
-                    let url = URL(string: website)
-                    UIApplication.shared.open(url!)
-                }) {
-                    Text("https://passer.netlify.app")
-                }
-                
+                }.padding(.top, 25)
                 
                 HStack {
                     Text("Time remaining: ")
@@ -94,18 +52,17 @@ struct CodeCountdownView: View {
                                 self.disabledButton = false
                             }
                     }
-                }.padding(.top, 30)
+                }.padding(.top)
                 
                 Button(action: {
                     ///Get new data from server
-                    self.server.generateRequestBody(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
+                    self.server.generateRequestBody()
                 }) {
                     ButtonUI(name: "Generate a new code")
                 }.padding()
                     .disabled(self.disabledButton)
                     .opacity(didItEnd(time: self.diff) ? 1 : 0)
                     .animation(Animation.easeInOut)
-                //Spacer()
             }
                 
             else {
@@ -115,10 +72,11 @@ struct CodeCountdownView: View {
                     VStack {
                         Text("We couldn't create a verification code for you. Make sure you are connected to the internet.")
                             .padding()
+                            .multilineTextAlignment(.center)
                         
                         Button(action: {
                             ///Get new data from server
-                            self.server.generateRequestBody(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
+                            self.server.generateRequestBody()
                             ///Restart timer
                             self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                         }) {
@@ -130,20 +88,15 @@ struct CodeCountdownView: View {
                     
                 else {
                     ///If the connection to the internet (WiFi / Cellular) is ok, we wait --> spinner shows up
-                    ActivityIndicator(shouldAnimate: self.$spinner)
+                    ProgressView()
                 }
             }
-            Spacer()
         }.padding()
-            .onAppear(perform: {
-                self.server.generateRequestBody(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
-            })
     }
 }
 
 struct CodeCountdownView_Previews: PreviewProvider {
     static var previews: some View {
-        ///.constant deals with creating Binding property variables in preview
-        CodeCountdownView(chosenPasswords: [PasswordItem](), chosenBankCards: [BankCardItem](), chosenOthers: [OtherItem]())
+        CodeCountdownView(server: ServerDelegate())
     }
 }

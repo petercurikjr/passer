@@ -40,7 +40,7 @@ struct Address: Codable {
     let street_address: String?
 }
 
-struct JSONWrapper: Codable {
+struct IdentityStructWrapper: Codable {
     let account: IdentityStruct
     let device: Device
 }
@@ -49,7 +49,7 @@ struct Device: Codable {
     let deviceId: String
 }
 
-func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> JSONWrapper {
+func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> IdentityStructWrapper {
     var attrVals = [
         identity.firstName,                 //0
         identity.lastName,                  //1
@@ -108,10 +108,10 @@ func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> J
         zoneinfo: nil
     )
     
-    return JSONWrapper(account: identity, device: device)
+    return IdentityStructWrapper(account: identity, device: device)
 }
 
-func identityToJSON(identity: JSONWrapper) -> Data? {
+func identityToJSON(identity: IdentityStructWrapper) -> Data? {
     guard let json = try? JSONEncoder().encode(identity)
         else {
             return nil

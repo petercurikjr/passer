@@ -16,17 +16,33 @@ final class ServerDelegate: ObservableObject {
     @Published var response: String?
     @Published var timestamp: Date?
     
-    private var requestBody: SixdigitAuth? = nil
+    init() {}
     
-    init() {
+    private var passerItemsRequestBody: SixdigitAuth? = nil
+    private var passerIdentityRequestBody: IdentityStructWrapper? = nil
+    
+    func generateRequestBody() {
+        (passerIdentityRequestBody != nil) ? generatePasserIdentityRequestBody() : generatePasserItemsRequestBody()
+    }
+    
+    
+    func generatePasserItemsRequestBody(passwordItems: [PasswordItem]? = nil, bankCardItems: [BankCardItem]? = nil, otherItems: [OtherItem]? = nil) {
+        if self.passerItemsRequestBody == nil {
+            self.passerItemsRequestBody = generatePasserItemsStruct(passwordItems: passwordItems, bankCardItems: bankCardItems, otherItems: otherItems)
+        }
         
+        postToServer(jsonToUpload: sixdigitToJSON(input: self.passerItemsRequestBody!)!, requestBody: self.passerItemsRequestBody!)
     }
     
-    func generateRequestBody(passwordItems: [PasswordItem]?, bankCardItems: [BankCardItem]?, otherItems: [OtherItem]?) {
-        self.requestBody = generatePasserItemsStruct(passwordItems: passwordItems, bankCardItems: bankCardItems, otherItems: otherItems)
-        let toJSON = sixdigitToJSON(input: self.requestBody!)
-        postToServer(jsonToUpload: toJSON!, requestBody: self.requestBody!)
+    
+    func generatePasserIdentityRequestBody(identity: Identity? = nil, selectedItems: [Int]? = nil) {
+        if self.passerIdentityRequestBody == nil {
+            self.passerIdentityRequestBody = generatePasserIdentityStruct(identity: identity!, selectedItems: selectedItems!)
+        }
+        
+        postToServer(identity: identityToJSON(identity: self.passerIdentityRequestBody!)!)
     }
+    
     
     func postToServer(jsonToUpload: Data, requestBody: SixdigitAuth) {
         var request = URLRequest(url: URL(string: "https://api-passer.herokuapp.com/sixdigit")!)
@@ -50,7 +66,6 @@ final class ServerDelegate: ObservableObject {
             
             let response = response as? HTTPURLResponse
             
-            ///Other type of server error.
             if !(200...299).contains(response?.statusCode ?? 404) {
                 self.processServerResult(response: nil)
                 print("server error")
@@ -65,6 +80,7 @@ final class ServerDelegate: ObservableObject {
         })
         task.resume()
     }
+    
     
     func postToServer(sessionID: Data) {
         var request = URLRequest(url: URL(string: "https://api-passer.herokuapp.com/qr")!)
@@ -99,18 +115,19 @@ final class ServerDelegate: ObservableObject {
         task.resume()
     }
     
-    func postToServer(jsonToUpload: Data) {
+    
+    func postToServer(identity: Data) {
         var request = URLRequest(url: URL(string: "https://tp-service.herokuapp.com/oidc/account")!)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonToUpload
+        request.httpBody = identity
                 
         ///Timeout settings
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForResource = TimeInterval(10)
         let session = URLSession(configuration: configuration)
         
-        let task = session.uploadTask(with: request, from: jsonToUpload, completionHandler: {
+        let task = session.uploadTask(with: request, from: identity, completionHandler: {
             (data, response, error) in
             
             if let error = error {
@@ -118,19 +135,29 @@ final class ServerDelegate: ObservableObject {
                 return
             }
             
-            guard let response = response as? HTTPURLResponse,
-                (200...299).contains(response.statusCode) else {
+            let response = response as? HTTPURLResponse
+            
+            ///Conflict
+            if response?.statusCode == 409  {
+                self.processServerResult(response: nil)
+            }
+            
+            ///Other server error
+            else if !(200...299).contains(response?.statusCode ?? 404) {
+                self.processServerResult(response: nil)
                 print("server error")
                 return
             }
             
             ///Success
-            if data != nil {
+            else if data != nil {
                 self.processServerResult(response: data)
+                print(String(data: data!, encoding: .utf8)!)
             }
         })
         task.resume()
     }
+    
     
     func processServerResult(response: Data?) {
         ///Switch to the main thread

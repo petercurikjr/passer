@@ -42,7 +42,7 @@ struct QRScannerView: View {
                     .padding(.bottom)
             }
             else {
-                ActivityIndicator(shouldAnimate: self.$spinner)
+                ProgressView()
                     .padding(.bottom, 50)
             }
         }.padding()

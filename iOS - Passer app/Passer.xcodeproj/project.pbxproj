@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		BC0699BF2467816900258131 /* EditPasserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0699BE2467816900258131 /* EditPasserItemView.swift */; };
 		BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0D5936241A395800DAF9BD /* SixdigitCode.swift */; };
+		BC15CF4525FED42E002250D9 /* LoginerFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15CF4425FED42E002250D9 /* LoginerFinalView.swift */; };
+		BC15CF4925FED4C5002250D9 /* OutsiderFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC15CF4825FED4C5002250D9 /* OutsiderFinalView.swift */; };
 		BC1B2C01244E713C000154C5 /* AddPasserItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */; };
 		BC1B2C03244E73B7000154C5 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C02244E73B7000154C5 /* AppView.swift */; };
 		BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1B2C04244E73F9000154C5 /* SettingsView.swift */; };
@@ -20,7 +22,6 @@
 		BC6EA52724742FE200AC543C /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EA52624742FE200AC543C /* QRScannerView.swift */; };
 		BC808AF22433F61400EF8EB5 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC808AF12433F61400EF8EB5 /* Networking.swift */; };
 		BC87223E25F5EF2C00BE8480 /* IdentityDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC87223D25F5EF2C00BE8480 /* IdentityDetails.swift */; };
-		BC87224225F5F25500BE8480 /* LoginerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC87224125F5F25500BE8480 /* LoginerView.swift */; };
 		BC8A781C240FC8FB004077A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781B240FC8FB004077A8 /* AppDelegate.swift */; };
 		BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */; };
 		BC8A7820240FC8FB004077A8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8A781F240FC8FB004077A8 /* ContentView.swift */; };
@@ -60,6 +61,8 @@
 /* Begin PBXFileReference section */
 		BC0699BE2467816900258131 /* EditPasserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPasserItemView.swift; sourceTree = "<group>"; };
 		BC0D5936241A395800DAF9BD /* SixdigitCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixdigitCode.swift; sourceTree = "<group>"; };
+		BC15CF4425FED42E002250D9 /* LoginerFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginerFinalView.swift; sourceTree = "<group>"; };
+		BC15CF4825FED4C5002250D9 /* OutsiderFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutsiderFinalView.swift; sourceTree = "<group>"; };
 		BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPasserItemView.swift; sourceTree = "<group>"; };
 		BC1B2C02244E73B7000154C5 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		BC1B2C04244E73F9000154C5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -70,7 +73,6 @@
 		BC6EA52624742FE200AC543C /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		BC808AF12433F61400EF8EB5 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		BC87223D25F5EF2C00BE8480 /* IdentityDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityDetails.swift; sourceTree = "<group>"; };
-		BC87224125F5F25500BE8480 /* LoginerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginerView.swift; sourceTree = "<group>"; };
 		BC8A7818240FC8FB004077A8 /* Passer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8A781B240FC8FB004077A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC8A781D240FC8FB004077A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +119,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC15CF4C25FED4CE002250D9 /* Outsider */ = {
+			isa = PBXGroup;
+			children = (
+				BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */,
+				BCBEBF33245EE5F40071B20C /* OutsiderFirstView.swift */,
+				BC15CF4825FED4C5002250D9 /* OutsiderFinalView.swift */,
+			);
+			path = Outsider;
+			sourceTree = "<group>";
+		};
+		BC15CF4D25FED4D3002250D9 /* Loginer */ = {
+			isa = PBXGroup;
+			children = (
+				BCB1C6F225F6039D0006394C /* IdentityClaimsChooserView.swift */,
+				BC15CF4425FED42E002250D9 /* LoginerFinalView.swift */,
+			);
+			path = Loginer;
+			sourceTree = "<group>";
+		};
+		BC15CF4E25FED4F3002250D9 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				BC1B2C02244E73B7000154C5 /* AppView.swift */,
+				BC8A781F240FC8FB004077A8 /* ContentView.swift */,
+				BC1B2C04244E73F9000154C5 /* SettingsView.swift */,
+				BCFE11F525F505A700F7EBF3 /* IdentityView.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
 		BC8A780F240FC8FB004077A8 = {
 			isa = PBXGroup;
 			children = (
@@ -177,19 +209,14 @@
 		BCEED3A5244A612D00E6C0A3 /* User Interface */ = {
 			isa = PBXGroup;
 			children = (
+				BC15CF4E25FED4F3002250D9 /* Tabs */,
+				BC15CF4D25FED4D3002250D9 /* Loginer */,
+				BC15CF4C25FED4CE002250D9 /* Outsider */,
 				BCB4F63D243C9D9B00174E7E /* Supporting Views */,
-				BC8A781F240FC8FB004077A8 /* ContentView.swift */,
-				BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */,
-				BC1B2C02244E73B7000154C5 /* AppView.swift */,
-				BC1B2C04244E73F9000154C5 /* SettingsView.swift */,
 				BC1B2C00244E713C000154C5 /* AddPasserItemView.swift */,
-				BCBEBF33245EE5F40071B20C /* OutsiderFirstView.swift */,
 				BC0699BE2467816900258131 /* EditPasserItemView.swift */,
-				BCFE11F525F505A700F7EBF3 /* IdentityView.swift */,
 				BC49514F25F562EC0006C173 /* AddPasserIdentityView.swift */,
 				BC87223D25F5EF2C00BE8480 /* IdentityDetails.swift */,
-				BC87224125F5F25500BE8480 /* LoginerView.swift */,
-				BCB1C6F225F6039D0006394C /* IdentityClaimsChooserView.swift */,
 			);
 			path = "User Interface";
 			sourceTree = "<group>";
@@ -264,7 +291,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Peter Čuřík Jr.";
 				TargetAttributes = {
 					BC8A7817240FC8FB004077A8 = {
@@ -319,6 +346,8 @@
 				BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */,
 				BC8A781C240FC8FB004077A8 /* AppDelegate.swift in Sources */,
 				BCB4F63F243C9F0D00174E7E /* ButtonUI.swift in Sources */,
+				BC15CF4925FED4C5002250D9 /* OutsiderFinalView.swift in Sources */,
+				BC15CF4525FED42E002250D9 /* LoginerFinalView.swift in Sources */,
 				BC56FA6424589855007B02EE /* EmptyVault.swift in Sources */,
 				BC1B2C03244E73B7000154C5 /* AppView.swift in Sources */,
 				BC1B2C05244E73F9000154C5 /* SettingsView.swift in Sources */,
@@ -328,7 +357,6 @@
 				BC8A781E240FC8FB004077A8 /* SceneDelegate.swift in Sources */,
 				BCC7515A24400D4C00D3F099 /* CodeCountdownView.swift in Sources */,
 				BCC75150243F929200D3F099 /* OptionSixdigit.swift in Sources */,
-				BC87224225F5F25500BE8480 /* LoginerView.swift in Sources */,
 				BCE956CF245CE68D00F91B54 /* GroupsSelector.swift in Sources */,
 				BC8A7820240FC8FB004077A8 /* ContentView.swift in Sources */,
 				BC8A783F240FE11D004077A8 /* Vault.swift in Sources */,
@@ -386,6 +414,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -447,6 +476,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

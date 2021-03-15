@@ -15,6 +15,7 @@ struct IdentityClaimsChooserView: View {
     @State private var chosenAttributes = [Int]()
     
     @Binding var goBack: Bool
+    @ObservedObject var server = ServerDelegate()
     
     @State private var showLoginer = false
     @State var checkedAll = false
@@ -88,6 +89,7 @@ struct IdentityClaimsChooserView: View {
                 
                 VStack {
                     Button(action: {
+                        self.server.generatePasserIdentityRequestBody(identity: chosenIdentity, selectedItems: chosenAttributes)
                         self.showLoginer.toggle()
                     }) {
                         ButtonUI(name: "Proceed")
@@ -97,7 +99,7 @@ struct IdentityClaimsChooserView: View {
             }.opacity(showLoginer ? 0 : 1).animation(Animation.easeInOut(duration: 0.7))
             
             if self.showLoginer {
-                LoginerView(chosenIdentity: chosenIdentity, chosenAttributes: chosenAttributes)
+                LoginerFinalView(server: server)
                     .opacity(showLoginer ? 1 : 0).animation(Animation.easeInOut(duration: 0.7))
             }
             
@@ -120,6 +122,11 @@ struct IdentityClaimsChooserView: View {
         if self.checkedAll {
             self.chosenAttributes.append(contentsOf: Array(0...self.chosenIdentity.attrKeys.count))
         }
+    }
+    
+    
+    func triggerLoginer() {
+        self.server.generatePasserIdentityRequestBody(identity: chosenIdentity, selectedItems: chosenAttributes)
     }
 }
 

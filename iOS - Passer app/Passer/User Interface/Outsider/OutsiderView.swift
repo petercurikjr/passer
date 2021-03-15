@@ -17,7 +17,8 @@ struct OutsiderView: View {
     @Binding var goBack: Bool
     
     @State private var animationAmount: CGFloat = 1
-    @State private var doAnimation = false
+    
+    @ObservedObject var server = ServerDelegate()
     
     let chosenPasswords: [PasswordItem]
     let chosenBankCards: [BankCardItem]
@@ -73,7 +74,7 @@ struct OutsiderView: View {
                                 .scaleEffect(self.animationAmount)
                                 .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
                                 .contentShape(Rectangle())
-                        }//.offset(y: viewQRAlone ? 70 : 0)
+                        }
                             .animation(Animation.easeInOut.delay(0.5))
                             .buttonStyle(PlainButtonStyle())
                             .padding()
@@ -94,14 +95,14 @@ struct OutsiderView: View {
                                 .scaleEffect(self.animationAmount)
                                 .animation(Animation.timingCurve(1, -1.3, 0.32, 1.6))
                                 .contentShape(Rectangle())
-                        }//.offset(y: viewDigitAlone ? -150 : 0)
+                        }
                             .animation(Animation.easeInOut.delay(0.5))
                             .buttonStyle(PlainButtonStyle())
                             .padding()
                             .disabled(viewQRAlone)
                         
                         if self.viewDigitAlone {
-                            CodeCountdownView(chosenPasswords: self.chosenPasswords, chosenBankCards: self.chosenBankCards, chosenOthers: self.chosenOthers)
+                            OutsiderFinalView(server: server)
                         }
                     }
                 }
@@ -113,6 +114,7 @@ struct OutsiderView: View {
     func triggerSixdigit() {
         self.viewDigitAlone.toggle()
         self.viewQRAlone = false
+        self.server.generatePasserItemsRequestBody(passwordItems: self.chosenPasswords, bankCardItems: self.chosenBankCards, otherItems: self.chosenOthers)
         
         self.changeButton()
     }
