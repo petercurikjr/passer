@@ -56,7 +56,7 @@ struct CodeCountdownView: View {
                 
                 Button(action: {
                     ///Get new data from server
-                    self.server.generateRequestBody()
+                    self.server.generatePasserItemsRequestBody()
                 }) {
                     ButtonUI(name: "Generate a new code")
                 }.padding()
@@ -76,7 +76,7 @@ struct CodeCountdownView: View {
                         
                         Button(action: {
                             ///Get new data from server
-                            self.server.generateRequestBody()
+                            self.server.generatePasserItemsRequestBody()
                             ///Restart timer
                             self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                         }) {

@@ -28,6 +28,10 @@ struct AddPasserIdentityView: View {
     @State private var zipCode: String = ""
     @State private var country: String = ""
     
+    ///Identity - other
+    @State private var nickname: String = ""
+    @State private var middlename: String = ""
+    
     ///Booleans
     @State private var toggleIsOn: Bool = false
     @State var showDatePicker = false
@@ -131,16 +135,28 @@ struct AddPasserIdentityView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
                 
+                Section(header: Text("Other")) {
+                    Text("Nickname:")
+                    TextField("", text: $nickname)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    Text("Middle name:")
+                    TextField("", text: $middlename)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                
                 Section {
                     Button(action: {
                         let address = Address(country: country, formatted: "", locality: city, postal_code: zipCode, region: "", street_address: street)
                         let newIdentity = Identity(
                             firstName: firstName,
                             lastName: lastName,
+                            middleName: middlename,
                             email: email,
                             phoneNumber: phoneNumber,
                             birthDate: birthDate,
                             username: username,
+                            nickname: nickname,
                             gender: pickedGender,
                             address: address)
                         

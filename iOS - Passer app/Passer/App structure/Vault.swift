@@ -349,10 +349,12 @@ class Vault: ObservableObject {
         var tmp = Identity(
             firstName: "Peter",
             lastName: "Čuřík",
+            middleName: "Augustus",
             email: "email@email.com",
             phoneNumber: "+421 904 195 677",
             birthDate: birthDate!,
             username: "petercurikjr",
+            nickname: "Peťo",
             gender: Gender.male,
             address: addr
         )
@@ -374,10 +376,12 @@ class Vault: ObservableObject {
         tmp = Identity(
             firstName: "Matej",
             lastName: "Friedel",
+            middleName: "Brutus",
             email: "mfriedel@email.com",
             phoneNumber: "+421 902 114 701",
             birthDate: birthDate!,
             username: "mathieu",
+            nickname: "Matej",
             gender: Gender.male,
             address: addr
         )
@@ -399,10 +403,12 @@ class Vault: ObservableObject {
         tmp = Identity(
             firstName: "Ján",
             lastName: "Korček",
+            middleName: "Liptovský",
             email: "jkorcek@email.com",
             phoneNumber: "+421 905 154 688",
             birthDate: birthDate!,
-            username: "janci",
+            username: "janci123",
+            nickname: "Janči",
             gender: Gender.male,
             address: addr
         )
@@ -424,10 +430,12 @@ class Vault: ObservableObject {
         tmp = Identity(
             firstName: "Martin",
             lastName: "Knoško",
+            middleName: "Knoskovec",
             email: "mknosko@email.com",
             phoneNumber: "+421 910 788 054",
             birthDate: birthDate!,
             username: "Knosky",
+            nickname: "Maťo",
             gender: Gender.male,
             address: addr
         )
@@ -449,10 +457,12 @@ class Vault: ObservableObject {
         tmp = Identity(
             firstName: "Matej",
             lastName: "Mózer",
+            middleName: "",
             email: "mmozer@email.com",
             phoneNumber: "+421 911 984 410",
             birthDate: birthDate!,
             username: "matejmozer",
+            nickname: "Matej",
             gender: Gender.male,
             address: addr
         )
@@ -474,10 +484,12 @@ class Vault: ObservableObject {
         tmp = Identity(
             firstName: "prof. Ing. Pavol",
             lastName: "Zajac, PhD.",
+            middleName: "",
             email: "pz@email.com",
             phoneNumber: "+421 901 051 639",
             birthDate: birthDate!,
             username: "pzuim",
+            nickname: "Unknown",
             gender: Gender.male,
             address: addr
         )

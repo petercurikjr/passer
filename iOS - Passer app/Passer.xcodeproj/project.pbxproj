@@ -18,6 +18,7 @@
 		BC49515025F562EC0006C173 /* AddPasserIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC49514F25F562EC0006C173 /* AddPasserIdentityView.swift */; };
 		BC49515425F5658A0006C173 /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC49515325F5658A0006C173 /* Identity.swift */; };
 		BC49515825F56A5A0006C173 /* IdentityJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC49515725F56A5A0006C173 /* IdentityJson.swift */; };
+		BC4C20ED262A092700F8FBD6 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = BC4C20EC262A092700F8FBD6 /* SocketIO */; };
 		BC56FA6424589855007B02EE /* EmptyVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC56FA6324589855007B02EE /* EmptyVault.swift */; };
 		BC6EA52524742EEF00AC543C /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = BC6EA52424742EEF00AC543C /* CodeScanner */; };
 		BC6EA52724742FE200AC543C /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC6EA52624742FE200AC543C /* QRScannerView.swift */; };
@@ -35,6 +36,7 @@
 		BCB6F4A8242CF2C9007E84EF /* httppost.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A7242CF2C9007E84EF /* httppost.swift */; };
 		BCB6F4AA242CF4AB007E84EF /* crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB6F4A9242CF4AB007E84EF /* crypto.swift */; };
 		BCBEBF34245EE5F40071B20C /* OutsiderFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEBF33245EE5F40071B20C /* OutsiderFirstView.swift */; };
+		BCC20CE82636C945001B423B /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC20CE72636C945001B423B /* Socket.swift */; };
 		BCC52BC2245DC9CF004FCD52 /* PasserItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC52BC1245DC9CF004FCD52 /* PasserItemCell.swift */; };
 		BCC7514C243E2EFA00D3F099 /* OutsiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */; };
 		BCC75150243F929200D3F099 /* OptionSixdigit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCC7514F243F929200D3F099 /* OptionSixdigit.swift */; };
@@ -90,6 +92,7 @@
 		BCB6F4A7242CF2C9007E84EF /* httppost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = httppost.swift; sourceTree = "<group>"; };
 		BCB6F4A9242CF4AB007E84EF /* crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = crypto.swift; sourceTree = "<group>"; };
 		BCBEBF33245EE5F40071B20C /* OutsiderFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutsiderFirstView.swift; sourceTree = "<group>"; };
+		BCC20CE72636C945001B423B /* Socket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		BCC52BC1245DC9CF004FCD52 /* PasserItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasserItemCell.swift; sourceTree = "<group>"; };
 		BCC7514B243E2EFA00D3F099 /* OutsiderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutsiderView.swift; sourceTree = "<group>"; };
 		BCC7514F243F929200D3F099 /* OptionSixdigit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSixdigit.swift; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC6EA52524742EEF00AC543C /* CodeScanner in Frameworks */,
+				BC4C20ED262A092700F8FBD6 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +239,7 @@
 				BCF351FD244A631500E7A03F /* InternetConnectivity.swift */,
 				BC49515725F56A5A0006C173 /* IdentityJson.swift */,
 				BC15CF5325FEE234002250D9 /* UserSettings.swift */,
+				BCC20CE72636C945001B423B /* Socket.swift */,
 			);
 			path = "App structure";
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 			name = Passer;
 			packageProductDependencies = (
 				BC6EA52424742EEF00AC543C /* CodeScanner */,
+				BC4C20EC262A092700F8FBD6 /* SocketIO */,
 			);
 			productName = Passer;
 			productReference = BC8A7818240FC8FB004077A8 /* Passer.app */;
@@ -316,6 +322,7 @@
 			mainGroup = BC8A780F240FC8FB004077A8;
 			packageReferences = (
 				BC6EA52324742EEF00AC543C /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				BC4C20EB262A092700F8FBD6 /* XCRemoteSwiftPackageReference "socket" */,
 			);
 			productRefGroup = BC8A7819240FC8FB004077A8 /* Products */;
 			projectDirPath = "";
@@ -347,6 +354,7 @@
 				BC49515825F56A5A0006C173 /* IdentityJson.swift in Sources */,
 				BC8A7830240FCA5E004077A8 /* PasserItem.swift in Sources */,
 				BC0D5937241A395800DAF9BD /* SixdigitCode.swift in Sources */,
+				BCC20CE82636C945001B423B /* Socket.swift in Sources */,
 				BC8A781C240FC8FB004077A8 /* AppDelegate.swift in Sources */,
 				BCB4F63F243C9F0D00174E7E /* ButtonUI.swift in Sources */,
 				BC15CF4925FED4C5002250D9 /* OutsiderFinalView.swift in Sources */,
@@ -609,6 +617,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BC4C20EB262A092700F8FBD6 /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				kind = exactVersion;
+				version = 15.2.0;
+			};
+		};
 		BC6EA52324742EEF00AC543C /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
@@ -620,6 +636,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC4C20EC262A092700F8FBD6 /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC4C20EB262A092700F8FBD6 /* XCRemoteSwiftPackageReference "socket" */;
+			productName = SocketIO;
+		};
 		BC6EA52424742EEF00AC543C /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BC6EA52324742EEF00AC543C /* XCRemoteSwiftPackageReference "CodeScanner" */;

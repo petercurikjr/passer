@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SocketIO
 
 final class ServerDelegate: ObservableObject {
     
@@ -19,12 +20,6 @@ final class ServerDelegate: ObservableObject {
     init() {}
     
     private var passerItemsRequestBody: SixdigitAuth? = nil
-    private var passerIdentityRequestBody: IdentityStructWrapper? = nil
-    
-    func generateRequestBody() {
-        (passerIdentityRequestBody != nil) ? generatePasserIdentityRequestBody() : generatePasserItemsRequestBody()
-    }
-    
     
     func generatePasserItemsRequestBody(passwordItems: [PasswordItem]? = nil, bankCardItems: [BankCardItem]? = nil, otherItems: [OtherItem]? = nil) {
         if self.passerItemsRequestBody == nil {
@@ -32,15 +27,6 @@ final class ServerDelegate: ObservableObject {
         }
         
         postToServer(jsonToUpload: sixdigitToJSON(input: self.passerItemsRequestBody!)!, requestBody: self.passerItemsRequestBody!)
-    }
-    
-    
-    func generatePasserIdentityRequestBody(identity: Identity? = nil, selectedItems: [Int]? = nil) {
-        if self.passerIdentityRequestBody == nil {
-            self.passerIdentityRequestBody = generatePasserIdentityStruct(identity: identity!, selectedItems: selectedItems!)
-        }
-        
-        postToServer(identity: identityToJSON(identity: self.passerIdentityRequestBody!)!)
     }
     
     
@@ -114,50 +100,6 @@ final class ServerDelegate: ObservableObject {
         })
         task.resume()
     }
-    
-    
-    func postToServer(identity: Data) {
-        var request = URLRequest(url: URL(string: "https://tp-service.herokuapp.com/oidc/account")!)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = identity
-                
-        ///Timeout settings
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForResource = TimeInterval(10)
-        let session = URLSession(configuration: configuration)
-        
-        let task = session.uploadTask(with: request, from: identity, completionHandler: {
-            (data, response, error) in
-            
-            if let error = error {
-                print("error: \(error)")
-                return
-            }
-            
-            let response = response as? HTTPURLResponse
-            
-            ///Conflict
-            if response?.statusCode == 409  {
-                self.processServerResult(response: nil)
-            }
-            
-            ///Other server error
-            else if !(200...299).contains(response?.statusCode ?? 404) {
-                self.processServerResult(response: nil)
-                print("server error")
-                return
-            }
-            
-            ///Success
-            else if data != nil {
-                self.processServerResult(response: data)
-                print(String(data: data!, encoding: .utf8)!)
-            }
-        })
-        task.resume()
-    }
-    
     
     func processServerResult(response: Data?) {
         ///Switch to the main thread

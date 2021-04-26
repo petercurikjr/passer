@@ -15,7 +15,6 @@ struct IdentityClaimsChooserView: View {
     @State private var chosenAttributes = [Int]()
     
     @Binding var goBack: Bool
-    @ObservedObject var server = ServerDelegate()
     
     @State private var showLoginer = false
     @State var checkedAll = false
@@ -89,7 +88,6 @@ struct IdentityClaimsChooserView: View {
                 
                 VStack {
                     Button(action: {
-                        self.server.generatePasserIdentityRequestBody(identity: chosenIdentity, selectedItems: chosenAttributes)
                         self.showLoginer.toggle()
                     }) {
                         ButtonUI(name: "Proceed")
@@ -99,7 +97,7 @@ struct IdentityClaimsChooserView: View {
             }.opacity(showLoginer ? 0 : 1).animation(Animation.easeInOut(duration: 0.7))
             
             if self.showLoginer {
-                LoginerFinalView(server: server)
+                LoginerFinalView(socket: Socket(identity: generatePasserIdentityStruct(identity: chosenIdentity, selectedItems: chosenAttributes)))
                     .opacity(showLoginer ? 1 : 0).animation(Animation.easeInOut(duration: 0.7))
             }
             
@@ -124,14 +122,14 @@ struct IdentityClaimsChooserView: View {
         }
     }
     
-    
+    //asi zbytocna funkcia, otestovat... nikde sa nevola ani nic
     func triggerLoginer() {
-        self.server.generatePasserIdentityRequestBody(identity: chosenIdentity, selectedItems: chosenAttributes)
+        //self.server.generatePasserIdentityRequestBody(identity: chosenIdentity, selectedItems: chosenAttributes)
     }
 }
 
 struct IdentityClaimsChooserView_Previews: PreviewProvider {
     static var previews: some View {
-        IdentityClaimsChooserView(chosenIdentity: Identity(firstName: "", lastName: "", email: "", phoneNumber: "", birthDate: Date(), username: "", gender: Gender.male, address: Address(country: nil, formatted: nil, locality: nil, postal_code: nil, region: nil, street_address: nil)), goBack: .constant(false))
+        IdentityClaimsChooserView(chosenIdentity: Identity(firstName: "", lastName: "", middleName: "", email: "", phoneNumber: "", birthDate: Date(), username: "", nickname: "", gender: Gender.male, address: Address(country: nil, formatted: nil, locality: nil, postal_code: nil, region: nil, street_address: nil)), goBack: .constant(false))
     }
 }

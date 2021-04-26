@@ -7,9 +7,30 @@
 //
 
 import Foundation
-import UIKit
+import SocketIO
 
-struct IdentityStruct: Codable {
+protocol Loopable {
+    func allProperties() -> [String: String?]
+}
+
+extension Loopable {
+    func allProperties() -> [String: String?] {
+        var result: [String: String?] = [:]
+        let mirror = Mirror(reflecting: self)
+
+        for (property, value) in mirror.children {
+            guard let property = property else {
+                continue
+            }
+
+            result[property] = value as? String
+        }
+
+        return result
+    }
+}
+
+struct IdentityStruct: SocketData, Loopable {
     let address: Address?
     let birthdate: String?
     let email: String?
@@ -29,9 +50,22 @@ struct IdentityStruct: Codable {
     let updated_at: Date?
     let website: String?
     let zoneinfo: String?
+    
+    func socketRepresentation() -> SocketData {
+        let identityDict = self.allProperties()
+        let addressDict = self.address?.allProperties()
+        
+        let idNotNil = identityDict.compactMapValues{$0}
+        let addrNotNil = addressDict?.compactMapValues{$0}
+        
+        var idNotNilAny = idNotNil as [String: Any]
+        idNotNilAny["address"] = addrNotNil
+                
+        return ["account": idNotNilAny]
+    }
 }
 
-struct Address: Codable {
+struct Address: Loopable, Codable {
     let country: String?
     let formatted: String?
     let locality: String?
@@ -40,16 +74,7 @@ struct Address: Codable {
     let street_address: String?
 }
 
-struct IdentityStructWrapper: Codable {
-    let account: IdentityStruct
-    let device: Device
-}
-
-struct Device: Codable {
-    let deviceId: String
-}
-
-func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> IdentityStructWrapper {
+func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> IdentityStruct {
     var attrVals = [
         identity.firstName,                 //0
         identity.lastName,                  //1
@@ -61,7 +86,9 @@ func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> I
         identity.address?.street_address,   //7
         identity.address?.locality,         //8
         identity.address?.postal_code,      //9
-        identity.address?.country           //10
+        identity.address?.country,          //10
+        identity.nickname,                  //11
+        identity.middleName                 //12
     ] as [Any?]
 
     for i in 0..<attrVals.count {
@@ -69,10 +96,6 @@ func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> I
             attrVals[i] = nil
         }
     }
-    
-    let deviceID = (UIDevice.current.identifierForVendor?.uuidString)!
-    //let deviceID = "49015420323751"
-    let device = Device(deviceId: deviceID)
     
     let address = Address(
         country: attrVals[10] as? String,
@@ -85,8 +108,9 @@ func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> I
     
     let date = identity.convertDate(date: attrVals[3] as? Date ?? nil, mode: .dashed)
     //let updatedAt = identity.convertDate(date: identity.updatedAt, mode: .dashed)
+    let name = (attrVals[0] as? String ?? "") + ((attrVals[1] != nil ? " " : "") + (attrVals[1] as? String ?? ""))
     
-    let identity = IdentityStruct(
+    return IdentityStruct(
         address: address,
         birthdate: date,
         email: attrVals[5] as? String,
@@ -95,9 +119,9 @@ func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> I
         gender: attrVals[4] as? Gender,
         given_name: nil,
         locale: nil,
-        middle_name: nil,
-        name: attrVals[0] as? String,
-        nickname: nil,
+        middle_name: attrVals[12] as? String,
+        name: name,
+        nickname: attrVals[11] as? String,
         phone_number: attrVals[6] as? String,
         phone_number_verified: nil,
         picture: nil,
@@ -107,17 +131,9 @@ func generatePasserIdentityStruct(identity: Identity, selectedItems: [Int]) -> I
         website: nil,
         zoneinfo: nil
     )
-    
-    return IdentityStructWrapper(account: identity, device: device)
 }
 
-func identityToJSON(identity: IdentityStructWrapper) -> Data? {
-    guard let json = try? JSONEncoder().encode(identity)
-        else {
-            return nil
-        }
-    
-    print(String(data: json, encoding: String.Encoding.utf8)!)
-    
-    return json
+
+func generatePasserIdentityStruct(identity: Identity? = nil, selectedItems: [Int]? = nil) -> IdentityStruct {
+    return generatePasserIdentityStruct(identity: identity!, selectedItems: selectedItems!)
 }

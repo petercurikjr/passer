@@ -25,28 +25,55 @@ struct IdentityDetails: View {
                 }.padding(.top, 40).padding(.horizontal, 25)
                 
                 List {
-                    Text(((chosenIdentity.firstName ?? "") + " " + (chosenIdentity.lastName ?? "")))
-                        .bold()
-                        .font(.headline)
+                    HStack {
+                        if chosenIdentity.firstName != nil {
+                            Text(chosenIdentity.firstName!)
+                                .bold()
+                                .font(.headline)
+                        }
+                        
+                        if chosenIdentity.middleName != nil {
+                            Text(chosenIdentity.middleName!)
+                                .bold()
+                                .font(.headline)
+                        }
+                        
+                        if chosenIdentity.lastName != nil {
+                            Text(chosenIdentity.lastName!)
+                                .bold()
+                                .font(.headline)
+                        }
+                    }
                 
                     Section(header: Text("Basic information")) {
-                        HStack {
-                            Text("Username:")
-                            Spacer()
-                            Text(chosenIdentity.username ?? "")
-                                .padding(.trailing)
+//                        ForEach(1..<self.chosenIdentity.basicInformationCategory.count) { index in
+//                            Text(self.chosenIdentity.basicInformationCategory[index][0]!)
+//                                .bold()
+//                                .font(.headline)
+//                        }
+                        if chosenIdentity.username != nil {
+                            HStack {
+                                Text("Username:")
+                                Spacer()
+                                Text(chosenIdentity.username!)
+                                    .padding(.trailing)
+                            }
                         }
+                        
                         HStack {
                             Text("Gender:")
                             Spacer()
                             Text(chosenIdentity.gender?.rawValue ?? Gender.unspecified.rawValue)
                                 .padding(.trailing)
                         }
-                        HStack {
-                            Text("Birth date:")
-                            Spacer()
-                            Text(chosenIdentity.convertDate(date: chosenIdentity.birthDate, mode: .dotted))
-                                .padding(.trailing)
+                        
+                        if chosenIdentity.birthDate != nil {
+                            HStack {
+                                Text("Birth date:")
+                                Spacer()
+                                Text(chosenIdentity.convertDate(date: chosenIdentity.birthDate, mode: .dotted))
+                                    .padding(.trailing)
+                            }
                         }
                     }
                     
@@ -97,6 +124,15 @@ struct IdentityDetails: View {
                                 .padding(.trailing)
                         }
                     }
+                    
+                    Section(header: Text("Other")) {
+                        HStack {
+                            Text("Nickname:")
+                            Spacer()
+                            Text(chosenIdentity.nickname ?? "")
+                                .padding(.trailing)
+                        }
+                    }
  
                 }.listStyle(InsetGroupedListStyle())
                 
@@ -115,6 +151,6 @@ struct IdentityDetails: View {
 
 struct IdentityDetails_Previews: PreviewProvider {
     static var previews: some View {
-        IdentityDetails(chosenIdentity: Identity(firstName: "", lastName: "", email: "", phoneNumber: "", birthDate: Date(), username: "", gender: Gender.male, address: Address(country: nil, formatted: nil, locality: nil, postal_code: nil, region: nil, street_address: nil)))
+        IdentityDetails(chosenIdentity: Identity(firstName: "", lastName: "", middleName: "", email: "", phoneNumber: "", birthDate: Date(), username: "", nickname: "", gender: Gender.male, address: Address(country: nil, formatted: nil, locality: nil, postal_code: nil, region: nil, street_address: nil)))
     }
 }

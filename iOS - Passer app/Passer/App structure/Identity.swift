@@ -19,10 +19,6 @@ enum DateModes {
     case dotted
 }
 
-struct IdentityAttributes: Codable {
-    
-}
-
 final class Identity: Codable, Identifiable {
     var id: UUID = UUID()
     var firstName: String?
@@ -31,31 +27,63 @@ final class Identity: Codable, Identifiable {
     var phoneNumber: String?
     var birthDate: Date?
     var username: String?
+    var nickname: String?
+    var middleName: String?
     var updatedAt: Date = Date()
     var gender: Gender?
     var address: Address?
     let attrKeys: [String]
     
+    var basicInformationCategory = [[String?]]()
+    var contactCategory = [[String?]]()
+    var addressCategory = [[String?]]()
+    
     init(
         firstName: String,
         lastName: String,
+        middleName: String,
         email: String,
         phoneNumber: String,
         birthDate: Date,
         username: String,
+        nickname: String,
         gender: Gender,
         address: Address
     ) {
         self.firstName = firstName
         self.lastName = lastName
+        self.middleName = middleName
         self.email = email
         self.phoneNumber = phoneNumber
         self.birthDate = birthDate
         self.username = username
+        self.nickname = nickname
         self.gender = gender
         self.address = address
         
-        self.attrKeys = ["First Name", "Last Name", "Username", "Birth Date", "Gender", "Email", "Phone Number", "Street", "City", "ZIP Code", "Country"]
+        self.attrKeys = ["First Name", "Last Name", "Username", "Birth Date", "Gender", "Email", "Phone Number", "Street", "City", "ZIP Code", "Country", "Nickname", "Middle Name"]
+        
+        self.basicInformationCategory = [
+            ["title", "Basic information"],
+            ["Username:", self.username],
+            ["Gender:", self.gender?.rawValue],
+            ["Birth date:", self.convertDate(date: self.birthDate, mode: .dotted)]
+        ]
+        
+        self.contactCategory = [
+            ["title", "Contact"],
+            ["Mail:",self.email],
+            ["Phone:",self.phoneNumber]
+        ]
+        
+        self.addressCategory = [
+            ["title","Address"],
+            ["Street:",self.address?.street_address],
+            ["Postal Code:",self.address?.postal_code],
+            ["City:",self.address?.locality],
+            ["Region:",self.address?.region],
+            ["Country:",self.address?.country]
+        ]
     }
 
     func convertDate(date: Date?, mode: DateModes) -> String {
